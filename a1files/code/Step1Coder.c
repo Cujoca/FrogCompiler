@@ -64,7 +64,7 @@
 #endif
 
 // Function to perform the Vigenère cipher (encoding or decoding)
-void vigenereFile(const sofia_strg inputFileName, const sofia_strg outputFileName, const sofia_strg key, sofia_intg encode) {
+void vigenereFile(const frog_str inputFileName, const frog_str outputFileName, const frog_str key, frog_int encode) {
 	// TO_DO: Define the input and output files (ex: FILE* inputFile, FILE* outputFile
 	// TO_DO: Use defensive programming (checking files)
 	// TO_DO: Define local variables
@@ -73,27 +73,27 @@ void vigenereFile(const sofia_strg inputFileName, const sofia_strg outputFileNam
 }
 
 // Function to perform the Vigenère cipher (encoding or decoding)
-sofia_strg vigenereMem(const sofia_strg inputFileName, const sofia_strg key, sofia_intg encode) {
+frog_str vigenereMem(const frog_str inputFileName, const frog_str key, frog_int encode) {
 	// TO_DO define the return type and local variables
-	sofia_strg output = NULL;
+	frog_str output = NULL;
 	// TO_DO: Check defensive programming
 	// TO_DO: Use the logic to code/decode - consider the logic about visible chars only
 	return output;
 }
 
 // Function to encode (cypher)
-void cypher(const sofia_strg inputFileName, const sofia_strg outputFileName, const sofia_strg key) {
+void cypher(const frog_str inputFileName, const frog_str outputFileName, const frog_str key) {
     vigenereFile(inputFileName, outputFileName, key, CYPHER);
 }
 
 // Function to decode (decypher)
-void decypher(const sofia_strg inputFileName, const sofia_strg outputFileName, const sofia_strg key) {
+void decypher(const frog_str inputFileName, const frog_str outputFileName, const frog_str key) {
     vigenereFile(inputFileName, outputFileName, key, DECYPHER);
 }
 
 // TO_DO: Get file size (util method)
-sofia_intg getSizeOfFile(const sofia_strg filename) {
-	sofia_intg size = 0;
+frog_int getSizeOfFile(const frog_int filename) {
+	frog_int size = 0;
     // TO_DO: Use the logic to get the size of the file
     return size;
 }

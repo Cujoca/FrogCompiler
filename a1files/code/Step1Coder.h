@@ -68,11 +68,11 @@
 /* FUNCTIONS DECLARATION:  .................................. */
 
 /* General Operations */
-void vigenereFile(const sofia_strg inputFileName, const sofia_strg outputFileName, const sofia_strg key, sofia_intg encode);
-sofia_strg vigenereMem(const sofia_strg inputFileName, const sofia_strg key, sofia_intg encode);
+void vigenereFile(const frog_str inputFileName, const frog_str outputFileName, const frog_str key, frog_int encode);
+frog_str vigenereMem(const frog_str inputFileName, const frog_str key, frog_int encode);
 
-void cypher(const sofia_strg inputFileName, const sofia_strg outputFileName, const sofia_strg key);
-void decypher(const sofia_strg inputFileName, const sofia_strg outputFileName, const sofia_strg key);
-sofia_intg getSizeOfFile(const sofia_strg filename);
+void cypher(const frog_str inputFileName, const frog_str outputFileName, const frog_str key);
+void decypher(const frog_str inputFileName, const frog_str outputFileName, const frog_str key);
+frog_int getSizeOfFile(const frog_str filename);
 
 #endif
