@@ -77,9 +77,9 @@
 *************************************************************
 */
 
-sofia_intg main(int argc, char** argv) {
+frog_int main(int argc, char** argv) {
 
-	sofia_intg i;
+	frog_int i;
 	printLogo();
 	if (DEBUG) {
 		for (i = 0; i < argc; ++i)
@@ -94,7 +94,7 @@ sofia_intg main(int argc, char** argv) {
 			PGM_WRT, "] - Writer\n");
 		return EXIT_FAILURE;
 	}
-	sofia_char option = argv[1][0];
+	frog_char option = argv[1][0];
 	switch (option) {
 	case PGM_CDR:
 		printf("%s%c%s", "\n[Option '", PGM_CDR, "': Starting CODER .....]\n\n");
@@ -125,7 +125,7 @@ sofia_intg main(int argc, char** argv) {
 *************************************************************
 */
 
-sofia_void printLogo() {
+frog_void printLogo() {
 	printf("%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s",
 		"\t=---------------------------------------=\n",
 		"\t|  COMPILERS - ALGONQUIN COLLEGE (S25)  |\n",
@@ -162,12 +162,12 @@ sofia_void printLogo() {
 ************************************************************
 */
 
-sofia_void errorPrint(sofia_strg fmt, ...) {
+frog_void errorPrint(frog_str fmt, ...) {
 	/* Initialize variable list */
 	va_list ap;
 	va_start(ap, fmt);
 
-	(sofia_void)vfprintf(stderr, fmt, ap);
+	(frog_void)vfprintf(stderr, fmt, ap);
 	va_end(ap);
 
 	/* Move to new line */
