@@ -2,28 +2,30 @@
 # CMakeList.txt : CMake project for Compilers, include source and define project specific logic here.
 #
 # ECHO "=---------------------------------------="
-# ECHO "|  COMPILERS - ALGONQUIN COLLEGE (S25)  |"
+# ECHO "|  COMPILERS - ALGONQUIN COLLEGE (F25)  |"
 # ECHO "=---------------------------------------="
-# ECHO "    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@    ”
-# ECHO "    @@                             @@    ”
-# ECHO "    @@           %&@@@@@@@@@@@     @@    ”
-# ECHO "    @@       @%% (@@@@@@@@@  @     @@    ”
-# ECHO "    @@      @& @   @ @       @     @@    ”
-# ECHO "    @@     @ @ %  / /   @@@@@@     @@    ”
-# ECHO "    @@      & @ @  @@              @@    ”
-# ECHO "    @@       @/ @*@ @ @   @        @@    ”
-# ECHO "    @@           @@@@  @@ @ @      @@    ”
-# ECHO "    @@            /@@    @@@ @     @@    ”
-# ECHO "    @@     @      / /     @@ @     @@    ”
-# ECHO "    @@     @ @@   /@/   @@@ @      @@    ”
-# ECHO "    @@     @@@@@@@@@@@@@@@         @@    ”
-# ECHO "    @@                             @@    ”
-# ECHO "    @@         S O F I A           @@    ”
-# ECHO "    @@                             @@    ”
-# ECHO "    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@    ”
+# ECHO "     -------------------------------	
+# ECHO "	 |        o  o   o  o          |	
+# ECHO "	 |        |\/ \^/ \/|          |	
+# ECHO "	 |        |,-------.|          |	
+# ECHO "	 |      ,-.(|)   (|),-.        |	
+# ECHO "	 |      \_*._ ' '_.* _/        |	
+# ECHO "	 |       /`-.`--' .-'\         |	
+# ECHO "	 |  ,--./    `---'    \,--.    |	
+# ECHO "	 |  \   |(  )     (  )|   /    |	
+# ECHO "	 |   \  | ||       || |  /     |	
+# ECHO "	 |    \ | /|\     /|\ | /      |	
+# ECHO "	 |    /  \-._     _,-/  \      |	
+# ECHO "	 |   //| \  `---'  // |\       |	
+# ECHO "	 |  /,-.,-.\       /,-.,-.\    |	
+# ECHO "	 |  o   o   o      o   o    o  |	
+# ECHO "	 |                             |	
+# ECHO "	 |  F       R       O       G  |	
+# ECHO "	 -------------------------------    
 # ECHO "                                         "
 # ECHO "[COMPILER SCRIPT .......................]"
 # ECHO "                                         "
+
 
 cmake_minimum_required (VERSION 3.8)
 
