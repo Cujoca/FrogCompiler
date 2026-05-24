@@ -1,0 +1,13 @@
+# ninja log v7
+10	64	8012781226774211	CMakeFiles/Compilers.dir/Compilers.c.obj	592c2ac9f3d3bea
+9	67	8012779088108012	CMakeFiles/Compilers.dir/Main1Coder.c.obj	c09a34ab05391fb8
+16	63	8012779613199241	CMakeFiles/Compilers.dir/Step1Coder.c.obj	85767624bfed2c1d
+63	118	8012779613672781	Compilers.exe	978a2f713488bfeb
+8	124	8012781843478438	build.ninja	1eeb556a21261210
+8	124	8012781843478438	C:/FrogCompiler/a1files/code/cmake-build-debug/cmake_install.cmake	1eeb556a21261210
+11	66	8012781843946648	CMakeFiles/Compilers.dir/Compilers.c.obj	592c2ac9f3d3bea
+15	67	8012781843991722	CMakeFiles/Compilers.dir/Main1Coder.c.obj	c09a34ab05391fb8
+13	70	8012781843981744	CMakeFiles/Compilers.dir/Step1Coder.c.obj	85767624bfed2c1d
+70	127	8012781844545158	Compilers.exe	978a2f713488bfeb
+3	56	8012782105104118	CMakeFiles/Compilers.dir/Compilers.c.obj	592c2ac9f3d3bea
+56	114	8012782105636564	Compilers.exe	978a2f713488bfeb
