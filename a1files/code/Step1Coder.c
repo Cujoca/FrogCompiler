@@ -172,7 +172,7 @@ frog_str vigenereMem(const frog_str inputFileName, const frog_str key, frog_int 
 		return NULL;
 	}
 
-	while (inputChar = fgetc(inputFile) != EOF && outputIndex < fileSize ) {
+	while ((inputChar = fgetc(inputFile)) != EOF && outputIndex < fileSize ) {
 		if (output[outputIndex] >= ASCII_START && output[outputIndex] <= ASCII_END) {
 			frog_int keyChar = key[keyIndex % keySize] - ASCII_START;
 			frog_int outputChar;
