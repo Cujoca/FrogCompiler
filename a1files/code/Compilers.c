@@ -127,7 +127,6 @@ frog_int main(int argc, char** argv) {
 */
 
 frog_void printLogo() {
-	printf("%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s",
 		"\t=---------------------------------------=\n",
 		"\t|  COMPILERS - ALGONQUIN COLLEGE (S25)  |\n",
 		"\t=---------------------------------------=\n",
@@ -149,7 +148,7 @@ frog_void printLogo() {
     "\t     |                             |     \n",
     "\t     |  F       R       O       G  |     \n",
     "\t     -------------------------------     \n",
-    "\t[CODER SCRIPT ..........................]\n\n");
+    "\t[CODER SCRIPT ..........................]\n\n";
 }
 
 /*
