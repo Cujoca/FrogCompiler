@@ -1,9 +1,9 @@
 /*
 ************************************************************
 * COMPILERS COURSE - Algonquin College
-* Code version: Fall, 2025
-* Author: TO_DO
-* Professors: Paulo Sousa
+* Code version: Spring, 2026
+* Author: Andrei Cojocaru and Leo Paquette
+* Professor: Vardaan Sangar
 ************************************************************
 #
 # ECHO "=---------------------------------------="
@@ -36,10 +36,10 @@
 ***********************************************************
 * File name: Reader.c
 * Compiler: MS Visual Studio 2022
-* Course: CST 8152  Compilers, Lab Section: [011, 012, 013]
-* Assignment: A12.
-* Date: Sep 01 2025
-* Professor: Paulo Sousa
+* Course: CST 8152 Compilers, Lab Section: 301
+* Assignment: A1
+* Date: May 31, 2026
+* Professor: Vardaan Sangar
 * Purpose: This file is the main code for Buffer/Reader (A12)
 ************************************************************
 */
