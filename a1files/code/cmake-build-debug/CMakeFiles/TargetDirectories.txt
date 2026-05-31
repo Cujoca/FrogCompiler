@@ -1,3 +1,0 @@
-C:/FrogCompiler/a1files/code/cmake-build-debug/CMakeFiles/Compilers.dir
-C:/FrogCompiler/a1files/code/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/FrogCompiler/a1files/code/cmake-build-debug/CMakeFiles/rebuild_cache.dir
