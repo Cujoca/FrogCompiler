@@ -179,9 +179,14 @@ frog_str vigenereMem(const frog_str inputFileName, const frog_str key, frog_int 
 		return NULL;
 	}
 
+<<<<<<< HEAD
+	while ((inputChar = fgetc(inputFile)) != EOF && outputIndex < fileSize ) {
+		if (output[outputIndex] >= ASCII_START && output[outputIndex] <= ASCII_END) {
+=======
 	// Logic to encode/decode for only visible chars
 	while ((inputChar = fgetc(inputFile)) != EOF && outputIndex < fileSize ) {
 		if (inputChar >= ASCII_START && inputChar <= ASCII_END) {
+>>>>>>> refs/remotes/origin/Leo
 			frog_int keyChar = key[keyIndex % keySize] - ASCII_START;
 			frog_int outputChar;
 
