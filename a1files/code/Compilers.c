@@ -7,7 +7,7 @@
 ************************************************************
 #
 # ECHO "=---------------------------------------="
-# ECHO "|  COMPILERS - ALGONQUIN COLLEGE (F25)  |"
+# ECHO "|  COMPILERS - ALGONQUIN COLLEGE (S26)  |"
 # ECHO "=---------------------------------------="
 # ECHO "     -------------------------------	
 # ECHO "	 |        o  o   o  o          |	
@@ -133,7 +133,7 @@ frog_int main(int argc, char** argv) {
 frog_void printLogo() {
 	printf("%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s",
 		"\t=---------------------------------------=\n",
-		"\t|  COMPILERS - ALGONQUIN COLLEGE (S25)  |\n",
+		"\t|  COMPILERS - ALGONQUIN COLLEGE (S26)  |\n",
 		"\t=---------------------------------------=\n",
     "\t     -------------------------------     \n",
     "\t     |        o  o   o  o          |     \n",
