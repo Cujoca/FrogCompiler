@@ -1,13 +1,13 @@
 /*
 ************************************************************
 * COMPILERS COURSE - Algonquin College
-* Code version: Summer, 2025
-* Author: TO_DO
-* Professors: Paulo Sousa
+* Code version: Spring, 2026
+* Author: Andrei Cojocaru and Leo Paquette
+* Professors: Vardaan Sangar
 ************************************************************
 #
 # ECHO "=---------------------------------------="
-# ECHO "|  COMPILERS - ALGONQUIN COLLEGE (F25)  |"
+# ECHO "|  COMPILERS - ALGONQUIN COLLEGE (S26)  |"
 # ECHO "=---------------------------------------="
 # ECHO "     -------------------------------	”
 # ECHO "	 |        o  o   o  o          |	”
@@ -37,9 +37,9 @@
 * File name: Reader.c
 * Compiler: MS Visual Studio 2022
 * Course: CST 8152 – Compilers, Lab Section: [011, 012, 013]
-* Assignment: A12.
-* Date: Jan 01 2025
-* Professor: Paulo Sousa
+* Assignment: A2
+* Date:
+* Professor: Vardaan Sangar
 * Purpose: This file is the main code for Buffer/Reader (A12)
 ************************************************************
 */
@@ -355,7 +355,7 @@ frog_int readerPrint(BufferPointer const readerPointer) {
 
 	while ((ch = readerGetChar(readerPointer)) != READER_TERMINATOR) {
 		/* TO_DO: Defensive programming (including invalid chars) */
-		if (ch < ASCII_START || ch > ASCII_END) {
+		if (ch < READER_ASCII_START || ch > READER_ASCII_END) {
 			readerPointer->numReaderErrors++;
 			continue;
 		}
@@ -644,10 +644,10 @@ frog_void readerPrintFlags(BufferPointer const readerPointer) {
 		return;
 	}
 	/* TO_DO: Return flags */
-	printf("readerPointer->flags.isEmpty = %d\n", readerPointer->flags.isEmpty);
-	printf("readerPointer->flags.isFull = %d\n", readerPointer->flags.isFull);
-	printf("readerPointer->flags.isRead = %d\n", readerPointer->flags.isRead);
-	printf("readerPointer->flags.isMoved = %d\n", readerPointer->flags.isMoved);
+	printf("Flags.isEmpty = %d\n", readerPointer->flags.isEmpty);
+	printf("Flags.isFull = %d\n", readerPointer->flags.isFull);
+	printf("Flags.isRead = %d\n", readerPointer->flags.isRead);
+	printf("Flags.isMoved = %d\n", readerPointer->flags.isMoved);
 }
 #else
 #define bGetFlags(readerPointer) ((readerPointer)?(readerPointer->flags):(RT_FAIL_1))
@@ -672,7 +672,7 @@ frog_void readerPrintStat(BufferPointer const readerPointer) {
 	/* TO_DO: Print statistics */
 	for (frog_int i = 0; i < NCHAR - 1; i++) {
 		if (readerPointer->histogram[i] > 0) {
-			printf("%c: %d\n", (char)i, readerPointer->histogram[i]);
+			printf("B[%c]=%d, ", (char)i, readerPointer->histogram[i]);
 		}
 	}
 }
@@ -724,7 +724,7 @@ frog_int readerChecksum(BufferPointer readerPointer) {
 	for (i = 0; i < readerPointer->position.wrte; i++) {
 		sum += readerPointer->content[i];
 	}
-	frog_int checksum = sum & 0x0F;
+	frog_int checksum = sum & 0xFF;
 	readerPointer->checkSum = checksum;
 	return checksum;
 }

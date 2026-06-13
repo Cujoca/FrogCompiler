@@ -1,7 +1,7 @@
 {
 	"InstallScripts" : 
 	[
-		"C:/FrogCompiler/a1files/code/cmake-build-debug/cmake_install.cmake"
+		"C:/FrogCompiler/code/cmake-build-debug/cmake_install.cmake"
 	],
 	"Parallel" : false
 }

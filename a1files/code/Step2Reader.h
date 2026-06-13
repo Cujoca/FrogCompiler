@@ -1,9 +1,9 @@
 /*
 ************************************************************
 * COMPILERS COURSE - Algonquin College
-* Code version: Fall, 2025
-* Author: TO_DO
-* Professors: Paulo Sousa
+* Code version: Spring, 2026
+* Author: Andrei Cojocaru and Leo Paquette
+* Professors: Vardaan Sangar
 ************************************************************
 #
 # ECHO "=---------------------------------------="
@@ -37,9 +37,9 @@
 * File name: Reader.h
 * Compiler: MS Visual Studio 2022
 * Course: CST 8152 – Compilers, Lab Section: [011, 012]
-* Assignment: A12.
-* Date: Jan 01 2025
-* Professor: Paulo Sousa
+* Assignment: A2
+* Date:
+* Professor: Vardaan Sangar
 * Purpose: This file is the main header for Reader (.h)
 ************************************************************
 */

@@ -1,20 +1,20 @@
 [
 {
-  "directory": "C:/FrogCompiler/a1files/code/cmake-build-debug",
-  "command": "C:\\Users\\leopa\\AppData\\Local\\Programs\\CLion\\bin\\mingw\\bin\\gcc.exe -g -fdiagnostics-color=always -o CMakeFiles\\Compilers.dir\\Compilers.c.obj -c C:\\FrogCompiler\\a1files\\code\\Compilers.c",
-  "file": "C:/FrogCompiler/a1files/code/Compilers.c",
-  "output": "C:/FrogCompiler/a1files/code/cmake-build-debug/CMakeFiles/Compilers.dir/Compilers.c.obj"
+  "directory": "C:/FrogCompiler/code/cmake-build-debug",
+  "command": "C:\\Users\\leopa\\AppData\\Local\\Programs\\CLion\\bin\\mingw\\bin\\gcc.exe -g -fdiagnostics-color=always -o CMakeFiles\\Compilers.dir\\Compilers.c.obj -c C:\\FrogCompiler\\code\\Compilers.c",
+  "file": "C:/FrogCompiler/code/Compilers.c",
+  "output": "C:/FrogCompiler/code/cmake-build-debug/CMakeFiles/Compilers.dir/Compilers.c.obj"
 },
 {
-  "directory": "C:/FrogCompiler/a1files/code/cmake-build-debug",
-  "command": "C:\\Users\\leopa\\AppData\\Local\\Programs\\CLion\\bin\\mingw\\bin\\gcc.exe -g -fdiagnostics-color=always -o CMakeFiles\\Compilers.dir\\Step1Coder.c.obj -c C:\\FrogCompiler\\a1files\\code\\Step1Coder.c",
-  "file": "C:/FrogCompiler/a1files/code/Step1Coder.c",
-  "output": "C:/FrogCompiler/a1files/code/cmake-build-debug/CMakeFiles/Compilers.dir/Step1Coder.c.obj"
+  "directory": "C:/FrogCompiler/code/cmake-build-debug",
+  "command": "C:\\Users\\leopa\\AppData\\Local\\Programs\\CLion\\bin\\mingw\\bin\\gcc.exe -g -fdiagnostics-color=always -o CMakeFiles\\Compilers.dir\\Step1Coder.c.obj -c C:\\FrogCompiler\\code\\Step1Coder.c",
+  "file": "C:/FrogCompiler/code/Step1Coder.c",
+  "output": "C:/FrogCompiler/code/cmake-build-debug/CMakeFiles/Compilers.dir/Step1Coder.c.obj"
 },
 {
-  "directory": "C:/FrogCompiler/a1files/code/cmake-build-debug",
-  "command": "C:\\Users\\leopa\\AppData\\Local\\Programs\\CLion\\bin\\mingw\\bin\\gcc.exe -g -fdiagnostics-color=always -o CMakeFiles\\Compilers.dir\\Main1Coder.c.obj -c C:\\FrogCompiler\\a1files\\code\\Main1Coder.c",
-  "file": "C:/FrogCompiler/a1files/code/Main1Coder.c",
-  "output": "C:/FrogCompiler/a1files/code/cmake-build-debug/CMakeFiles/Compilers.dir/Main1Coder.c.obj"
+  "directory": "C:/FrogCompiler/code/cmake-build-debug",
+  "command": "C:\\Users\\leopa\\AppData\\Local\\Programs\\CLion\\bin\\mingw\\bin\\gcc.exe -g -fdiagnostics-color=always -o CMakeFiles\\Compilers.dir\\Main1Coder.c.obj -c C:\\FrogCompiler\\code\\Main1Coder.c",
+  "file": "C:/FrogCompiler/code/Main1Coder.c",
+  "output": "C:/FrogCompiler/code/cmake-build-debug/CMakeFiles/Compilers.dir/Main1Coder.c.obj"
 }
 ]
