@@ -9,24 +9,24 @@
 # ECHO "=---------------------------------------="
 # ECHO "|  COMPILERS - ALGONQUIN COLLEGE (F25)  |"
 # ECHO "=---------------------------------------="
-# ECHO "     -------------------------------	”
-# ECHO "	 |        o  o   o  o          |	”
-# ECHO "	 |        |\/ \^/ \/|          |	”
-# ECHO "	 |        |,-------.|          |	”
-# ECHO "	 |      ,-.(|)   (|),-.        |	”
-# ECHO "	 |      \_*._ ' '_.* _/        |	”
-# ECHO "	 |       /`-.`--' .-'\         |	”
-# ECHO "	 |  ,--./    `---'    \,--.    |	”
-# ECHO "	 |  \   |(  )     (  )|   /    |	”
-# ECHO "	 |   \  | ||       || |  /     |	”
-# ECHO "	 |    \ | /|\     /|\ | /      |	”
-# ECHO "	 |    /  \-._     _,-/  \      |	”
-# ECHO "	 |   //| \  `---'  // |\       |	”
-# ECHO "	 |  /,-.,-.\       /,-.,-.\    |	”
-# ECHO "	 |  o   o   o      o   o    o  |	”
-# ECHO "	 |                             |	”
-# ECHO "	 |  F       R       O       G  |	”
-# ECHO "	 -------------------------------    ”
+# ECHO "     -------------------------------	ï¿½
+# ECHO "	 |        o  o   o  o          |	ï¿½
+# ECHO "	 |        |\/ \^/ \/|          |	ï¿½
+# ECHO "	 |        |,-------.|          |	ï¿½
+# ECHO "	 |      ,-.(|)   (|),-.        |	ï¿½
+# ECHO "	 |      \_*._ ' '_.* _/        |	ï¿½
+# ECHO "	 |       /`-.`--' .-'\         |	ï¿½
+# ECHO "	 |  ,--./    `---'    \,--.    |	ï¿½
+# ECHO "	 |  \   |(  )     (  )|   /    |	ï¿½
+# ECHO "	 |   \  | ||       || |  /     |	ï¿½
+# ECHO "	 |    \ | /|\     /|\ | /      |	ï¿½
+# ECHO "	 |    /  \-._     _,-/  \      |	ï¿½
+# ECHO "	 |   //| \  `---'  // |\       |	ï¿½
+# ECHO "	 |  /,-.,-.\       /,-.,-.\    |	ï¿½
+# ECHO "	 |  o   o   o      o   o    o  |	ï¿½
+# ECHO "	 |                             |	ï¿½
+# ECHO "	 |  F       R       O       G  |	ï¿½
+# ECHO "	 -------------------------------    ï¿½
 # ECHO "                                         "
 # ECHO "[READER SCRIPT .........................]"
 # ECHO "                                         "
@@ -36,7 +36,7 @@
 ************************************************************
 * File name: Reader.h
 * Compiler: MS Visual Studio 2022
-* Course: CST 8152 – Compilers, Lab Section: [011, 012]
+* Course: CST 8152 ï¿½ Compilers, Lab Section: [011, 012]
 * Assignment: A2
 * Date:
 * Professor: Vardaan Sangar
@@ -64,7 +64,7 @@
 
  /* standard header files */
 #include <stdio.h>  /* standard input/output */
-#include <malloc.h> /* for dynamic memory allocation*/
+#include <stdlib.h> /* for dynamic memory allocation*/
 #include <limits.h> /* implementation-defined data type ranges and limits */
 
 /* CONSTANTS DEFINITION: GENERAL (NOT LANGUAGE DEPENDENT) .................................. */

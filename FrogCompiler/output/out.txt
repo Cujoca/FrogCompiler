@@ -1,0 +1,55 @@
+	=---------------------------------------=
+	|  COMPILERS - ALGONQUIN COLLEGE (S26)  |
+	=---------------------------------------=
+	     -------------------------------     
+	     |        o  o   o  o          |     
+	     |        |\/ \^/ \/|          |     
+	     |        |,-------.|          |     
+	     |      ,-.(|)   (|),-.        |     
+	     |      \_*._ ' '_.* _/        |     
+	     |       /`-.`--' .-'\         |     
+	     |  ,--./    `---'    \,--.    |     
+	     |  \   |(  )     (  )|   /    |     
+	     |   \  | ||       || |  /     |     
+	     |    \ | /|\     /|\ | /      |     
+	     |    /  \-._     _,-/  \      |     
+	     |   //| \  `---'  // |\       |     
+	     |  /,-.,-.\       /,-.,-.\    |     
+	     |  o   o   o      o   o    o  |     
+	     |                             |     
+	     |  F       R       O       G  |     
+	     -------------------------------     
+	[CODER SCRIPT ..........................]
+
+
+[Option '2': Starting READER .....]
+
+Reading file /Users/andrei/School/Compilers/FrogCompiler/a2/../input/CODED.txt ....Please wait
+
+Printing buffer parameters:
+
+The size of the buffer is:  225
+The current size of the buffer is:  168
+The first symbol in the buffer is:  #
+The value of the flags:
+Flags.isEmpty = 0
+Flags.isFull = 0
+Flags.isRead = 0
+Flags.isMoved = 1
+Checksum: 43
+Reader statistics : 
+B[ ]=22, B[!]=1, B["]=4, B[#]=2, B[&]=2, B[(]=2, B[)]=2, B[0]=1, B[;]=2, B[E]=1, B[H]=1, B[S]=1, B[T]=1, B[a]=10, B[c]=4, B[d]=5, B[e]=11, B[f]=1, B[g]=2, B[h]=2, B[i]=6, B[l]=8, B[m]=3, B[n]=8, B[o]=9, B[p]=3, B[r]=12, B[s]=2, B[t]=7, B[u]=2, B[w]=1, B[x]=2, B[y]=2, B[{]=3, B[}]=3, Number of errors: 0
+
+Printing buffer contents:
+
+# Sofia Example
+  The program is "lexically" correct
+  and should not generate any error #
+int main&() {
+	data {
+	}
+	code {
+		print&("Hello world!");
+		return 0;
+	}
+}

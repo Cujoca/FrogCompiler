@@ -15,20 +15,21 @@ echo '--------------------------------------------'
 echo '-  [A1: Coder - Team: Paulo Sousa / God]   -'
 echo '--------------------------------------------'
 
-arg="${1:-../input/CODED.txt}"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+arg="${1:-$SCRIPT_DIR/../input/CODED.txt}"
 
-cd "$(dirname "$0")/a1files/code"
+cd "$SCRIPT_DIR/../code"
 
 rm -f ../input/CODED.txt ../input/RESTORED.txt
 
 gcc Compilers.c Main1Coder.c Step1Coder.c -o compilers
 
 sleep 1
-./compilers 1 1 ../input/README.txt "$arg" > out.txt 2> err.txt
+./compilers 1 1 ../input/README.txt "$arg" > ../output/out.txt 2> ../output/err.txt
 
 sleep 1
-./compilers 1 0 "$arg" ../input/ORIGINAL.txt >> out.txt 2>> err.txt
+./compilers 1 0 "$arg" ../input/ORIGINAL.txt >> ../output/out.txt 2>> ../output/err.txt
 
 sleep 1
-ls out.txt err.txt
-cat out.txt
+ls ../output/out.txt ../output/err.txt
+cat ../output/out.txt

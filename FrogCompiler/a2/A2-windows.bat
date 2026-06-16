@@ -11,10 +11,10 @@ echo '-    =     =  = = = = = = = =   ==  =  ==     -'
 echo '-     ====  ==  = = = =   = === === =    ==   -'
 echo '-                                             -'
 echo '-----------------------------------------------'
-echo '-[A1: Reader - Andrei Cojocaru / Leo Paquette]-'
+echo '-[A2: Reader - Andrei Cojocaru / Leo Paquette]-'
 echo '-----------------------------------------------'
-set "CODE_DIR=%~dp0a1files\code"
-set "INPUT_DIR=%~dp0a1files\input"
+set "CODE_DIR=%~dp0..\code"
+set "INPUT_DIR=%~dp0..\input"
 set "arg=%1"
 set "param=2"
 if "%arg%"=="" set "arg=%INPUT_DIR%\CODED.txt"
@@ -26,8 +26,8 @@ ping -n 2 127.0.0.1 >nul
 "%CODE_DIR%\compilers" 1 1 "%INPUT_DIR%\README.txt" "%arg%"
 ping -n 2 127.0.0.1 >nul
 
-"%CODE_DIR%\compilers" 2 "%arg%" > "%INPUT_DIR%\out.txt" 2> "%INPUT_DIR%\err.txt"
+"%CODE_DIR%\compilers" 2 "%arg%" > "%~dp0..\output\out.txt" 2> "%~dp0..\output\err.txt"
 ping -n 2 127.0.0.1 >nul
 
-dir "%INPUT_DIR%\out.txt" "%INPUT_DIR%\err.txt"
-type "%INPUT_DIR%\out.txt"
+dir "%~dp0..\output\out.txt" "%~dp0..\output\err.txt"
+type "%~dp0..\output\out.txt"
