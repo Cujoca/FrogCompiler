@@ -47,7 +47,6 @@
 /*
  *.............................................................................
  * MAIN ADVICE:
- * - Please check the "TODO" labels to develop your activity.
  * - Review the functions to use "Defensive Programming".
  *.............................................................................
  */
@@ -214,7 +213,7 @@ void decypher(const frog_str inputFileName, const frog_str outputFileName, const
     vigenereFile(inputFileName, outputFileName, key, DECYPHER);
 }
 
-// TO_DO: Get file size (util method)
+// Get file size (util method)
 frog_int getSizeOfFile(const frog_str filename) {
 
     // Checking for null parameter

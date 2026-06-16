@@ -9,24 +9,24 @@
 # ECHO "=---------------------------------------="
 # ECHO "|  COMPILERS - ALGONQUIN COLLEGE (S26)  |"
 # ECHO "=---------------------------------------="
-# ECHO "     -------------------------------	”
-# ECHO "	 |        o  o   o  o          |	”
-# ECHO "	 |        |\/ \^/ \/|          |	”
-# ECHO "	 |        |,-------.|          |	”
-# ECHO "	 |      ,-.(|)   (|),-.        |	”
-# ECHO "	 |      \_*._ ' '_.* _/        |	”
-# ECHO "	 |       /`-.`--' .-'\         |	”
-# ECHO "	 |  ,--./    `---'    \,--.    |	”
-# ECHO "	 |  \   |(  )     (  )|   /    |	”
-# ECHO "	 |   \  | ||       || |  /     |	”
-# ECHO "	 |    \ | /|\     /|\ | /      |	”
-# ECHO "	 |    /  \-._     _,-/  \      |	”
-# ECHO "	 |   //| \  `---'  // |\       |	”
-# ECHO "	 |  /,-.,-.\       /,-.,-.\    |	”
-# ECHO "	 |  o   o   o      o   o    o  |	”
-# ECHO "	 |                             |	”
-# ECHO "	 |  F       R       O       G  |	”
-# ECHO "	 -------------------------------    ”
+# ECHO "     -------------------------------	ï¿½
+# ECHO "	 |        o  o   o  o          |	ï¿½
+# ECHO "	 |        |\/ \^/ \/|          |	ï¿½
+# ECHO "	 |        |,-------.|          |	ï¿½
+# ECHO "	 |      ,-.(|)   (|),-.        |	ï¿½
+# ECHO "	 |      \_*._ ' '_.* _/        |	ï¿½
+# ECHO "	 |       /`-.`--' .-'\         |	ï¿½
+# ECHO "	 |  ,--./    `---'    \,--.    |	ï¿½
+# ECHO "	 |  \   |(  )     (  )|   /    |	ï¿½
+# ECHO "	 |   \  | ||       || |  /     |	ï¿½
+# ECHO "	 |    \ | /|\     /|\ | /      |	ï¿½
+# ECHO "	 |    /  \-._     _,-/  \      |	ï¿½
+# ECHO "	 |   //| \  `---'  // |\       |	ï¿½
+# ECHO "	 |  /,-.,-.\       /,-.,-.\    |	ï¿½
+# ECHO "	 |  o   o   o      o   o    o  |	ï¿½
+# ECHO "	 |                             |	ï¿½
+# ECHO "	 |  F       R       O       G  |	ï¿½
+# ECHO "	 -------------------------------    ï¿½
 # ECHO "                                         "
 # ECHO "[COMPILER SCRIPT .......................]"
 # ECHO "                                         "
@@ -50,16 +50,12 @@
 
 /*
  * ............................................................................
- * ADVICE 1:
- * Please check the "TODO" labels to develop your activity.
- *
- * ADVICE 2: This file must be updated according to each assignment
+ * NOTE: This file must be updated according to each assignment
  * (see the progression: reader > scanner > parser).
  * ............................................................................
  */
 
-/* TO_DO: Adjust your language (cannot be "Sofia") */
-/* Language name */
+/* Language name (cannot be "Sofia") */
 #define STR_LANGNAME	"Frog"
 
 /* Logical constants - adapt for your language */
@@ -77,7 +73,7 @@ NOTE: Some types may not be directly used by your language,
 ------------------------------------------------------------
 */
 
-/* TO_DO: Define your typedefs */
+/* Language-specific type definitions */
 typedef char			frog_char;
 typedef char*			frog_str;
 typedef int				frog_int;
