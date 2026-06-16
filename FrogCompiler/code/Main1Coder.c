@@ -46,10 +46,7 @@
 
 /*
  *.............................................................................
- * ADVICE 1:
- * Please check the "TODO" labels to develop your activity.
- *
- * ADVICE 2: Preprocessor directives
+ * ADVICE: Preprocessor directives
  * The #define _CRT_SECURE_NO_WARNINGS should be used in MS Visual Studio projects
  * to suppress the warnings about using "unsafe" functions like fopen()
  * and standard sting library functions defined in string.h.
@@ -80,12 +77,6 @@
 #undef ANSI_C
 #define ANSI_C 1
 #endif
-
-/*
- * TODO .......................................................................
- * Basically, change all datatypes to your language definitions
- * (see "Compilers.h")
- */
 
 /*
  * -------------------------------------------------------------
