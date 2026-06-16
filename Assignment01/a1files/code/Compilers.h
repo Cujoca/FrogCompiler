@@ -7,7 +7,7 @@
 ************************************************************
 #
 # ECHO "=---------------------------------------="
-# ECHO "|  COMPILERS - ALGONQUIN COLLEGE (F25)  |"
+# ECHO "|  COMPILERS - ALGONQUIN COLLEGE (S26)  |"
 # ECHO "=---------------------------------------="
 # ECHO "     -------------------------------	”
 # ECHO "	 |        o  o   o  o          |	”
@@ -63,7 +63,7 @@
 #define STR_LANGNAME	"Frog"
 
 /* Logical constants - adapt for your language */
-#define FROG  1
+#define FROG_TRUE  1
 #define FROG_FALSE 0
 
 #define INVALID NULL
@@ -115,7 +115,7 @@ Main functions signatures
 ------------------------------------------------------------
 */
 frog_int main1Coder	(frog_int argc, frog_str* argv);
-
+frog_int main2Reader (frog_int argc, frog_str* argv);
 frog_void printLogo();
 frog_void errorPrint(frog_str fmt, ...);
 

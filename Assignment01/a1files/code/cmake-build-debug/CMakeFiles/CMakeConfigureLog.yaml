@@ -5,7 +5,7 @@ events:
     kind: "message-v1"
     backtrace:
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeDetermineSystem.cmake:212 (message)"
-      - "CMakeLists.txt:36 (project)"
+      - "CMakeLists.txt:38 (project)"
     message: |
       The system is: Windows - 10.0.26200 - AMD64
   -
@@ -13,7 +13,7 @@ events:
     backtrace:
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeDetermineCompiler.cmake:63 (find_program)"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:64 (_cmake_find_compiler)"
-      - "CMakeLists.txt:36 (project)"
+      - "CMakeLists.txt:38 (project)"
     mode: "program"
     variable: "CMAKE_C_COMPILER"
     description: "C compiler"
@@ -49,9 +49,8 @@ events:
       - "C:/Program Files/Git/cmd/"
       - "C:/Qt/6.11.1/mingw_64/bin/"
       - "C:/Qt/Tools/mingw1310_64/bin/"
-      - "C:/Users/leopa/AppData/Local/Microsoft/WindowsApps/"
-      - "C:/Users/leopa/AppData/Local/Programs/Microsoft VS Code/bin/"
-      - "C:/Users/leopa/AppData/Local/JetBrains/Toolbox/scripts/"
+      - "C:/Program Files/Java/jdk-21.0.11/bin/"
+      - "C:/Program Files (x86)/NVIDI/"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/"
     searched_directories:
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/cc.com"
@@ -76,9 +75,32 @@ events:
         - "C:\\Program Files\\Git\\cmd"
         - "C:\\Qt\\6.11.1\\mingw_64\\bin"
         - "C:\\Qt\\Tools\\mingw1310_64\\bin"
-        - "C:\\Users\\leopa\\AppData\\Local\\Microsoft\\WindowsApps"
-        - "C:\\Users\\leopa\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
-        - "C:\\Users\\leopa\\AppData\\Local\\JetBrains\\Toolbox\\scripts"
+        - "C:\\Program Files\\Java\\jdk-21.0.11\\bin"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
+        - "C:\\CST8238-WebDev\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\CST8238-WebDev\\Algonquin-College-Projects\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
+        - "C:\\Program Files\\NVIDIA Corporation\\NVIDIA app\\NvDLISR"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Qt\\6.11.1\\mingw_64\\bin"
+        - "C:\\Qt\\Tools\\mingw1310_64\\bin"
+        - "C:\\Program Files\\Java\\jdk-21.0.11\\bin"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
+        - "C:\\CST8238-WebDev\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\CST8238-WebDev\\Algonquin-College-Projects\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\NVIDI"
         - "C:\\Users\\leopa\\AppData\\Local\\Programs\\CLion\\bin\\ninja\\win\\x64"
   -
     kind: "find-v1"
@@ -88,7 +110,7 @@ events:
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:8 (CMAKE_DETERMINE_COMPILER_ID_BUILD)"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
-      - "CMakeLists.txt:36 (project)"
+      - "CMakeLists.txt:38 (project)"
     mode: "file"
     variable: "src_in"
     description: "Path to a file."
@@ -122,9 +144,32 @@ events:
         - "C:\\Program Files\\Git\\cmd"
         - "C:\\Qt\\6.11.1\\mingw_64\\bin"
         - "C:\\Qt\\Tools\\mingw1310_64\\bin"
-        - "C:\\Users\\leopa\\AppData\\Local\\Microsoft\\WindowsApps"
-        - "C:\\Users\\leopa\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
-        - "C:\\Users\\leopa\\AppData\\Local\\JetBrains\\Toolbox\\scripts"
+        - "C:\\Program Files\\Java\\jdk-21.0.11\\bin"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
+        - "C:\\CST8238-WebDev\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\CST8238-WebDev\\Algonquin-College-Projects\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
+        - "C:\\Program Files\\NVIDIA Corporation\\NVIDIA app\\NvDLISR"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Qt\\6.11.1\\mingw_64\\bin"
+        - "C:\\Qt\\Tools\\mingw1310_64\\bin"
+        - "C:\\Program Files\\Java\\jdk-21.0.11\\bin"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
+        - "C:\\CST8238-WebDev\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\CST8238-WebDev\\Algonquin-College-Projects\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\NVIDI"
         - "C:\\Users\\leopa\\AppData\\Local\\Programs\\CLion\\bin\\ninja\\win\\x64"
   -
     kind: "message-v1"
@@ -132,7 +177,7 @@ events:
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
-      - "CMakeLists.txt:36 (project)"
+      - "CMakeLists.txt:38 (project)"
     message: |
       Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
       Compiler: C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/gcc.exe 
@@ -146,14 +191,14 @@ events:
       Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.exe"
       
       The C compiler identification is GNU, found in:
-        C:/FrogCompiler/a1files/code/cmake-build-debug/CMakeFiles/4.2.2/CompilerIdC/a.exe
+        C:/FrogCompiler/code/cmake-build-debug/CMakeFiles/4.2.2/CompilerIdC/a.exe
       
   -
     kind: "find-v1"
     backtrace:
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
-      - "CMakeLists.txt:36 (project)"
+      - "CMakeLists.txt:38 (project)"
     mode: "program"
     variable: "CMAKE_AR"
     description: "Path to a program."
@@ -183,9 +228,8 @@ events:
       - "C:/Program Files/Git/cmd/"
       - "C:/Qt/6.11.1/mingw_64/bin/"
       - "C:/Qt/Tools/mingw1310_64/bin/"
-      - "C:/Users/leopa/AppData/Local/Microsoft/WindowsApps/"
-      - "C:/Users/leopa/AppData/Local/Programs/Microsoft VS Code/bin/"
-      - "C:/Users/leopa/AppData/Local/JetBrains/Toolbox/scripts/"
+      - "C:/Program Files/Java/jdk-21.0.11/bin/"
+      - "C:/Program Files (x86)/NVIDI/"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/"
     searched_directories:
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/ar.com"
@@ -207,16 +251,39 @@ events:
         - "C:\\Program Files\\Git\\cmd"
         - "C:\\Qt\\6.11.1\\mingw_64\\bin"
         - "C:\\Qt\\Tools\\mingw1310_64\\bin"
-        - "C:\\Users\\leopa\\AppData\\Local\\Microsoft\\WindowsApps"
-        - "C:\\Users\\leopa\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
-        - "C:\\Users\\leopa\\AppData\\Local\\JetBrains\\Toolbox\\scripts"
+        - "C:\\Program Files\\Java\\jdk-21.0.11\\bin"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
+        - "C:\\CST8238-WebDev\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\CST8238-WebDev\\Algonquin-College-Projects\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
+        - "C:\\Program Files\\NVIDIA Corporation\\NVIDIA app\\NvDLISR"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Qt\\6.11.1\\mingw_64\\bin"
+        - "C:\\Qt\\Tools\\mingw1310_64\\bin"
+        - "C:\\Program Files\\Java\\jdk-21.0.11\\bin"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
+        - "C:\\CST8238-WebDev\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\CST8238-WebDev\\Algonquin-College-Projects\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\NVIDI"
         - "C:\\Users\\leopa\\AppData\\Local\\Programs\\CLion\\bin\\ninja\\win\\x64"
   -
     kind: "find-v1"
     backtrace:
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
-      - "CMakeLists.txt:36 (project)"
+      - "CMakeLists.txt:38 (project)"
     mode: "program"
     variable: "CMAKE_RANLIB"
     description: "Path to a program."
@@ -246,9 +313,8 @@ events:
       - "C:/Program Files/Git/cmd/"
       - "C:/Qt/6.11.1/mingw_64/bin/"
       - "C:/Qt/Tools/mingw1310_64/bin/"
-      - "C:/Users/leopa/AppData/Local/Microsoft/WindowsApps/"
-      - "C:/Users/leopa/AppData/Local/Programs/Microsoft VS Code/bin/"
-      - "C:/Users/leopa/AppData/Local/JetBrains/Toolbox/scripts/"
+      - "C:/Program Files/Java/jdk-21.0.11/bin/"
+      - "C:/Program Files (x86)/NVIDI/"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/"
     searched_directories:
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/ranlib.com"
@@ -270,16 +336,39 @@ events:
         - "C:\\Program Files\\Git\\cmd"
         - "C:\\Qt\\6.11.1\\mingw_64\\bin"
         - "C:\\Qt\\Tools\\mingw1310_64\\bin"
-        - "C:\\Users\\leopa\\AppData\\Local\\Microsoft\\WindowsApps"
-        - "C:\\Users\\leopa\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
-        - "C:\\Users\\leopa\\AppData\\Local\\JetBrains\\Toolbox\\scripts"
+        - "C:\\Program Files\\Java\\jdk-21.0.11\\bin"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
+        - "C:\\CST8238-WebDev\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\CST8238-WebDev\\Algonquin-College-Projects\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
+        - "C:\\Program Files\\NVIDIA Corporation\\NVIDIA app\\NvDLISR"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Qt\\6.11.1\\mingw_64\\bin"
+        - "C:\\Qt\\Tools\\mingw1310_64\\bin"
+        - "C:\\Program Files\\Java\\jdk-21.0.11\\bin"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
+        - "C:\\CST8238-WebDev\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\CST8238-WebDev\\Algonquin-College-Projects\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\NVIDI"
         - "C:\\Users\\leopa\\AppData\\Local\\Programs\\CLion\\bin\\ninja\\win\\x64"
   -
     kind: "find-v1"
     backtrace:
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
-      - "CMakeLists.txt:36 (project)"
+      - "CMakeLists.txt:38 (project)"
     mode: "program"
     variable: "CMAKE_STRIP"
     description: "Path to a program."
@@ -309,9 +398,8 @@ events:
       - "C:/Program Files/Git/cmd/"
       - "C:/Qt/6.11.1/mingw_64/bin/"
       - "C:/Qt/Tools/mingw1310_64/bin/"
-      - "C:/Users/leopa/AppData/Local/Microsoft/WindowsApps/"
-      - "C:/Users/leopa/AppData/Local/Programs/Microsoft VS Code/bin/"
-      - "C:/Users/leopa/AppData/Local/JetBrains/Toolbox/scripts/"
+      - "C:/Program Files/Java/jdk-21.0.11/bin/"
+      - "C:/Program Files (x86)/NVIDI/"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/"
     searched_directories:
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/strip.com"
@@ -333,16 +421,39 @@ events:
         - "C:\\Program Files\\Git\\cmd"
         - "C:\\Qt\\6.11.1\\mingw_64\\bin"
         - "C:\\Qt\\Tools\\mingw1310_64\\bin"
-        - "C:\\Users\\leopa\\AppData\\Local\\Microsoft\\WindowsApps"
-        - "C:\\Users\\leopa\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
-        - "C:\\Users\\leopa\\AppData\\Local\\JetBrains\\Toolbox\\scripts"
+        - "C:\\Program Files\\Java\\jdk-21.0.11\\bin"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
+        - "C:\\CST8238-WebDev\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\CST8238-WebDev\\Algonquin-College-Projects\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
+        - "C:\\Program Files\\NVIDIA Corporation\\NVIDIA app\\NvDLISR"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Qt\\6.11.1\\mingw_64\\bin"
+        - "C:\\Qt\\Tools\\mingw1310_64\\bin"
+        - "C:\\Program Files\\Java\\jdk-21.0.11\\bin"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
+        - "C:\\CST8238-WebDev\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\CST8238-WebDev\\Algonquin-College-Projects\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\NVIDI"
         - "C:\\Users\\leopa\\AppData\\Local\\Programs\\CLion\\bin\\ninja\\win\\x64"
   -
     kind: "find-v1"
     backtrace:
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
-      - "CMakeLists.txt:36 (project)"
+      - "CMakeLists.txt:38 (project)"
     mode: "program"
     variable: "CMAKE_LINKER"
     description: "Path to a program."
@@ -372,9 +483,8 @@ events:
       - "C:/Program Files/Git/cmd/"
       - "C:/Qt/6.11.1/mingw_64/bin/"
       - "C:/Qt/Tools/mingw1310_64/bin/"
-      - "C:/Users/leopa/AppData/Local/Microsoft/WindowsApps/"
-      - "C:/Users/leopa/AppData/Local/Programs/Microsoft VS Code/bin/"
-      - "C:/Users/leopa/AppData/Local/JetBrains/Toolbox/scripts/"
+      - "C:/Program Files/Java/jdk-21.0.11/bin/"
+      - "C:/Program Files (x86)/NVIDI/"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/"
     searched_directories:
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/ld.com"
@@ -396,16 +506,39 @@ events:
         - "C:\\Program Files\\Git\\cmd"
         - "C:\\Qt\\6.11.1\\mingw_64\\bin"
         - "C:\\Qt\\Tools\\mingw1310_64\\bin"
-        - "C:\\Users\\leopa\\AppData\\Local\\Microsoft\\WindowsApps"
-        - "C:\\Users\\leopa\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
-        - "C:\\Users\\leopa\\AppData\\Local\\JetBrains\\Toolbox\\scripts"
+        - "C:\\Program Files\\Java\\jdk-21.0.11\\bin"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
+        - "C:\\CST8238-WebDev\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\CST8238-WebDev\\Algonquin-College-Projects\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
+        - "C:\\Program Files\\NVIDIA Corporation\\NVIDIA app\\NvDLISR"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Qt\\6.11.1\\mingw_64\\bin"
+        - "C:\\Qt\\Tools\\mingw1310_64\\bin"
+        - "C:\\Program Files\\Java\\jdk-21.0.11\\bin"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
+        - "C:\\CST8238-WebDev\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\CST8238-WebDev\\Algonquin-College-Projects\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\NVIDI"
         - "C:\\Users\\leopa\\AppData\\Local\\Programs\\CLion\\bin\\ninja\\win\\x64"
   -
     kind: "find-v1"
     backtrace:
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
-      - "CMakeLists.txt:36 (project)"
+      - "CMakeLists.txt:38 (project)"
     mode: "program"
     variable: "CMAKE_NM"
     description: "Path to a program."
@@ -435,9 +568,8 @@ events:
       - "C:/Program Files/Git/cmd/"
       - "C:/Qt/6.11.1/mingw_64/bin/"
       - "C:/Qt/Tools/mingw1310_64/bin/"
-      - "C:/Users/leopa/AppData/Local/Microsoft/WindowsApps/"
-      - "C:/Users/leopa/AppData/Local/Programs/Microsoft VS Code/bin/"
-      - "C:/Users/leopa/AppData/Local/JetBrains/Toolbox/scripts/"
+      - "C:/Program Files/Java/jdk-21.0.11/bin/"
+      - "C:/Program Files (x86)/NVIDI/"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/"
     searched_directories:
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/nm.com"
@@ -459,16 +591,39 @@ events:
         - "C:\\Program Files\\Git\\cmd"
         - "C:\\Qt\\6.11.1\\mingw_64\\bin"
         - "C:\\Qt\\Tools\\mingw1310_64\\bin"
-        - "C:\\Users\\leopa\\AppData\\Local\\Microsoft\\WindowsApps"
-        - "C:\\Users\\leopa\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
-        - "C:\\Users\\leopa\\AppData\\Local\\JetBrains\\Toolbox\\scripts"
+        - "C:\\Program Files\\Java\\jdk-21.0.11\\bin"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
+        - "C:\\CST8238-WebDev\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\CST8238-WebDev\\Algonquin-College-Projects\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
+        - "C:\\Program Files\\NVIDIA Corporation\\NVIDIA app\\NvDLISR"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Qt\\6.11.1\\mingw_64\\bin"
+        - "C:\\Qt\\Tools\\mingw1310_64\\bin"
+        - "C:\\Program Files\\Java\\jdk-21.0.11\\bin"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
+        - "C:\\CST8238-WebDev\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\CST8238-WebDev\\Algonquin-College-Projects\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\NVIDI"
         - "C:\\Users\\leopa\\AppData\\Local\\Programs\\CLion\\bin\\ninja\\win\\x64"
   -
     kind: "find-v1"
     backtrace:
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
-      - "CMakeLists.txt:36 (project)"
+      - "CMakeLists.txt:38 (project)"
     mode: "program"
     variable: "CMAKE_OBJDUMP"
     description: "Path to a program."
@@ -498,9 +653,8 @@ events:
       - "C:/Program Files/Git/cmd/"
       - "C:/Qt/6.11.1/mingw_64/bin/"
       - "C:/Qt/Tools/mingw1310_64/bin/"
-      - "C:/Users/leopa/AppData/Local/Microsoft/WindowsApps/"
-      - "C:/Users/leopa/AppData/Local/Programs/Microsoft VS Code/bin/"
-      - "C:/Users/leopa/AppData/Local/JetBrains/Toolbox/scripts/"
+      - "C:/Program Files/Java/jdk-21.0.11/bin/"
+      - "C:/Program Files (x86)/NVIDI/"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/"
     searched_directories:
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/objdump.com"
@@ -522,16 +676,39 @@ events:
         - "C:\\Program Files\\Git\\cmd"
         - "C:\\Qt\\6.11.1\\mingw_64\\bin"
         - "C:\\Qt\\Tools\\mingw1310_64\\bin"
-        - "C:\\Users\\leopa\\AppData\\Local\\Microsoft\\WindowsApps"
-        - "C:\\Users\\leopa\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
-        - "C:\\Users\\leopa\\AppData\\Local\\JetBrains\\Toolbox\\scripts"
+        - "C:\\Program Files\\Java\\jdk-21.0.11\\bin"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
+        - "C:\\CST8238-WebDev\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\CST8238-WebDev\\Algonquin-College-Projects\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
+        - "C:\\Program Files\\NVIDIA Corporation\\NVIDIA app\\NvDLISR"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Qt\\6.11.1\\mingw_64\\bin"
+        - "C:\\Qt\\Tools\\mingw1310_64\\bin"
+        - "C:\\Program Files\\Java\\jdk-21.0.11\\bin"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
+        - "C:\\CST8238-WebDev\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\CST8238-WebDev\\Algonquin-College-Projects\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\NVIDI"
         - "C:\\Users\\leopa\\AppData\\Local\\Programs\\CLion\\bin\\ninja\\win\\x64"
   -
     kind: "find-v1"
     backtrace:
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
-      - "CMakeLists.txt:36 (project)"
+      - "CMakeLists.txt:38 (project)"
     mode: "program"
     variable: "CMAKE_OBJCOPY"
     description: "Path to a program."
@@ -561,9 +738,8 @@ events:
       - "C:/Program Files/Git/cmd/"
       - "C:/Qt/6.11.1/mingw_64/bin/"
       - "C:/Qt/Tools/mingw1310_64/bin/"
-      - "C:/Users/leopa/AppData/Local/Microsoft/WindowsApps/"
-      - "C:/Users/leopa/AppData/Local/Programs/Microsoft VS Code/bin/"
-      - "C:/Users/leopa/AppData/Local/JetBrains/Toolbox/scripts/"
+      - "C:/Program Files/Java/jdk-21.0.11/bin/"
+      - "C:/Program Files (x86)/NVIDI/"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/"
     searched_directories:
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/objcopy.com"
@@ -585,16 +761,39 @@ events:
         - "C:\\Program Files\\Git\\cmd"
         - "C:\\Qt\\6.11.1\\mingw_64\\bin"
         - "C:\\Qt\\Tools\\mingw1310_64\\bin"
-        - "C:\\Users\\leopa\\AppData\\Local\\Microsoft\\WindowsApps"
-        - "C:\\Users\\leopa\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
-        - "C:\\Users\\leopa\\AppData\\Local\\JetBrains\\Toolbox\\scripts"
+        - "C:\\Program Files\\Java\\jdk-21.0.11\\bin"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
+        - "C:\\CST8238-WebDev\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\CST8238-WebDev\\Algonquin-College-Projects\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
+        - "C:\\Program Files\\NVIDIA Corporation\\NVIDIA app\\NvDLISR"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Qt\\6.11.1\\mingw_64\\bin"
+        - "C:\\Qt\\Tools\\mingw1310_64\\bin"
+        - "C:\\Program Files\\Java\\jdk-21.0.11\\bin"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
+        - "C:\\CST8238-WebDev\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\CST8238-WebDev\\Algonquin-College-Projects\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\NVIDI"
         - "C:\\Users\\leopa\\AppData\\Local\\Programs\\CLion\\bin\\ninja\\win\\x64"
   -
     kind: "find-v1"
     backtrace:
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
-      - "CMakeLists.txt:36 (project)"
+      - "CMakeLists.txt:38 (project)"
     mode: "program"
     variable: "CMAKE_READELF"
     description: "Path to a program."
@@ -624,9 +823,8 @@ events:
       - "C:/Program Files/Git/cmd/"
       - "C:/Qt/6.11.1/mingw_64/bin/"
       - "C:/Qt/Tools/mingw1310_64/bin/"
-      - "C:/Users/leopa/AppData/Local/Microsoft/WindowsApps/"
-      - "C:/Users/leopa/AppData/Local/Programs/Microsoft VS Code/bin/"
-      - "C:/Users/leopa/AppData/Local/JetBrains/Toolbox/scripts/"
+      - "C:/Program Files/Java/jdk-21.0.11/bin/"
+      - "C:/Program Files (x86)/NVIDI/"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/"
     searched_directories:
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/readelf.com"
@@ -648,16 +846,39 @@ events:
         - "C:\\Program Files\\Git\\cmd"
         - "C:\\Qt\\6.11.1\\mingw_64\\bin"
         - "C:\\Qt\\Tools\\mingw1310_64\\bin"
-        - "C:\\Users\\leopa\\AppData\\Local\\Microsoft\\WindowsApps"
-        - "C:\\Users\\leopa\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
-        - "C:\\Users\\leopa\\AppData\\Local\\JetBrains\\Toolbox\\scripts"
+        - "C:\\Program Files\\Java\\jdk-21.0.11\\bin"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
+        - "C:\\CST8238-WebDev\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\CST8238-WebDev\\Algonquin-College-Projects\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
+        - "C:\\Program Files\\NVIDIA Corporation\\NVIDIA app\\NvDLISR"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Qt\\6.11.1\\mingw_64\\bin"
+        - "C:\\Qt\\Tools\\mingw1310_64\\bin"
+        - "C:\\Program Files\\Java\\jdk-21.0.11\\bin"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
+        - "C:\\CST8238-WebDev\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\CST8238-WebDev\\Algonquin-College-Projects\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\NVIDI"
         - "C:\\Users\\leopa\\AppData\\Local\\Programs\\CLion\\bin\\ninja\\win\\x64"
   -
     kind: "find-v1"
     backtrace:
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
-      - "CMakeLists.txt:36 (project)"
+      - "CMakeLists.txt:38 (project)"
     mode: "program"
     variable: "CMAKE_DLLTOOL"
     description: "Path to a program."
@@ -687,9 +908,8 @@ events:
       - "C:/Program Files/Git/cmd/"
       - "C:/Qt/6.11.1/mingw_64/bin/"
       - "C:/Qt/Tools/mingw1310_64/bin/"
-      - "C:/Users/leopa/AppData/Local/Microsoft/WindowsApps/"
-      - "C:/Users/leopa/AppData/Local/Programs/Microsoft VS Code/bin/"
-      - "C:/Users/leopa/AppData/Local/JetBrains/Toolbox/scripts/"
+      - "C:/Program Files/Java/jdk-21.0.11/bin/"
+      - "C:/Program Files (x86)/NVIDI/"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/"
     searched_directories:
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/dlltool.com"
@@ -711,16 +931,39 @@ events:
         - "C:\\Program Files\\Git\\cmd"
         - "C:\\Qt\\6.11.1\\mingw_64\\bin"
         - "C:\\Qt\\Tools\\mingw1310_64\\bin"
-        - "C:\\Users\\leopa\\AppData\\Local\\Microsoft\\WindowsApps"
-        - "C:\\Users\\leopa\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
-        - "C:\\Users\\leopa\\AppData\\Local\\JetBrains\\Toolbox\\scripts"
+        - "C:\\Program Files\\Java\\jdk-21.0.11\\bin"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
+        - "C:\\CST8238-WebDev\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\CST8238-WebDev\\Algonquin-College-Projects\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
+        - "C:\\Program Files\\NVIDIA Corporation\\NVIDIA app\\NvDLISR"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Qt\\6.11.1\\mingw_64\\bin"
+        - "C:\\Qt\\Tools\\mingw1310_64\\bin"
+        - "C:\\Program Files\\Java\\jdk-21.0.11\\bin"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
+        - "C:\\CST8238-WebDev\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\CST8238-WebDev\\Algonquin-College-Projects\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\NVIDI"
         - "C:\\Users\\leopa\\AppData\\Local\\Programs\\CLion\\bin\\ninja\\win\\x64"
   -
     kind: "find-v1"
     backtrace:
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
-      - "CMakeLists.txt:36 (project)"
+      - "CMakeLists.txt:38 (project)"
     mode: "program"
     variable: "CMAKE_ADDR2LINE"
     description: "Path to a program."
@@ -750,9 +993,8 @@ events:
       - "C:/Program Files/Git/cmd/"
       - "C:/Qt/6.11.1/mingw_64/bin/"
       - "C:/Qt/Tools/mingw1310_64/bin/"
-      - "C:/Users/leopa/AppData/Local/Microsoft/WindowsApps/"
-      - "C:/Users/leopa/AppData/Local/Programs/Microsoft VS Code/bin/"
-      - "C:/Users/leopa/AppData/Local/JetBrains/Toolbox/scripts/"
+      - "C:/Program Files/Java/jdk-21.0.11/bin/"
+      - "C:/Program Files (x86)/NVIDI/"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/"
     searched_directories:
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/addr2line.com"
@@ -774,16 +1016,39 @@ events:
         - "C:\\Program Files\\Git\\cmd"
         - "C:\\Qt\\6.11.1\\mingw_64\\bin"
         - "C:\\Qt\\Tools\\mingw1310_64\\bin"
-        - "C:\\Users\\leopa\\AppData\\Local\\Microsoft\\WindowsApps"
-        - "C:\\Users\\leopa\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
-        - "C:\\Users\\leopa\\AppData\\Local\\JetBrains\\Toolbox\\scripts"
+        - "C:\\Program Files\\Java\\jdk-21.0.11\\bin"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
+        - "C:\\CST8238-WebDev\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\CST8238-WebDev\\Algonquin-College-Projects\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
+        - "C:\\Program Files\\NVIDIA Corporation\\NVIDIA app\\NvDLISR"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Qt\\6.11.1\\mingw_64\\bin"
+        - "C:\\Qt\\Tools\\mingw1310_64\\bin"
+        - "C:\\Program Files\\Java\\jdk-21.0.11\\bin"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
+        - "C:\\CST8238-WebDev\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\CST8238-WebDev\\Algonquin-College-Projects\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\NVIDI"
         - "C:\\Users\\leopa\\AppData\\Local\\Programs\\CLion\\bin\\ninja\\win\\x64"
   -
     kind: "find-v1"
     backtrace:
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
-      - "CMakeLists.txt:36 (project)"
+      - "CMakeLists.txt:38 (project)"
     mode: "program"
     variable: "CMAKE_TAPI"
     description: "Path to a program."
@@ -813,9 +1078,8 @@ events:
       - "C:/Program Files/Git/cmd/"
       - "C:/Qt/6.11.1/mingw_64/bin/"
       - "C:/Qt/Tools/mingw1310_64/bin/"
-      - "C:/Users/leopa/AppData/Local/Microsoft/WindowsApps/"
-      - "C:/Users/leopa/AppData/Local/Programs/Microsoft VS Code/bin/"
-      - "C:/Users/leopa/AppData/Local/JetBrains/Toolbox/scripts/"
+      - "C:/Program Files/Java/jdk-21.0.11/bin/"
+      - "C:/Program Files (x86)/NVIDI/"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/"
     searched_directories:
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/tapi.com"
@@ -863,15 +1127,12 @@ events:
       - "C:/Qt/Tools/mingw1310_64/bin/tapi.com"
       - "C:/Qt/Tools/mingw1310_64/bin/tapi.exe"
       - "C:/Qt/Tools/mingw1310_64/bin/tapi"
-      - "C:/Users/leopa/AppData/Local/Microsoft/WindowsApps/tapi.com"
-      - "C:/Users/leopa/AppData/Local/Microsoft/WindowsApps/tapi.exe"
-      - "C:/Users/leopa/AppData/Local/Microsoft/WindowsApps/tapi"
-      - "C:/Users/leopa/AppData/Local/Programs/Microsoft VS Code/bin/tapi.com"
-      - "C:/Users/leopa/AppData/Local/Programs/Microsoft VS Code/bin/tapi.exe"
-      - "C:/Users/leopa/AppData/Local/Programs/Microsoft VS Code/bin/tapi"
-      - "C:/Users/leopa/AppData/Local/JetBrains/Toolbox/scripts/tapi.com"
-      - "C:/Users/leopa/AppData/Local/JetBrains/Toolbox/scripts/tapi.exe"
-      - "C:/Users/leopa/AppData/Local/JetBrains/Toolbox/scripts/tapi"
+      - "C:/Program Files/Java/jdk-21.0.11/bin/tapi.com"
+      - "C:/Program Files/Java/jdk-21.0.11/bin/tapi.exe"
+      - "C:/Program Files/Java/jdk-21.0.11/bin/tapi"
+      - "C:/Program Files (x86)/NVIDI/tapi.com"
+      - "C:/Program Files (x86)/NVIDI/tapi.exe"
+      - "C:/Program Files (x86)/NVIDI/tapi"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/tapi.com"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/tapi.exe"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/tapi"
@@ -893,16 +1154,39 @@ events:
         - "C:\\Program Files\\Git\\cmd"
         - "C:\\Qt\\6.11.1\\mingw_64\\bin"
         - "C:\\Qt\\Tools\\mingw1310_64\\bin"
-        - "C:\\Users\\leopa\\AppData\\Local\\Microsoft\\WindowsApps"
-        - "C:\\Users\\leopa\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
-        - "C:\\Users\\leopa\\AppData\\Local\\JetBrains\\Toolbox\\scripts"
+        - "C:\\Program Files\\Java\\jdk-21.0.11\\bin"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
+        - "C:\\CST8238-WebDev\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\CST8238-WebDev\\Algonquin-College-Projects\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
+        - "C:\\Program Files\\NVIDIA Corporation\\NVIDIA app\\NvDLISR"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Qt\\6.11.1\\mingw_64\\bin"
+        - "C:\\Qt\\Tools\\mingw1310_64\\bin"
+        - "C:\\Program Files\\Java\\jdk-21.0.11\\bin"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
+        - "C:\\CST8238-WebDev\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\CST8238-WebDev\\Algonquin-College-Projects\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\NVIDI"
         - "C:\\Users\\leopa\\AppData\\Local\\Programs\\CLion\\bin\\ninja\\win\\x64"
   -
     kind: "find-v1"
     backtrace:
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/Compiler/GNU-FindBinUtils.cmake:18 (find_program)"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:201 (include)"
-      - "CMakeLists.txt:36 (project)"
+      - "CMakeLists.txt:38 (project)"
     mode: "program"
     variable: "CMAKE_C_COMPILER_AR"
     description: "A wrapper around 'ar' adding the appropriate '--plugin' option for the GCC compiler"
@@ -935,9 +1219,8 @@ events:
       - "C:/Program Files/Git/cmd/"
       - "C:/Qt/6.11.1/mingw_64/bin/"
       - "C:/Qt/Tools/mingw1310_64/bin/"
-      - "C:/Users/leopa/AppData/Local/Microsoft/WindowsApps/"
-      - "C:/Users/leopa/AppData/Local/Programs/Microsoft VS Code/bin/"
-      - "C:/Users/leopa/AppData/Local/JetBrains/Toolbox/scripts/"
+      - "C:/Program Files/Java/jdk-21.0.11/bin/"
+      - "C:/Program Files (x86)/NVIDI/"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/"
     searched_directories:
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/gcc-ar-13.1.com"
@@ -985,15 +1268,12 @@ events:
       - "C:/Qt/Tools/mingw1310_64/bin/gcc-ar-13.1.com"
       - "C:/Qt/Tools/mingw1310_64/bin/gcc-ar-13.1.exe"
       - "C:/Qt/Tools/mingw1310_64/bin/gcc-ar-13.1"
-      - "C:/Users/leopa/AppData/Local/Microsoft/WindowsApps/gcc-ar-13.1.com"
-      - "C:/Users/leopa/AppData/Local/Microsoft/WindowsApps/gcc-ar-13.1.exe"
-      - "C:/Users/leopa/AppData/Local/Microsoft/WindowsApps/gcc-ar-13.1"
-      - "C:/Users/leopa/AppData/Local/Programs/Microsoft VS Code/bin/gcc-ar-13.1.com"
-      - "C:/Users/leopa/AppData/Local/Programs/Microsoft VS Code/bin/gcc-ar-13.1.exe"
-      - "C:/Users/leopa/AppData/Local/Programs/Microsoft VS Code/bin/gcc-ar-13.1"
-      - "C:/Users/leopa/AppData/Local/JetBrains/Toolbox/scripts/gcc-ar-13.1.com"
-      - "C:/Users/leopa/AppData/Local/JetBrains/Toolbox/scripts/gcc-ar-13.1.exe"
-      - "C:/Users/leopa/AppData/Local/JetBrains/Toolbox/scripts/gcc-ar-13.1"
+      - "C:/Program Files/Java/jdk-21.0.11/bin/gcc-ar-13.1.com"
+      - "C:/Program Files/Java/jdk-21.0.11/bin/gcc-ar-13.1.exe"
+      - "C:/Program Files/Java/jdk-21.0.11/bin/gcc-ar-13.1"
+      - "C:/Program Files (x86)/NVIDI/gcc-ar-13.1.com"
+      - "C:/Program Files (x86)/NVIDI/gcc-ar-13.1.exe"
+      - "C:/Program Files (x86)/NVIDI/gcc-ar-13.1"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/gcc-ar-13.1.com"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/gcc-ar-13.1.exe"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/gcc-ar-13.1"
@@ -1042,15 +1322,12 @@ events:
       - "C:/Qt/Tools/mingw1310_64/bin/gcc-ar-13.com"
       - "C:/Qt/Tools/mingw1310_64/bin/gcc-ar-13.exe"
       - "C:/Qt/Tools/mingw1310_64/bin/gcc-ar-13"
-      - "C:/Users/leopa/AppData/Local/Microsoft/WindowsApps/gcc-ar-13.com"
-      - "C:/Users/leopa/AppData/Local/Microsoft/WindowsApps/gcc-ar-13.exe"
-      - "C:/Users/leopa/AppData/Local/Microsoft/WindowsApps/gcc-ar-13"
-      - "C:/Users/leopa/AppData/Local/Programs/Microsoft VS Code/bin/gcc-ar-13.com"
-      - "C:/Users/leopa/AppData/Local/Programs/Microsoft VS Code/bin/gcc-ar-13.exe"
-      - "C:/Users/leopa/AppData/Local/Programs/Microsoft VS Code/bin/gcc-ar-13"
-      - "C:/Users/leopa/AppData/Local/JetBrains/Toolbox/scripts/gcc-ar-13.com"
-      - "C:/Users/leopa/AppData/Local/JetBrains/Toolbox/scripts/gcc-ar-13.exe"
-      - "C:/Users/leopa/AppData/Local/JetBrains/Toolbox/scripts/gcc-ar-13"
+      - "C:/Program Files/Java/jdk-21.0.11/bin/gcc-ar-13.com"
+      - "C:/Program Files/Java/jdk-21.0.11/bin/gcc-ar-13.exe"
+      - "C:/Program Files/Java/jdk-21.0.11/bin/gcc-ar-13"
+      - "C:/Program Files (x86)/NVIDI/gcc-ar-13.com"
+      - "C:/Program Files (x86)/NVIDI/gcc-ar-13.exe"
+      - "C:/Program Files (x86)/NVIDI/gcc-ar-13"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/gcc-ar-13.com"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/gcc-ar-13.exe"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/gcc-ar-13"
@@ -1099,15 +1376,12 @@ events:
       - "C:/Qt/Tools/mingw1310_64/bin/gcc-ar13.com"
       - "C:/Qt/Tools/mingw1310_64/bin/gcc-ar13.exe"
       - "C:/Qt/Tools/mingw1310_64/bin/gcc-ar13"
-      - "C:/Users/leopa/AppData/Local/Microsoft/WindowsApps/gcc-ar13.com"
-      - "C:/Users/leopa/AppData/Local/Microsoft/WindowsApps/gcc-ar13.exe"
-      - "C:/Users/leopa/AppData/Local/Microsoft/WindowsApps/gcc-ar13"
-      - "C:/Users/leopa/AppData/Local/Programs/Microsoft VS Code/bin/gcc-ar13.com"
-      - "C:/Users/leopa/AppData/Local/Programs/Microsoft VS Code/bin/gcc-ar13.exe"
-      - "C:/Users/leopa/AppData/Local/Programs/Microsoft VS Code/bin/gcc-ar13"
-      - "C:/Users/leopa/AppData/Local/JetBrains/Toolbox/scripts/gcc-ar13.com"
-      - "C:/Users/leopa/AppData/Local/JetBrains/Toolbox/scripts/gcc-ar13.exe"
-      - "C:/Users/leopa/AppData/Local/JetBrains/Toolbox/scripts/gcc-ar13"
+      - "C:/Program Files/Java/jdk-21.0.11/bin/gcc-ar13.com"
+      - "C:/Program Files/Java/jdk-21.0.11/bin/gcc-ar13.exe"
+      - "C:/Program Files/Java/jdk-21.0.11/bin/gcc-ar13"
+      - "C:/Program Files (x86)/NVIDI/gcc-ar13.com"
+      - "C:/Program Files (x86)/NVIDI/gcc-ar13.exe"
+      - "C:/Program Files (x86)/NVIDI/gcc-ar13"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/gcc-ar13.com"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/gcc-ar13.exe"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/gcc-ar13"
@@ -1130,16 +1404,39 @@ events:
         - "C:\\Program Files\\Git\\cmd"
         - "C:\\Qt\\6.11.1\\mingw_64\\bin"
         - "C:\\Qt\\Tools\\mingw1310_64\\bin"
-        - "C:\\Users\\leopa\\AppData\\Local\\Microsoft\\WindowsApps"
-        - "C:\\Users\\leopa\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
-        - "C:\\Users\\leopa\\AppData\\Local\\JetBrains\\Toolbox\\scripts"
+        - "C:\\Program Files\\Java\\jdk-21.0.11\\bin"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
+        - "C:\\CST8238-WebDev\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\CST8238-WebDev\\Algonquin-College-Projects\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
+        - "C:\\Program Files\\NVIDIA Corporation\\NVIDIA app\\NvDLISR"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Qt\\6.11.1\\mingw_64\\bin"
+        - "C:\\Qt\\Tools\\mingw1310_64\\bin"
+        - "C:\\Program Files\\Java\\jdk-21.0.11\\bin"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
+        - "C:\\CST8238-WebDev\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\CST8238-WebDev\\Algonquin-College-Projects\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\NVIDI"
         - "C:\\Users\\leopa\\AppData\\Local\\Programs\\CLion\\bin\\ninja\\win\\x64"
   -
     kind: "find-v1"
     backtrace:
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/Compiler/GNU-FindBinUtils.cmake:30 (find_program)"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:201 (include)"
-      - "CMakeLists.txt:36 (project)"
+      - "CMakeLists.txt:38 (project)"
     mode: "program"
     variable: "CMAKE_C_COMPILER_RANLIB"
     description: "A wrapper around 'ranlib' adding the appropriate '--plugin' option for the GCC compiler"
@@ -1172,9 +1469,8 @@ events:
       - "C:/Program Files/Git/cmd/"
       - "C:/Qt/6.11.1/mingw_64/bin/"
       - "C:/Qt/Tools/mingw1310_64/bin/"
-      - "C:/Users/leopa/AppData/Local/Microsoft/WindowsApps/"
-      - "C:/Users/leopa/AppData/Local/Programs/Microsoft VS Code/bin/"
-      - "C:/Users/leopa/AppData/Local/JetBrains/Toolbox/scripts/"
+      - "C:/Program Files/Java/jdk-21.0.11/bin/"
+      - "C:/Program Files (x86)/NVIDI/"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/"
     searched_directories:
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/gcc-ranlib-13.1.com"
@@ -1222,15 +1518,12 @@ events:
       - "C:/Qt/Tools/mingw1310_64/bin/gcc-ranlib-13.1.com"
       - "C:/Qt/Tools/mingw1310_64/bin/gcc-ranlib-13.1.exe"
       - "C:/Qt/Tools/mingw1310_64/bin/gcc-ranlib-13.1"
-      - "C:/Users/leopa/AppData/Local/Microsoft/WindowsApps/gcc-ranlib-13.1.com"
-      - "C:/Users/leopa/AppData/Local/Microsoft/WindowsApps/gcc-ranlib-13.1.exe"
-      - "C:/Users/leopa/AppData/Local/Microsoft/WindowsApps/gcc-ranlib-13.1"
-      - "C:/Users/leopa/AppData/Local/Programs/Microsoft VS Code/bin/gcc-ranlib-13.1.com"
-      - "C:/Users/leopa/AppData/Local/Programs/Microsoft VS Code/bin/gcc-ranlib-13.1.exe"
-      - "C:/Users/leopa/AppData/Local/Programs/Microsoft VS Code/bin/gcc-ranlib-13.1"
-      - "C:/Users/leopa/AppData/Local/JetBrains/Toolbox/scripts/gcc-ranlib-13.1.com"
-      - "C:/Users/leopa/AppData/Local/JetBrains/Toolbox/scripts/gcc-ranlib-13.1.exe"
-      - "C:/Users/leopa/AppData/Local/JetBrains/Toolbox/scripts/gcc-ranlib-13.1"
+      - "C:/Program Files/Java/jdk-21.0.11/bin/gcc-ranlib-13.1.com"
+      - "C:/Program Files/Java/jdk-21.0.11/bin/gcc-ranlib-13.1.exe"
+      - "C:/Program Files/Java/jdk-21.0.11/bin/gcc-ranlib-13.1"
+      - "C:/Program Files (x86)/NVIDI/gcc-ranlib-13.1.com"
+      - "C:/Program Files (x86)/NVIDI/gcc-ranlib-13.1.exe"
+      - "C:/Program Files (x86)/NVIDI/gcc-ranlib-13.1"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/gcc-ranlib-13.1.com"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/gcc-ranlib-13.1.exe"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/gcc-ranlib-13.1"
@@ -1279,15 +1572,12 @@ events:
       - "C:/Qt/Tools/mingw1310_64/bin/gcc-ranlib-13.com"
       - "C:/Qt/Tools/mingw1310_64/bin/gcc-ranlib-13.exe"
       - "C:/Qt/Tools/mingw1310_64/bin/gcc-ranlib-13"
-      - "C:/Users/leopa/AppData/Local/Microsoft/WindowsApps/gcc-ranlib-13.com"
-      - "C:/Users/leopa/AppData/Local/Microsoft/WindowsApps/gcc-ranlib-13.exe"
-      - "C:/Users/leopa/AppData/Local/Microsoft/WindowsApps/gcc-ranlib-13"
-      - "C:/Users/leopa/AppData/Local/Programs/Microsoft VS Code/bin/gcc-ranlib-13.com"
-      - "C:/Users/leopa/AppData/Local/Programs/Microsoft VS Code/bin/gcc-ranlib-13.exe"
-      - "C:/Users/leopa/AppData/Local/Programs/Microsoft VS Code/bin/gcc-ranlib-13"
-      - "C:/Users/leopa/AppData/Local/JetBrains/Toolbox/scripts/gcc-ranlib-13.com"
-      - "C:/Users/leopa/AppData/Local/JetBrains/Toolbox/scripts/gcc-ranlib-13.exe"
-      - "C:/Users/leopa/AppData/Local/JetBrains/Toolbox/scripts/gcc-ranlib-13"
+      - "C:/Program Files/Java/jdk-21.0.11/bin/gcc-ranlib-13.com"
+      - "C:/Program Files/Java/jdk-21.0.11/bin/gcc-ranlib-13.exe"
+      - "C:/Program Files/Java/jdk-21.0.11/bin/gcc-ranlib-13"
+      - "C:/Program Files (x86)/NVIDI/gcc-ranlib-13.com"
+      - "C:/Program Files (x86)/NVIDI/gcc-ranlib-13.exe"
+      - "C:/Program Files (x86)/NVIDI/gcc-ranlib-13"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/gcc-ranlib-13.com"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/gcc-ranlib-13.exe"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/gcc-ranlib-13"
@@ -1336,15 +1626,12 @@ events:
       - "C:/Qt/Tools/mingw1310_64/bin/gcc-ranlib13.com"
       - "C:/Qt/Tools/mingw1310_64/bin/gcc-ranlib13.exe"
       - "C:/Qt/Tools/mingw1310_64/bin/gcc-ranlib13"
-      - "C:/Users/leopa/AppData/Local/Microsoft/WindowsApps/gcc-ranlib13.com"
-      - "C:/Users/leopa/AppData/Local/Microsoft/WindowsApps/gcc-ranlib13.exe"
-      - "C:/Users/leopa/AppData/Local/Microsoft/WindowsApps/gcc-ranlib13"
-      - "C:/Users/leopa/AppData/Local/Programs/Microsoft VS Code/bin/gcc-ranlib13.com"
-      - "C:/Users/leopa/AppData/Local/Programs/Microsoft VS Code/bin/gcc-ranlib13.exe"
-      - "C:/Users/leopa/AppData/Local/Programs/Microsoft VS Code/bin/gcc-ranlib13"
-      - "C:/Users/leopa/AppData/Local/JetBrains/Toolbox/scripts/gcc-ranlib13.com"
-      - "C:/Users/leopa/AppData/Local/JetBrains/Toolbox/scripts/gcc-ranlib13.exe"
-      - "C:/Users/leopa/AppData/Local/JetBrains/Toolbox/scripts/gcc-ranlib13"
+      - "C:/Program Files/Java/jdk-21.0.11/bin/gcc-ranlib13.com"
+      - "C:/Program Files/Java/jdk-21.0.11/bin/gcc-ranlib13.exe"
+      - "C:/Program Files/Java/jdk-21.0.11/bin/gcc-ranlib13"
+      - "C:/Program Files (x86)/NVIDI/gcc-ranlib13.com"
+      - "C:/Program Files (x86)/NVIDI/gcc-ranlib13.exe"
+      - "C:/Program Files (x86)/NVIDI/gcc-ranlib13"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/gcc-ranlib13.com"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/gcc-ranlib13.exe"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/gcc-ranlib13"
@@ -1367,9 +1654,32 @@ events:
         - "C:\\Program Files\\Git\\cmd"
         - "C:\\Qt\\6.11.1\\mingw_64\\bin"
         - "C:\\Qt\\Tools\\mingw1310_64\\bin"
-        - "C:\\Users\\leopa\\AppData\\Local\\Microsoft\\WindowsApps"
-        - "C:\\Users\\leopa\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
-        - "C:\\Users\\leopa\\AppData\\Local\\JetBrains\\Toolbox\\scripts"
+        - "C:\\Program Files\\Java\\jdk-21.0.11\\bin"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
+        - "C:\\CST8238-WebDev\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\CST8238-WebDev\\Algonquin-College-Projects\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
+        - "C:\\Program Files\\NVIDIA Corporation\\NVIDIA app\\NvDLISR"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Qt\\6.11.1\\mingw_64\\bin"
+        - "C:\\Qt\\Tools\\mingw1310_64\\bin"
+        - "C:\\Program Files\\Java\\jdk-21.0.11\\bin"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
+        - "C:\\CST8238-WebDev\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\CST8238-WebDev\\Algonquin-College-Projects\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\NVIDI"
         - "C:\\Users\\leopa\\AppData\\Local\\Programs\\CLion\\bin\\ninja\\win\\x64"
   -
     kind: "find-v1"
@@ -1379,7 +1689,7 @@ events:
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:8 (CMAKE_DETERMINE_COMPILER_ID_BUILD)"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeDetermineCXXCompiler.cmake:125 (CMAKE_DETERMINE_COMPILER_ID)"
-      - "CMakeLists.txt:36 (project)"
+      - "CMakeLists.txt:38 (project)"
     mode: "file"
     variable: "src_in"
     description: "Path to a file."
@@ -1413,9 +1723,32 @@ events:
         - "C:\\Program Files\\Git\\cmd"
         - "C:\\Qt\\6.11.1\\mingw_64\\bin"
         - "C:\\Qt\\Tools\\mingw1310_64\\bin"
-        - "C:\\Users\\leopa\\AppData\\Local\\Microsoft\\WindowsApps"
-        - "C:\\Users\\leopa\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
-        - "C:\\Users\\leopa\\AppData\\Local\\JetBrains\\Toolbox\\scripts"
+        - "C:\\Program Files\\Java\\jdk-21.0.11\\bin"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
+        - "C:\\CST8238-WebDev\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\CST8238-WebDev\\Algonquin-College-Projects\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
+        - "C:\\Program Files\\NVIDIA Corporation\\NVIDIA app\\NvDLISR"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Qt\\6.11.1\\mingw_64\\bin"
+        - "C:\\Qt\\Tools\\mingw1310_64\\bin"
+        - "C:\\Program Files\\Java\\jdk-21.0.11\\bin"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
+        - "C:\\CST8238-WebDev\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\CST8238-WebDev\\Algonquin-College-Projects\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\NVIDI"
         - "C:\\Users\\leopa\\AppData\\Local\\Programs\\CLion\\bin\\ninja\\win\\x64"
   -
     kind: "message-v1"
@@ -1423,7 +1756,7 @@ events:
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeDetermineCXXCompiler.cmake:125 (CMAKE_DETERMINE_COMPILER_ID)"
-      - "CMakeLists.txt:36 (project)"
+      - "CMakeLists.txt:38 (project)"
     message: |
       Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
       Compiler: C:/Qt/Tools/mingw1310_64/bin/g++.exe 
@@ -1437,14 +1770,14 @@ events:
       Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.exe"
       
       The CXX compiler identification is GNU, found in:
-        C:/FrogCompiler/a1files/code/cmake-build-debug/CMakeFiles/4.2.2/CompilerIdCXX/a.exe
+        C:/FrogCompiler/code/cmake-build-debug/CMakeFiles/4.2.2/CompilerIdCXX/a.exe
       
   -
     kind: "find-v1"
     backtrace:
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/Compiler/GNU-FindBinUtils.cmake:18 (find_program)"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeDetermineCXXCompiler.cmake:207 (include)"
-      - "CMakeLists.txt:36 (project)"
+      - "CMakeLists.txt:38 (project)"
     mode: "program"
     variable: "CMAKE_CXX_COMPILER_AR"
     description: "A wrapper around 'ar' adding the appropriate '--plugin' option for the GCC compiler"
@@ -1477,9 +1810,8 @@ events:
       - "C:/Program Files/NVIDIA Corporation/NVIDIA app/NvDLISR/"
       - "C:/Program Files/Git/cmd/"
       - "C:/Qt/6.11.1/mingw_64/bin/"
-      - "C:/Users/leopa/AppData/Local/Microsoft/WindowsApps/"
-      - "C:/Users/leopa/AppData/Local/Programs/Microsoft VS Code/bin/"
-      - "C:/Users/leopa/AppData/Local/JetBrains/Toolbox/scripts/"
+      - "C:/Program Files/Java/jdk-21.0.11/bin/"
+      - "C:/Program Files (x86)/NVIDI/"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/"
     searched_directories:
       - "C:/Qt/Tools/mingw1310_64/bin/gcc-ar-13.1.com"
@@ -1527,15 +1859,12 @@ events:
       - "C:/Qt/6.11.1/mingw_64/bin/gcc-ar-13.1.com"
       - "C:/Qt/6.11.1/mingw_64/bin/gcc-ar-13.1.exe"
       - "C:/Qt/6.11.1/mingw_64/bin/gcc-ar-13.1"
-      - "C:/Users/leopa/AppData/Local/Microsoft/WindowsApps/gcc-ar-13.1.com"
-      - "C:/Users/leopa/AppData/Local/Microsoft/WindowsApps/gcc-ar-13.1.exe"
-      - "C:/Users/leopa/AppData/Local/Microsoft/WindowsApps/gcc-ar-13.1"
-      - "C:/Users/leopa/AppData/Local/Programs/Microsoft VS Code/bin/gcc-ar-13.1.com"
-      - "C:/Users/leopa/AppData/Local/Programs/Microsoft VS Code/bin/gcc-ar-13.1.exe"
-      - "C:/Users/leopa/AppData/Local/Programs/Microsoft VS Code/bin/gcc-ar-13.1"
-      - "C:/Users/leopa/AppData/Local/JetBrains/Toolbox/scripts/gcc-ar-13.1.com"
-      - "C:/Users/leopa/AppData/Local/JetBrains/Toolbox/scripts/gcc-ar-13.1.exe"
-      - "C:/Users/leopa/AppData/Local/JetBrains/Toolbox/scripts/gcc-ar-13.1"
+      - "C:/Program Files/Java/jdk-21.0.11/bin/gcc-ar-13.1.com"
+      - "C:/Program Files/Java/jdk-21.0.11/bin/gcc-ar-13.1.exe"
+      - "C:/Program Files/Java/jdk-21.0.11/bin/gcc-ar-13.1"
+      - "C:/Program Files (x86)/NVIDI/gcc-ar-13.1.com"
+      - "C:/Program Files (x86)/NVIDI/gcc-ar-13.1.exe"
+      - "C:/Program Files (x86)/NVIDI/gcc-ar-13.1"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/gcc-ar-13.1.com"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/gcc-ar-13.1.exe"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/gcc-ar-13.1"
@@ -1584,15 +1913,12 @@ events:
       - "C:/Qt/6.11.1/mingw_64/bin/gcc-ar-13.com"
       - "C:/Qt/6.11.1/mingw_64/bin/gcc-ar-13.exe"
       - "C:/Qt/6.11.1/mingw_64/bin/gcc-ar-13"
-      - "C:/Users/leopa/AppData/Local/Microsoft/WindowsApps/gcc-ar-13.com"
-      - "C:/Users/leopa/AppData/Local/Microsoft/WindowsApps/gcc-ar-13.exe"
-      - "C:/Users/leopa/AppData/Local/Microsoft/WindowsApps/gcc-ar-13"
-      - "C:/Users/leopa/AppData/Local/Programs/Microsoft VS Code/bin/gcc-ar-13.com"
-      - "C:/Users/leopa/AppData/Local/Programs/Microsoft VS Code/bin/gcc-ar-13.exe"
-      - "C:/Users/leopa/AppData/Local/Programs/Microsoft VS Code/bin/gcc-ar-13"
-      - "C:/Users/leopa/AppData/Local/JetBrains/Toolbox/scripts/gcc-ar-13.com"
-      - "C:/Users/leopa/AppData/Local/JetBrains/Toolbox/scripts/gcc-ar-13.exe"
-      - "C:/Users/leopa/AppData/Local/JetBrains/Toolbox/scripts/gcc-ar-13"
+      - "C:/Program Files/Java/jdk-21.0.11/bin/gcc-ar-13.com"
+      - "C:/Program Files/Java/jdk-21.0.11/bin/gcc-ar-13.exe"
+      - "C:/Program Files/Java/jdk-21.0.11/bin/gcc-ar-13"
+      - "C:/Program Files (x86)/NVIDI/gcc-ar-13.com"
+      - "C:/Program Files (x86)/NVIDI/gcc-ar-13.exe"
+      - "C:/Program Files (x86)/NVIDI/gcc-ar-13"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/gcc-ar-13.com"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/gcc-ar-13.exe"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/gcc-ar-13"
@@ -1641,15 +1967,12 @@ events:
       - "C:/Qt/6.11.1/mingw_64/bin/gcc-ar13.com"
       - "C:/Qt/6.11.1/mingw_64/bin/gcc-ar13.exe"
       - "C:/Qt/6.11.1/mingw_64/bin/gcc-ar13"
-      - "C:/Users/leopa/AppData/Local/Microsoft/WindowsApps/gcc-ar13.com"
-      - "C:/Users/leopa/AppData/Local/Microsoft/WindowsApps/gcc-ar13.exe"
-      - "C:/Users/leopa/AppData/Local/Microsoft/WindowsApps/gcc-ar13"
-      - "C:/Users/leopa/AppData/Local/Programs/Microsoft VS Code/bin/gcc-ar13.com"
-      - "C:/Users/leopa/AppData/Local/Programs/Microsoft VS Code/bin/gcc-ar13.exe"
-      - "C:/Users/leopa/AppData/Local/Programs/Microsoft VS Code/bin/gcc-ar13"
-      - "C:/Users/leopa/AppData/Local/JetBrains/Toolbox/scripts/gcc-ar13.com"
-      - "C:/Users/leopa/AppData/Local/JetBrains/Toolbox/scripts/gcc-ar13.exe"
-      - "C:/Users/leopa/AppData/Local/JetBrains/Toolbox/scripts/gcc-ar13"
+      - "C:/Program Files/Java/jdk-21.0.11/bin/gcc-ar13.com"
+      - "C:/Program Files/Java/jdk-21.0.11/bin/gcc-ar13.exe"
+      - "C:/Program Files/Java/jdk-21.0.11/bin/gcc-ar13"
+      - "C:/Program Files (x86)/NVIDI/gcc-ar13.com"
+      - "C:/Program Files (x86)/NVIDI/gcc-ar13.exe"
+      - "C:/Program Files (x86)/NVIDI/gcc-ar13"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/gcc-ar13.com"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/gcc-ar13.exe"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/gcc-ar13"
@@ -1672,16 +1995,39 @@ events:
         - "C:\\Program Files\\Git\\cmd"
         - "C:\\Qt\\6.11.1\\mingw_64\\bin"
         - "C:\\Qt\\Tools\\mingw1310_64\\bin"
-        - "C:\\Users\\leopa\\AppData\\Local\\Microsoft\\WindowsApps"
-        - "C:\\Users\\leopa\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
-        - "C:\\Users\\leopa\\AppData\\Local\\JetBrains\\Toolbox\\scripts"
+        - "C:\\Program Files\\Java\\jdk-21.0.11\\bin"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
+        - "C:\\CST8238-WebDev\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\CST8238-WebDev\\Algonquin-College-Projects\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
+        - "C:\\Program Files\\NVIDIA Corporation\\NVIDIA app\\NvDLISR"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Qt\\6.11.1\\mingw_64\\bin"
+        - "C:\\Qt\\Tools\\mingw1310_64\\bin"
+        - "C:\\Program Files\\Java\\jdk-21.0.11\\bin"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
+        - "C:\\CST8238-WebDev\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\CST8238-WebDev\\Algonquin-College-Projects\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\NVIDI"
         - "C:\\Users\\leopa\\AppData\\Local\\Programs\\CLion\\bin\\ninja\\win\\x64"
   -
     kind: "find-v1"
     backtrace:
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/Compiler/GNU-FindBinUtils.cmake:30 (find_program)"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeDetermineCXXCompiler.cmake:207 (include)"
-      - "CMakeLists.txt:36 (project)"
+      - "CMakeLists.txt:38 (project)"
     mode: "program"
     variable: "CMAKE_CXX_COMPILER_RANLIB"
     description: "A wrapper around 'ranlib' adding the appropriate '--plugin' option for the GCC compiler"
@@ -1714,9 +2060,8 @@ events:
       - "C:/Program Files/NVIDIA Corporation/NVIDIA app/NvDLISR/"
       - "C:/Program Files/Git/cmd/"
       - "C:/Qt/6.11.1/mingw_64/bin/"
-      - "C:/Users/leopa/AppData/Local/Microsoft/WindowsApps/"
-      - "C:/Users/leopa/AppData/Local/Programs/Microsoft VS Code/bin/"
-      - "C:/Users/leopa/AppData/Local/JetBrains/Toolbox/scripts/"
+      - "C:/Program Files/Java/jdk-21.0.11/bin/"
+      - "C:/Program Files (x86)/NVIDI/"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/"
     searched_directories:
       - "C:/Qt/Tools/mingw1310_64/bin/gcc-ranlib-13.1.com"
@@ -1764,15 +2109,12 @@ events:
       - "C:/Qt/6.11.1/mingw_64/bin/gcc-ranlib-13.1.com"
       - "C:/Qt/6.11.1/mingw_64/bin/gcc-ranlib-13.1.exe"
       - "C:/Qt/6.11.1/mingw_64/bin/gcc-ranlib-13.1"
-      - "C:/Users/leopa/AppData/Local/Microsoft/WindowsApps/gcc-ranlib-13.1.com"
-      - "C:/Users/leopa/AppData/Local/Microsoft/WindowsApps/gcc-ranlib-13.1.exe"
-      - "C:/Users/leopa/AppData/Local/Microsoft/WindowsApps/gcc-ranlib-13.1"
-      - "C:/Users/leopa/AppData/Local/Programs/Microsoft VS Code/bin/gcc-ranlib-13.1.com"
-      - "C:/Users/leopa/AppData/Local/Programs/Microsoft VS Code/bin/gcc-ranlib-13.1.exe"
-      - "C:/Users/leopa/AppData/Local/Programs/Microsoft VS Code/bin/gcc-ranlib-13.1"
-      - "C:/Users/leopa/AppData/Local/JetBrains/Toolbox/scripts/gcc-ranlib-13.1.com"
-      - "C:/Users/leopa/AppData/Local/JetBrains/Toolbox/scripts/gcc-ranlib-13.1.exe"
-      - "C:/Users/leopa/AppData/Local/JetBrains/Toolbox/scripts/gcc-ranlib-13.1"
+      - "C:/Program Files/Java/jdk-21.0.11/bin/gcc-ranlib-13.1.com"
+      - "C:/Program Files/Java/jdk-21.0.11/bin/gcc-ranlib-13.1.exe"
+      - "C:/Program Files/Java/jdk-21.0.11/bin/gcc-ranlib-13.1"
+      - "C:/Program Files (x86)/NVIDI/gcc-ranlib-13.1.com"
+      - "C:/Program Files (x86)/NVIDI/gcc-ranlib-13.1.exe"
+      - "C:/Program Files (x86)/NVIDI/gcc-ranlib-13.1"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/gcc-ranlib-13.1.com"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/gcc-ranlib-13.1.exe"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/gcc-ranlib-13.1"
@@ -1821,15 +2163,12 @@ events:
       - "C:/Qt/6.11.1/mingw_64/bin/gcc-ranlib-13.com"
       - "C:/Qt/6.11.1/mingw_64/bin/gcc-ranlib-13.exe"
       - "C:/Qt/6.11.1/mingw_64/bin/gcc-ranlib-13"
-      - "C:/Users/leopa/AppData/Local/Microsoft/WindowsApps/gcc-ranlib-13.com"
-      - "C:/Users/leopa/AppData/Local/Microsoft/WindowsApps/gcc-ranlib-13.exe"
-      - "C:/Users/leopa/AppData/Local/Microsoft/WindowsApps/gcc-ranlib-13"
-      - "C:/Users/leopa/AppData/Local/Programs/Microsoft VS Code/bin/gcc-ranlib-13.com"
-      - "C:/Users/leopa/AppData/Local/Programs/Microsoft VS Code/bin/gcc-ranlib-13.exe"
-      - "C:/Users/leopa/AppData/Local/Programs/Microsoft VS Code/bin/gcc-ranlib-13"
-      - "C:/Users/leopa/AppData/Local/JetBrains/Toolbox/scripts/gcc-ranlib-13.com"
-      - "C:/Users/leopa/AppData/Local/JetBrains/Toolbox/scripts/gcc-ranlib-13.exe"
-      - "C:/Users/leopa/AppData/Local/JetBrains/Toolbox/scripts/gcc-ranlib-13"
+      - "C:/Program Files/Java/jdk-21.0.11/bin/gcc-ranlib-13.com"
+      - "C:/Program Files/Java/jdk-21.0.11/bin/gcc-ranlib-13.exe"
+      - "C:/Program Files/Java/jdk-21.0.11/bin/gcc-ranlib-13"
+      - "C:/Program Files (x86)/NVIDI/gcc-ranlib-13.com"
+      - "C:/Program Files (x86)/NVIDI/gcc-ranlib-13.exe"
+      - "C:/Program Files (x86)/NVIDI/gcc-ranlib-13"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/gcc-ranlib-13.com"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/gcc-ranlib-13.exe"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/gcc-ranlib-13"
@@ -1878,15 +2217,12 @@ events:
       - "C:/Qt/6.11.1/mingw_64/bin/gcc-ranlib13.com"
       - "C:/Qt/6.11.1/mingw_64/bin/gcc-ranlib13.exe"
       - "C:/Qt/6.11.1/mingw_64/bin/gcc-ranlib13"
-      - "C:/Users/leopa/AppData/Local/Microsoft/WindowsApps/gcc-ranlib13.com"
-      - "C:/Users/leopa/AppData/Local/Microsoft/WindowsApps/gcc-ranlib13.exe"
-      - "C:/Users/leopa/AppData/Local/Microsoft/WindowsApps/gcc-ranlib13"
-      - "C:/Users/leopa/AppData/Local/Programs/Microsoft VS Code/bin/gcc-ranlib13.com"
-      - "C:/Users/leopa/AppData/Local/Programs/Microsoft VS Code/bin/gcc-ranlib13.exe"
-      - "C:/Users/leopa/AppData/Local/Programs/Microsoft VS Code/bin/gcc-ranlib13"
-      - "C:/Users/leopa/AppData/Local/JetBrains/Toolbox/scripts/gcc-ranlib13.com"
-      - "C:/Users/leopa/AppData/Local/JetBrains/Toolbox/scripts/gcc-ranlib13.exe"
-      - "C:/Users/leopa/AppData/Local/JetBrains/Toolbox/scripts/gcc-ranlib13"
+      - "C:/Program Files/Java/jdk-21.0.11/bin/gcc-ranlib13.com"
+      - "C:/Program Files/Java/jdk-21.0.11/bin/gcc-ranlib13.exe"
+      - "C:/Program Files/Java/jdk-21.0.11/bin/gcc-ranlib13"
+      - "C:/Program Files (x86)/NVIDI/gcc-ranlib13.com"
+      - "C:/Program Files (x86)/NVIDI/gcc-ranlib13.exe"
+      - "C:/Program Files (x86)/NVIDI/gcc-ranlib13"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/gcc-ranlib13.com"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/gcc-ranlib13.exe"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/gcc-ranlib13"
@@ -1909,9 +2245,32 @@ events:
         - "C:\\Program Files\\Git\\cmd"
         - "C:\\Qt\\6.11.1\\mingw_64\\bin"
         - "C:\\Qt\\Tools\\mingw1310_64\\bin"
-        - "C:\\Users\\leopa\\AppData\\Local\\Microsoft\\WindowsApps"
-        - "C:\\Users\\leopa\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
-        - "C:\\Users\\leopa\\AppData\\Local\\JetBrains\\Toolbox\\scripts"
+        - "C:\\Program Files\\Java\\jdk-21.0.11\\bin"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
+        - "C:\\CST8238-WebDev\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\CST8238-WebDev\\Algonquin-College-Projects\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
+        - "C:\\Program Files\\NVIDIA Corporation\\NVIDIA app\\NvDLISR"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Qt\\6.11.1\\mingw_64\\bin"
+        - "C:\\Qt\\Tools\\mingw1310_64\\bin"
+        - "C:\\Program Files\\Java\\jdk-21.0.11\\bin"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
+        - "C:\\CST8238-WebDev\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\CST8238-WebDev\\Algonquin-College-Projects\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\NVIDI"
         - "C:\\Users\\leopa\\AppData\\Local\\Programs\\CLion\\bin\\ninja\\win\\x64"
   -
     kind: "find-v1"
@@ -1920,7 +2279,7 @@ events:
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/Platform/Windows-GNU.cmake:167 (enable_language)"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/Platform/Windows-GNU-C.cmake:2 (__windows_compiler_gnu)"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeCInformation.cmake:48 (include)"
-      - "CMakeLists.txt:36 (project)"
+      - "CMakeLists.txt:38 (project)"
     mode: "program"
     variable: "CMAKE_RC_COMPILER"
     description: "RC compiler"
@@ -1951,9 +2310,8 @@ events:
       - "C:/Program Files/Git/cmd/"
       - "C:/Qt/6.11.1/mingw_64/bin/"
       - "C:/Qt/Tools/mingw1310_64/bin/"
-      - "C:/Users/leopa/AppData/Local/Microsoft/WindowsApps/"
-      - "C:/Users/leopa/AppData/Local/Programs/Microsoft VS Code/bin/"
-      - "C:/Users/leopa/AppData/Local/JetBrains/Toolbox/scripts/"
+      - "C:/Program Files/Java/jdk-21.0.11/bin/"
+      - "C:/Program Files (x86)/NVIDI/"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/"
       - "C:/Program Files/bin/"
       - "C:/Program Files/sbin/"
@@ -1964,9 +2322,9 @@ events:
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/bin/"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/sbin/"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/"
-      - "C:/Program Files (x86)/Compilers/bin/"
-      - "C:/Program Files (x86)/Compilers/sbin/"
-      - "C:/Program Files (x86)/Compilers/"
+      - "C:/Program Files (x86)/compilers/bin/"
+      - "C:/Program Files (x86)/compilers/sbin/"
+      - "C:/Program Files (x86)/compilers/"
     searched_directories:
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/windres.com"
     found: "C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/windres.exe"
@@ -1987,27 +2345,50 @@ events:
         - "C:\\Program Files\\Git\\cmd"
         - "C:\\Qt\\6.11.1\\mingw_64\\bin"
         - "C:\\Qt\\Tools\\mingw1310_64\\bin"
-        - "C:\\Users\\leopa\\AppData\\Local\\Microsoft\\WindowsApps"
-        - "C:\\Users\\leopa\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
-        - "C:\\Users\\leopa\\AppData\\Local\\JetBrains\\Toolbox\\scripts"
+        - "C:\\Program Files\\Java\\jdk-21.0.11\\bin"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
+        - "C:\\CST8238-WebDev\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\CST8238-WebDev\\Algonquin-College-Projects\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
+        - "C:\\Program Files\\NVIDIA Corporation\\NVIDIA app\\NvDLISR"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Qt\\6.11.1\\mingw_64\\bin"
+        - "C:\\Qt\\Tools\\mingw1310_64\\bin"
+        - "C:\\Program Files\\Java\\jdk-21.0.11\\bin"
+        - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
+        - "C:\\CST8238-WebDev\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\CST8238-WebDev\\Algonquin-College-Projects\\EasyPHP-DevServer-14.1VC9\\binaries\\php\\php_runningversion"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\NVIDI"
         - "C:\\Users\\leopa\\AppData\\Local\\Programs\\CLion\\bin\\ninja\\win\\x64"
-      CMAKE_INSTALL_PREFIX: "C:/Program Files (x86)/Compilers"
+      CMAKE_INSTALL_PREFIX: "C:/Program Files (x86)/compilers"
       CMAKE_SYSTEM_PREFIX_PATH:
         - "C:/Program Files"
         - "C:/Program Files (x86)"
         - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64"
-        - "C:/Program Files (x86)/Compilers"
+        - "C:/Program Files (x86)/compilers"
   -
     kind: "try_compile-v1"
     backtrace:
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeDetermineCompilerABI.cmake:83 (try_compile)"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
-      - "CMakeLists.txt:36 (project)"
+      - "CMakeLists.txt:38 (project)"
     checks:
       - "Detecting C compiler ABI info"
     directories:
-      source: "C:/FrogCompiler/a1files/code/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-7fpfls"
-      binary: "C:/FrogCompiler/a1files/code/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-7fpfls"
+      source: "C:/FrogCompiler/code/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-ck489p"
+      binary: "C:/FrogCompiler/code/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-ck489p"
     cmakeVariables:
       CMAKE_C_FLAGS: ""
       CMAKE_C_FLAGS_DEBUG: "-g"
@@ -2017,10 +2398,10 @@ events:
       variable: "CMAKE_C_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'C:/FrogCompiler/a1files/code/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-7fpfls'
+        Change Dir: 'C:/FrogCompiler/code/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-ck489p'
         
-        Run Build Command(s): C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/ninja.exe -v cmTC_13752
-        [1/2] C:\\Users\\leopa\\AppData\\Local\\Programs\\CLion\\bin\\mingw\\bin\\gcc.exe   -fdiagnostics-color=always   -v -o CMakeFiles/cmTC_13752.dir/CMakeCCompilerABI.c.obj -c C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeCCompilerABI.c
+        Run Build Command(s): C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/ninja.exe -v cmTC_38331
+        [1/2] C:\\Users\\leopa\\AppData\\Local\\Programs\\CLion\\bin\\mingw\\bin\\gcc.exe   -fdiagnostics-color=always   -v -o CMakeFiles/cmTC_38331.dir/CMakeCCompilerABI.c.obj -c C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeCCompilerABI.c
         Using built-in specs.
         COLLECT_GCC=C:\\Users\\leopa\\AppData\\Local\\Programs\\CLion\\bin\\mingw\\bin\\gcc.exe
         Target: x86_64-w64-mingw32
@@ -2028,8 +2409,8 @@ events:
         Thread model: posix
         Supported LTO compression algorithms: zlib
         gcc version 13.1.0 (GCC) 
-        COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-v' '-o' 'CMakeFiles/cmTC_13752.dir/CMakeCCompilerABI.c.obj' '-c' '-mtune=generic' '-march=nocona' '-dumpdir' 'CMakeFiles/cmTC_13752.dir/'
-         C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../libexec/gcc/x86_64-w64-mingw32/13.1.0/cc1.exe -quiet -v -iprefix C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/ -D_REENTRANT C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_13752.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mtune=generic -march=nocona -version -fdiagnostics-color=always -o C:\\Users\\leopa\\AppData\\Local\\Temp\\ccm7tHDy.s
+        COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-v' '-o' 'CMakeFiles/cmTC_38331.dir/CMakeCCompilerABI.c.obj' '-c' '-mtune=generic' '-march=nocona' '-dumpdir' 'CMakeFiles/cmTC_38331.dir/'
+         C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../libexec/gcc/x86_64-w64-mingw32/13.1.0/cc1.exe -quiet -v -iprefix C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/ -D_REENTRANT C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_38331.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mtune=generic -march=nocona -version -fdiagnostics-color=always -o C:\\Users\\leopa\\AppData\\Local\\Temp\\ccRXCSdk.s
         GNU C17 (GCC) version 13.1.0 (x86_64-w64-mingw32)
         	compiled by GNU C version 13.1.0, GMP version 6.2.1, MPFR version 4.2.0-p4, MPC version 1.3.1, isl version none
         GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
@@ -2047,13 +2428,13 @@ events:
          C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/include
         End of search list.
         Compiler executable checksum: 2aa4fcf5c9208168c5e2d38a58fc2a97
-        COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-v' '-o' 'CMakeFiles/cmTC_13752.dir/CMakeCCompilerABI.c.obj' '-c' '-mtune=generic' '-march=nocona' '-dumpdir' 'CMakeFiles/cmTC_13752.dir/'
-         as -v -o CMakeFiles/cmTC_13752.dir/CMakeCCompilerABI.c.obj C:\\Users\\leopa\\AppData\\Local\\Temp\\ccm7tHDy.s
+        COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-v' '-o' 'CMakeFiles/cmTC_38331.dir/CMakeCCompilerABI.c.obj' '-c' '-mtune=generic' '-march=nocona' '-dumpdir' 'CMakeFiles/cmTC_38331.dir/'
+         as -v -o CMakeFiles/cmTC_38331.dir/CMakeCCompilerABI.c.obj C:\\Users\\leopa\\AppData\\Local\\Temp\\ccRXCSdk.s
         GNU assembler version 2.40 (x86_64-w64-mingw32) using BFD version (GNU Binutils) 2.40
         COMPILER_PATH=C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../libexec/gcc/x86_64-w64-mingw32/13.1.0/;C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../libexec/gcc/
         LIBRARY_PATH=C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/;C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/;C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib/../lib/;C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../lib/;C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib/;C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../
-        COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-v' '-o' 'CMakeFiles/cmTC_13752.dir/CMakeCCompilerABI.c.obj' '-c' '-mtune=generic' '-march=nocona' '-dumpdir' 'CMakeFiles/cmTC_13752.dir/CMakeCCompilerABI.c.'
-        [2/2] C:\\WINDOWS\\system32\\cmd.exe /C "cd . && C:\\Users\\leopa\\AppData\\Local\\Programs\\CLion\\bin\\mingw\\bin\\gcc.exe  -v -Wl,-v CMakeFiles/cmTC_13752.dir/CMakeCCompilerABI.c.obj -o cmTC_13752.exe -Wl,--out-implib,libcmTC_13752.dll.a -Wl,--major-image-version,0,--minor-image-version,0   && cd ."
+        COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-v' '-o' 'CMakeFiles/cmTC_38331.dir/CMakeCCompilerABI.c.obj' '-c' '-mtune=generic' '-march=nocona' '-dumpdir' 'CMakeFiles/cmTC_38331.dir/CMakeCCompilerABI.c.'
+        [2/2] C:\\WINDOWS\\system32\\cmd.exe /C "cd . && C:\\Users\\leopa\\AppData\\Local\\Programs\\CLion\\bin\\mingw\\bin\\gcc.exe  -v -Wl,-v CMakeFiles/cmTC_38331.dir/CMakeCCompilerABI.c.obj -o cmTC_38331.exe -Wl,--out-implib,libcmTC_38331.dll.a -Wl,--major-image-version,0,--minor-image-version,0   && cd ."
         Using built-in specs.
         COLLECT_GCC=C:\\Users\\leopa\\AppData\\Local\\Programs\\CLion\\bin\\mingw\\bin\\gcc.exe
         COLLECT_LTO_WRAPPER=C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../libexec/gcc/x86_64-w64-mingw32/13.1.0/lto-wrapper.exe
@@ -2064,12 +2445,12 @@ events:
         gcc version 13.1.0 (GCC) 
         COMPILER_PATH=C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../libexec/gcc/x86_64-w64-mingw32/13.1.0/;C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../libexec/gcc/
         LIBRARY_PATH=C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/;C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/;C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib/../lib/;C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../lib/;C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib/;C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../
-        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_13752.exe' '-mtune=generic' '-march=nocona' '-dumpdir' 'cmTC_13752.'
-         C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../libexec/gcc/x86_64-w64-mingw32/13.1.0/collect2.exe -m i386pep -Bdynamic -o cmTC_13752.exe C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib/../lib/crt2.o C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/crtbegin.o -LC:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0 -LC:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc -LC:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib/../lib -LC:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../lib -LC:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib -LC:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../.. -v CMakeFiles/cmTC_13752.dir/CMakeCCompilerABI.c.obj --out-implib libcmTC_13752.dll.a --major-image-version 0 --minor-image-version 0 -lmingw32 -lgcc -lgcc_eh -lmoldname -lmingwex -lmsvcrt -lkernel32 -lpthread -ladvapi32 -lshell32 -luser32 -lkernel32 -liconv -lmingw32 -lgcc -lgcc_eh -lmoldname -lmingwex -lmsvcrt -lkernel32 C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib/../lib/default-manifest.o C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/crtend.o
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_38331.exe' '-mtune=generic' '-march=nocona' '-dumpdir' 'cmTC_38331.'
+         C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../libexec/gcc/x86_64-w64-mingw32/13.1.0/collect2.exe -m i386pep -Bdynamic -o cmTC_38331.exe C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib/../lib/crt2.o C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/crtbegin.o -LC:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0 -LC:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc -LC:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib/../lib -LC:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../lib -LC:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib -LC:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../.. -v CMakeFiles/cmTC_38331.dir/CMakeCCompilerABI.c.obj --out-implib libcmTC_38331.dll.a --major-image-version 0 --minor-image-version 0 -lmingw32 -lgcc -lgcc_eh -lmoldname -lmingwex -lmsvcrt -lkernel32 -lpthread -ladvapi32 -lshell32 -luser32 -lkernel32 -liconv -lmingw32 -lgcc -lgcc_eh -lmoldname -lmingwex -lmsvcrt -lkernel32 C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib/../lib/default-manifest.o C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/crtend.o
         collect2 version 13.1.0
-        C:\\Users\\leopa\\AppData\\Local\\Programs\\CLion\\bin\\mingw\\bin/ld.exe -m i386pep -Bdynamic -o cmTC_13752.exe C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib/../lib/crt2.o C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/crtbegin.o -LC:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0 -LC:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc -LC:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib/../lib -LC:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../lib -LC:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib -LC:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../.. -v CMakeFiles/cmTC_13752.dir/CMakeCCompilerABI.c.obj --out-implib libcmTC_13752.dll.a --major-image-version 0 --minor-image-version 0 -lmingw32 -lgcc -lgcc_eh -lmoldname -lmingwex -lmsvcrt -lkernel32 -lpthread -ladvapi32 -lshell32 -luser32 -lkernel32 -liconv -lmingw32 -lgcc -lgcc_eh -lmoldname -lmingwex -lmsvcrt -lkernel32 C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib/../lib/default-manifest.o C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/crtend.o
+        C:\\Users\\leopa\\AppData\\Local\\Programs\\CLion\\bin\\mingw\\bin/ld.exe -m i386pep -Bdynamic -o cmTC_38331.exe C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib/../lib/crt2.o C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/crtbegin.o -LC:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0 -LC:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc -LC:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib/../lib -LC:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../lib -LC:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib -LC:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../.. -v CMakeFiles/cmTC_38331.dir/CMakeCCompilerABI.c.obj --out-implib libcmTC_38331.dll.a --major-image-version 0 --minor-image-version 0 -lmingw32 -lgcc -lgcc_eh -lmoldname -lmingwex -lmsvcrt -lkernel32 -lpthread -ladvapi32 -lshell32 -luser32 -lkernel32 -liconv -lmingw32 -lgcc -lgcc_eh -lmoldname -lmingwex -lmsvcrt -lkernel32 C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib/../lib/default-manifest.o C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/crtend.o
         GNU ld (GNU Binutils) 2.40
-        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_13752.exe' '-mtune=generic' '-march=nocona' '-dumpdir' 'cmTC_13752.'
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_38331.exe' '-mtune=generic' '-march=nocona' '-dumpdir' 'cmTC_38331.'
         
       exitCode: 0
   -
@@ -2077,7 +2458,7 @@ events:
     backtrace:
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeDetermineCompilerABI.cmake:217 (message)"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
-      - "CMakeLists.txt:36 (project)"
+      - "CMakeLists.txt:38 (project)"
     message: |
       Parsed C implicit include dir info: rv=done
         found start of include info
@@ -2099,15 +2480,15 @@ events:
     backtrace:
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeDetermineCompilerABI.cmake:253 (message)"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
-      - "CMakeLists.txt:36 (project)"
+      - "CMakeLists.txt:38 (project)"
     message: |
       Parsed C implicit link information:
         link line regex: [^( *|.*[/\\])(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
         linker tool regex: [^[ 	]*(->|"|[0-9]+>[ 	-]*Build:[ 	0-9]+ ms[ 	]*)?[ 	]*(([^"]*[/\\])?(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)))("|,| |$)]
-        ignore line: [Change Dir: 'C:/FrogCompiler/a1files/code/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-7fpfls']
+        ignore line: [Change Dir: 'C:/FrogCompiler/code/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-ck489p']
         ignore line: []
-        ignore line: [Run Build Command(s): C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/ninja.exe -v cmTC_13752]
-        ignore line: [[1/2] C:\\Users\\leopa\\AppData\\Local\\Programs\\CLion\\bin\\mingw\\bin\\gcc.exe   -fdiagnostics-color=always   -v -o CMakeFiles/cmTC_13752.dir/CMakeCCompilerABI.c.obj -c C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeCCompilerABI.c]
+        ignore line: [Run Build Command(s): C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/ninja.exe -v cmTC_38331]
+        ignore line: [[1/2] C:\\Users\\leopa\\AppData\\Local\\Programs\\CLion\\bin\\mingw\\bin\\gcc.exe   -fdiagnostics-color=always   -v -o CMakeFiles/cmTC_38331.dir/CMakeCCompilerABI.c.obj -c C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeCCompilerABI.c]
         ignore line: [Using built-in specs.]
         ignore line: [COLLECT_GCC=C:\\Users\\leopa\\AppData\\Local\\Programs\\CLion\\bin\\mingw\\bin\\gcc.exe]
         ignore line: [Target: x86_64-w64-mingw32]
@@ -2115,8 +2496,8 @@ events:
         ignore line: [Thread model: posix]
         ignore line: [Supported LTO compression algorithms: zlib]
         ignore line: [gcc version 13.1.0 (GCC) ]
-        ignore line: [COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-v' '-o' 'CMakeFiles/cmTC_13752.dir/CMakeCCompilerABI.c.obj' '-c' '-mtune=generic' '-march=nocona' '-dumpdir' 'CMakeFiles/cmTC_13752.dir/']
-        ignore line: [ C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../libexec/gcc/x86_64-w64-mingw32/13.1.0/cc1.exe -quiet -v -iprefix C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/ -D_REENTRANT C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_13752.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mtune=generic -march=nocona -version -fdiagnostics-color=always -o C:\\Users\\leopa\\AppData\\Local\\Temp\\ccm7tHDy.s]
+        ignore line: [COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-v' '-o' 'CMakeFiles/cmTC_38331.dir/CMakeCCompilerABI.c.obj' '-c' '-mtune=generic' '-march=nocona' '-dumpdir' 'CMakeFiles/cmTC_38331.dir/']
+        ignore line: [ C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../libexec/gcc/x86_64-w64-mingw32/13.1.0/cc1.exe -quiet -v -iprefix C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/ -D_REENTRANT C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_38331.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mtune=generic -march=nocona -version -fdiagnostics-color=always -o C:\\Users\\leopa\\AppData\\Local\\Temp\\ccRXCSdk.s]
         ignore line: [GNU C17 (GCC) version 13.1.0 (x86_64-w64-mingw32)]
         ignore line: [	compiled by GNU C version 13.1.0  GMP version 6.2.1  MPFR version 4.2.0-p4  MPC version 1.3.1  isl version none]
         ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
@@ -2134,8 +2515,8 @@ events:
         ignore line: [ C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/include]
         ignore line: [End of search list.]
         ignore line: [Compiler executable checksum: 2aa4fcf5c9208168c5e2d38a58fc2a97]
-        ignore line: [COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-v' '-o' 'CMakeFiles/cmTC_13752.dir/CMakeCCompilerABI.c.obj' '-c' '-mtune=generic' '-march=nocona' '-dumpdir' 'CMakeFiles/cmTC_13752.dir/']
-        ignore line: [ as -v -o CMakeFiles/cmTC_13752.dir/CMakeCCompilerABI.c.obj C:\\Users\\leopa\\AppData\\Local\\Temp\\ccm7tHDy.s]
+        ignore line: [COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-v' '-o' 'CMakeFiles/cmTC_38331.dir/CMakeCCompilerABI.c.obj' '-c' '-mtune=generic' '-march=nocona' '-dumpdir' 'CMakeFiles/cmTC_38331.dir/']
+        ignore line: [ as -v -o CMakeFiles/cmTC_38331.dir/CMakeCCompilerABI.c.obj C:\\Users\\leopa\\AppData\\Local\\Temp\\ccRXCSdk.s]
         ignore line: [GNU assembler version 2.40 (x86_64-w64-mingw32) using BFD version (GNU Binutils) 2.40]
         ignore line: [COMPILER_PATH=C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../libexec/gcc/x86_64-w64-mingw32/13.1.0/]
         ignore line: [C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../libexec/gcc/]
@@ -2145,8 +2526,8 @@ events:
         ignore line: [C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../lib/]
         ignore line: [C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib/]
         ignore line: [C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../]
-        ignore line: [COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-v' '-o' 'CMakeFiles/cmTC_13752.dir/CMakeCCompilerABI.c.obj' '-c' '-mtune=generic' '-march=nocona' '-dumpdir' 'CMakeFiles/cmTC_13752.dir/CMakeCCompilerABI.c.']
-        ignore line: [[2/2] C:\\WINDOWS\\system32\\cmd.exe /C "cd . && C:\\Users\\leopa\\AppData\\Local\\Programs\\CLion\\bin\\mingw\\bin\\gcc.exe  -v -Wl -v CMakeFiles/cmTC_13752.dir/CMakeCCompilerABI.c.obj -o cmTC_13752.exe -Wl --out-implib libcmTC_13752.dll.a -Wl --major-image-version 0 --minor-image-version 0   && cd ."]
+        ignore line: [COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-v' '-o' 'CMakeFiles/cmTC_38331.dir/CMakeCCompilerABI.c.obj' '-c' '-mtune=generic' '-march=nocona' '-dumpdir' 'CMakeFiles/cmTC_38331.dir/CMakeCCompilerABI.c.']
+        ignore line: [[2/2] C:\\WINDOWS\\system32\\cmd.exe /C "cd . && C:\\Users\\leopa\\AppData\\Local\\Programs\\CLion\\bin\\mingw\\bin\\gcc.exe  -v -Wl -v CMakeFiles/cmTC_38331.dir/CMakeCCompilerABI.c.obj -o cmTC_38331.exe -Wl --out-implib libcmTC_38331.dll.a -Wl --major-image-version 0 --minor-image-version 0   && cd ."]
         ignore line: [Using built-in specs.]
         ignore line: [COLLECT_GCC=C:\\Users\\leopa\\AppData\\Local\\Programs\\CLion\\bin\\mingw\\bin\\gcc.exe]
         ignore line: [COLLECT_LTO_WRAPPER=C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../libexec/gcc/x86_64-w64-mingw32/13.1.0/lto-wrapper.exe]
@@ -2163,14 +2544,14 @@ events:
         ignore line: [C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../lib/]
         ignore line: [C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib/]
         ignore line: [C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_13752.exe' '-mtune=generic' '-march=nocona' '-dumpdir' 'cmTC_13752.']
-        link line: [ C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../libexec/gcc/x86_64-w64-mingw32/13.1.0/collect2.exe -m i386pep -Bdynamic -o cmTC_13752.exe C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib/../lib/crt2.o C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/crtbegin.o -LC:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0 -LC:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc -LC:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib/../lib -LC:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../lib -LC:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib -LC:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../.. -v CMakeFiles/cmTC_13752.dir/CMakeCCompilerABI.c.obj --out-implib libcmTC_13752.dll.a --major-image-version 0 --minor-image-version 0 -lmingw32 -lgcc -lgcc_eh -lmoldname -lmingwex -lmsvcrt -lkernel32 -lpthread -ladvapi32 -lshell32 -luser32 -lkernel32 -liconv -lmingw32 -lgcc -lgcc_eh -lmoldname -lmingwex -lmsvcrt -lkernel32 C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib/../lib/default-manifest.o C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/crtend.o]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_38331.exe' '-mtune=generic' '-march=nocona' '-dumpdir' 'cmTC_38331.']
+        link line: [ C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../libexec/gcc/x86_64-w64-mingw32/13.1.0/collect2.exe -m i386pep -Bdynamic -o cmTC_38331.exe C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib/../lib/crt2.o C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/crtbegin.o -LC:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0 -LC:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc -LC:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib/../lib -LC:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../lib -LC:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib -LC:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../.. -v CMakeFiles/cmTC_38331.dir/CMakeCCompilerABI.c.obj --out-implib libcmTC_38331.dll.a --major-image-version 0 --minor-image-version 0 -lmingw32 -lgcc -lgcc_eh -lmoldname -lmingwex -lmsvcrt -lkernel32 -lpthread -ladvapi32 -lshell32 -luser32 -lkernel32 -liconv -lmingw32 -lgcc -lgcc_eh -lmoldname -lmingwex -lmsvcrt -lkernel32 C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib/../lib/default-manifest.o C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/crtend.o]
           arg [C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../libexec/gcc/x86_64-w64-mingw32/13.1.0/collect2.exe] ==> ignore
           arg [-m] ==> ignore
           arg [i386pep] ==> ignore
           arg [-Bdynamic] ==> search dynamic
           arg [-o] ==> ignore
-          arg [cmTC_13752.exe] ==> ignore
+          arg [cmTC_38331.exe] ==> ignore
           arg [C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib/../lib/crt2.o] ==> obj [C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib/../lib/crt2.o]
           arg [C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/crtbegin.o] ==> obj [C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/crtbegin.o]
           arg [-LC:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0] ==> dir [C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0]
@@ -2180,9 +2561,9 @@ events:
           arg [-LC:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib] ==> dir [C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib]
           arg [-LC:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../..] ==> dir [C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../..]
           arg [-v] ==> ignore
-          arg [CMakeFiles/cmTC_13752.dir/CMakeCCompilerABI.c.obj] ==> ignore
+          arg [CMakeFiles/cmTC_38331.dir/CMakeCCompilerABI.c.obj] ==> ignore
           arg [--out-implib] ==> ignore
-          arg [libcmTC_13752.dll.a] ==> ignore
+          arg [libcmTC_38331.dll.a] ==> ignore
           arg [--major-image-version] ==> ignore
           arg [0] ==> ignore
           arg [--minor-image-version] ==> ignore
@@ -2210,7 +2591,7 @@ events:
           arg [C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib/../lib/default-manifest.o] ==> obj [C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib/../lib/default-manifest.o]
           arg [C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/crtend.o] ==> obj [C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/crtend.o]
         ignore line: [collect2 version 13.1.0]
-        ignore line: [C:\\Users\\leopa\\AppData\\Local\\Programs\\CLion\\bin\\mingw\\bin/ld.exe -m i386pep -Bdynamic -o cmTC_13752.exe C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib/../lib/crt2.o C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/crtbegin.o -LC:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0 -LC:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc -LC:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib/../lib -LC:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../lib -LC:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib -LC:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../.. -v CMakeFiles/cmTC_13752.dir/CMakeCCompilerABI.c.obj --out-implib libcmTC_13752.dll.a --major-image-version 0 --minor-image-version 0 -lmingw32 -lgcc -lgcc_eh -lmoldname -lmingwex -lmsvcrt -lkernel32 -lpthread -ladvapi32 -lshell32 -luser32 -lkernel32 -liconv -lmingw32 -lgcc -lgcc_eh -lmoldname -lmingwex -lmsvcrt -lkernel32 C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib/../lib/default-manifest.o C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/crtend.o]
+        ignore line: [C:\\Users\\leopa\\AppData\\Local\\Programs\\CLion\\bin\\mingw\\bin/ld.exe -m i386pep -Bdynamic -o cmTC_38331.exe C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib/../lib/crt2.o C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/crtbegin.o -LC:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0 -LC:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc -LC:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib/../lib -LC:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../lib -LC:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib -LC:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../.. -v CMakeFiles/cmTC_38331.dir/CMakeCCompilerABI.c.obj --out-implib libcmTC_38331.dll.a --major-image-version 0 --minor-image-version 0 -lmingw32 -lgcc -lgcc_eh -lmoldname -lmingwex -lmsvcrt -lkernel32 -lpthread -ladvapi32 -lshell32 -luser32 -lkernel32 -liconv -lmingw32 -lgcc -lgcc_eh -lmoldname -lmingwex -lmsvcrt -lkernel32 C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib/../lib/default-manifest.o C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/crtend.o]
         linker tool for 'C': C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/ld.exe
         remove lib [gcc_eh]
         remove lib [msvcrt]
@@ -2238,7 +2619,7 @@ events:
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/Internal/CMakeDetermineLinkerId.cmake:38 (message)"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeDetermineCompilerABI.cmake:299 (cmake_determine_linker_id)"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
-      - "CMakeLists.txt:36 (project)"
+      - "CMakeLists.txt:38 (project)"
     message: |
       Running the C compiler's linker: "C:/Users/leopa/AppData/Local/Programs/CLion/bin/mingw/bin/ld.exe" "-v"
       GNU ld (GNU Binutils) 2.40
@@ -2247,12 +2628,12 @@ events:
     backtrace:
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeDetermineCompilerABI.cmake:83 (try_compile)"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
-      - "CMakeLists.txt:36 (project)"
+      - "CMakeLists.txt:38 (project)"
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "C:/FrogCompiler/a1files/code/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-x7q7c6"
-      binary: "C:/FrogCompiler/a1files/code/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-x7q7c6"
+      source: "C:/FrogCompiler/code/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-1iftar"
+      binary: "C:/FrogCompiler/code/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-1iftar"
     cmakeVariables:
       CMAKE_CXX_FLAGS: ""
       CMAKE_CXX_FLAGS_DEBUG: "-g"
@@ -2263,10 +2644,10 @@ events:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'C:/FrogCompiler/a1files/code/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-x7q7c6'
+        Change Dir: 'C:/FrogCompiler/code/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-1iftar'
         
-        Run Build Command(s): C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/ninja.exe -v cmTC_45ee7
-        [1/2] C:\\Qt\\Tools\\mingw1310_64\\bin\\g++.exe   -fdiagnostics-color=always   -v -o CMakeFiles/cmTC_45ee7.dir/CMakeCXXCompilerABI.cpp.obj -c C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeCXXCompilerABI.cpp
+        Run Build Command(s): C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/ninja.exe -v cmTC_48ce1
+        [1/2] C:\\Qt\\Tools\\mingw1310_64\\bin\\g++.exe   -fdiagnostics-color=always   -v -o CMakeFiles/cmTC_48ce1.dir/CMakeCXXCompilerABI.cpp.obj -c C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeCXXCompilerABI.cpp
         Using built-in specs.
         COLLECT_GCC=C:\\Qt\\Tools\\mingw1310_64\\bin\\g++.exe
         Target: x86_64-w64-mingw32
@@ -2274,8 +2655,8 @@ events:
         Thread model: posix
         Supported LTO compression algorithms: zlib
         gcc version 13.1.0 (x86_64-posix-seh-rev1, Built by MinGW-Builds project) 
-        COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-v' '-o' 'CMakeFiles/cmTC_45ee7.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-shared-libgcc' '-mtune=core2' '-march=nocona' '-dumpdir' 'CMakeFiles/cmTC_45ee7.dir/'
-         C:/Qt/Tools/mingw1310_64/bin/../libexec/gcc/x86_64-w64-mingw32/13.1.0/cc1plus.exe -quiet -v -iprefix C:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/ -D_REENTRANT C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_45ee7.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mtune=core2 -march=nocona -version -fdiagnostics-color=always -o C:\\Users\\leopa\\AppData\\Local\\Temp\\cco4QVoR.s
+        COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-v' '-o' 'CMakeFiles/cmTC_48ce1.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-shared-libgcc' '-mtune=core2' '-march=nocona' '-dumpdir' 'CMakeFiles/cmTC_48ce1.dir/'
+         C:/Qt/Tools/mingw1310_64/bin/../libexec/gcc/x86_64-w64-mingw32/13.1.0/cc1plus.exe -quiet -v -iprefix C:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/ -D_REENTRANT C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_48ce1.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mtune=core2 -march=nocona -version -fdiagnostics-color=always -o C:\\Users\\leopa\\AppData\\Local\\Temp\\cckKkw7v.s
         GNU C++17 (x86_64-posix-seh-rev1, Built by MinGW-Builds project) version 13.1.0 (x86_64-w64-mingw32)
         	compiled by GNU C version 13.1.0, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version isl-0.25-GMP
         
@@ -2298,13 +2679,13 @@ events:
          C:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/include
         End of search list.
         Compiler executable checksum: b3d236387f35294e2a73c51628039e05
-        COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-v' '-o' 'CMakeFiles/cmTC_45ee7.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-shared-libgcc' '-mtune=core2' '-march=nocona' '-dumpdir' 'CMakeFiles/cmTC_45ee7.dir/'
-         C:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/bin/as.exe -v -o CMakeFiles/cmTC_45ee7.dir/CMakeCXXCompilerABI.cpp.obj C:\\Users\\leopa\\AppData\\Local\\Temp\\cco4QVoR.s
+        COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-v' '-o' 'CMakeFiles/cmTC_48ce1.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-shared-libgcc' '-mtune=core2' '-march=nocona' '-dumpdir' 'CMakeFiles/cmTC_48ce1.dir/'
+         C:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/bin/as.exe -v -o CMakeFiles/cmTC_48ce1.dir/CMakeCXXCompilerABI.cpp.obj C:\\Users\\leopa\\AppData\\Local\\Temp\\cckKkw7v.s
         GNU assembler version 2.39 (x86_64-w64-mingw32) using BFD version (GNU Binutils) 2.39
         COMPILER_PATH=C:/Qt/Tools/mingw1310_64/bin/../libexec/gcc/x86_64-w64-mingw32/13.1.0/;C:/Qt/Tools/mingw1310_64/bin/../libexec/gcc/;C:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/bin/
         LIBRARY_PATH=C:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/;C:/Qt/Tools/mingw1310_64/bin/../lib/gcc/;C:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib/../lib/;C:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../lib/;C:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib/;C:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../
-        COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-v' '-o' 'CMakeFiles/cmTC_45ee7.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-shared-libgcc' '-mtune=core2' '-march=nocona' '-dumpdir' 'CMakeFiles/cmTC_45ee7.dir/CMakeCXXCompilerABI.cpp.'
-        [2/2] C:\\WINDOWS\\system32\\cmd.exe /C "cd . && C:\\Qt\\Tools\\mingw1310_64\\bin\\g++.exe  -v -Wl,-v CMakeFiles/cmTC_45ee7.dir/CMakeCXXCompilerABI.cpp.obj -o cmTC_45ee7.exe -Wl,--out-implib,libcmTC_45ee7.dll.a -Wl,--major-image-version,0,--minor-image-version,0   && cd ."
+        COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-v' '-o' 'CMakeFiles/cmTC_48ce1.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-shared-libgcc' '-mtune=core2' '-march=nocona' '-dumpdir' 'CMakeFiles/cmTC_48ce1.dir/CMakeCXXCompilerABI.cpp.'
+        [2/2] C:\\WINDOWS\\system32\\cmd.exe /C "cd . && C:\\Qt\\Tools\\mingw1310_64\\bin\\g++.exe  -v -Wl,-v CMakeFiles/cmTC_48ce1.dir/CMakeCXXCompilerABI.cpp.obj -o cmTC_48ce1.exe -Wl,--out-implib,libcmTC_48ce1.dll.a -Wl,--major-image-version,0,--minor-image-version,0   && cd ."
         Using built-in specs.
         COLLECT_GCC=C:\\Qt\\Tools\\mingw1310_64\\bin\\g++.exe
         COLLECT_LTO_WRAPPER=C:/Qt/Tools/mingw1310_64/bin/../libexec/gcc/x86_64-w64-mingw32/13.1.0/lto-wrapper.exe
@@ -2315,12 +2696,12 @@ events:
         gcc version 13.1.0 (x86_64-posix-seh-rev1, Built by MinGW-Builds project) 
         COMPILER_PATH=C:/Qt/Tools/mingw1310_64/bin/../libexec/gcc/x86_64-w64-mingw32/13.1.0/;C:/Qt/Tools/mingw1310_64/bin/../libexec/gcc/;C:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/bin/
         LIBRARY_PATH=C:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/;C:/Qt/Tools/mingw1310_64/bin/../lib/gcc/;C:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib/../lib/;C:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../lib/;C:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib/;C:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../
-        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_45ee7.exe' '-shared-libgcc' '-mtune=core2' '-march=nocona' '-dumpdir' 'cmTC_45ee7.'
-         C:/Qt/Tools/mingw1310_64/bin/../libexec/gcc/x86_64-w64-mingw32/13.1.0/collect2.exe -plugin C:/Qt/Tools/mingw1310_64/bin/../libexec/gcc/x86_64-w64-mingw32/13.1.0/liblto_plugin.dll -plugin-opt=C:/Qt/Tools/mingw1310_64/bin/../libexec/gcc/x86_64-w64-mingw32/13.1.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\\Users\\leopa\\AppData\\Local\\Temp\\ccwwk0tW.res -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmoldname -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-ladvapi32 -plugin-opt=-pass-through=-lshell32 -plugin-opt=-pass-through=-luser32 -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-liconv -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmoldname -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 --sysroot=C:/buildroot/x86_64-1310-posix-seh-msvcrt-rt_v11-rev1/mingw64 -m i386pep -Bdynamic -o cmTC_45ee7.exe C:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib/../lib/crt2.o C:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/crtbegin.o -LC:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0 -LC:/Qt/Tools/mingw1310_64/bin/../lib/gcc -LC:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib/../lib -LC:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../lib -LC:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib -LC:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../.. -v CMakeFiles/cmTC_45ee7.dir/CMakeCXXCompilerABI.cpp.obj --out-implib libcmTC_45ee7.dll.a --major-image-version 0 --minor-image-version 0 -lstdc++ -lmingw32 -lgcc_s -lgcc -lmoldname -lmingwex -lmsvcrt -lkernel32 -lpthread -ladvapi32 -lshell32 -luser32 -lkernel32 -liconv -lmingw32 -lgcc_s -lgcc -lmoldname -lmingwex -lmsvcrt -lkernel32 C:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/crtend.o
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_48ce1.exe' '-shared-libgcc' '-mtune=core2' '-march=nocona' '-dumpdir' 'cmTC_48ce1.'
+         C:/Qt/Tools/mingw1310_64/bin/../libexec/gcc/x86_64-w64-mingw32/13.1.0/collect2.exe -plugin C:/Qt/Tools/mingw1310_64/bin/../libexec/gcc/x86_64-w64-mingw32/13.1.0/liblto_plugin.dll -plugin-opt=C:/Qt/Tools/mingw1310_64/bin/../libexec/gcc/x86_64-w64-mingw32/13.1.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\\Users\\leopa\\AppData\\Local\\Temp\\ccAWoreB.res -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmoldname -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-ladvapi32 -plugin-opt=-pass-through=-lshell32 -plugin-opt=-pass-through=-luser32 -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-liconv -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmoldname -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 --sysroot=C:/buildroot/x86_64-1310-posix-seh-msvcrt-rt_v11-rev1/mingw64 -m i386pep -Bdynamic -o cmTC_48ce1.exe C:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib/../lib/crt2.o C:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/crtbegin.o -LC:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0 -LC:/Qt/Tools/mingw1310_64/bin/../lib/gcc -LC:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib/../lib -LC:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../lib -LC:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib -LC:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../.. -v CMakeFiles/cmTC_48ce1.dir/CMakeCXXCompilerABI.cpp.obj --out-implib libcmTC_48ce1.dll.a --major-image-version 0 --minor-image-version 0 -lstdc++ -lmingw32 -lgcc_s -lgcc -lmoldname -lmingwex -lmsvcrt -lkernel32 -lpthread -ladvapi32 -lshell32 -luser32 -lkernel32 -liconv -lmingw32 -lgcc_s -lgcc -lmoldname -lmingwex -lmsvcrt -lkernel32 C:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/crtend.o
         collect2 version 13.1.0
-        C:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/bin/ld.exe -plugin C:/Qt/Tools/mingw1310_64/bin/../libexec/gcc/x86_64-w64-mingw32/13.1.0/liblto_plugin.dll -plugin-opt=C:/Qt/Tools/mingw1310_64/bin/../libexec/gcc/x86_64-w64-mingw32/13.1.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\\Users\\leopa\\AppData\\Local\\Temp\\ccwwk0tW.res -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmoldname -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-ladvapi32 -plugin-opt=-pass-through=-lshell32 -plugin-opt=-pass-through=-luser32 -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-liconv -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmoldname -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 --sysroot=C:/buildroot/x86_64-1310-posix-seh-msvcrt-rt_v11-rev1/mingw64 -m i386pep -Bdynamic -o cmTC_45ee7.exe C:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib/../lib/crt2.o C:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/crtbegin.o -LC:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0 -LC:/Qt/Tools/mingw1310_64/bin/../lib/gcc -LC:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib/../lib -LC:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../lib -LC:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib -LC:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../.. -v CMakeFiles/cmTC_45ee7.dir/CMakeCXXCompilerABI.cpp.obj --out-implib libcmTC_45ee7.dll.a --major-image-version 0 --minor-image-version 0 -lstdc++ -lmingw32 -lgcc_s -lgcc -lmoldname -lmingwex -lmsvcrt -lkernel32 -lpthread -ladvapi32 -lshell32 -luser32 -lkernel32 -liconv -lmingw32 -lgcc_s -lgcc -lmoldname -lmingwex -lmsvcrt -lkernel32 C:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/crtend.o
+        C:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/bin/ld.exe -plugin C:/Qt/Tools/mingw1310_64/bin/../libexec/gcc/x86_64-w64-mingw32/13.1.0/liblto_plugin.dll -plugin-opt=C:/Qt/Tools/mingw1310_64/bin/../libexec/gcc/x86_64-w64-mingw32/13.1.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\\Users\\leopa\\AppData\\Local\\Temp\\ccAWoreB.res -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmoldname -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-ladvapi32 -plugin-opt=-pass-through=-lshell32 -plugin-opt=-pass-through=-luser32 -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-liconv -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmoldname -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 --sysroot=C:/buildroot/x86_64-1310-posix-seh-msvcrt-rt_v11-rev1/mingw64 -m i386pep -Bdynamic -o cmTC_48ce1.exe C:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib/../lib/crt2.o C:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/crtbegin.o -LC:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0 -LC:/Qt/Tools/mingw1310_64/bin/../lib/gcc -LC:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib/../lib -LC:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../lib -LC:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib -LC:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../.. -v CMakeFiles/cmTC_48ce1.dir/CMakeCXXCompilerABI.cpp.obj --out-implib libcmTC_48ce1.dll.a --major-image-version 0 --minor-image-version 0 -lstdc++ -lmingw32 -lgcc_s -lgcc -lmoldname -lmingwex -lmsvcrt -lkernel32 -lpthread -ladvapi32 -lshell32 -luser32 -lkernel32 -liconv -lmingw32 -lgcc_s -lgcc -lmoldname -lmingwex -lmsvcrt -lkernel32 C:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/crtend.o
         GNU ld (GNU Binutils) 2.39
-        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_45ee7.exe' '-shared-libgcc' '-mtune=core2' '-march=nocona' '-dumpdir' 'cmTC_45ee7.'
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_48ce1.exe' '-shared-libgcc' '-mtune=core2' '-march=nocona' '-dumpdir' 'cmTC_48ce1.'
         
       exitCode: 0
   -
@@ -2328,7 +2709,7 @@ events:
     backtrace:
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeDetermineCompilerABI.cmake:217 (message)"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
-      - "CMakeLists.txt:36 (project)"
+      - "CMakeLists.txt:38 (project)"
     message: |
       Parsed CXX implicit include dir info: rv=done
         found start of include info
@@ -2354,15 +2735,15 @@ events:
     backtrace:
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeDetermineCompilerABI.cmake:253 (message)"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
-      - "CMakeLists.txt:36 (project)"
+      - "CMakeLists.txt:38 (project)"
     message: |
       Parsed CXX implicit link information:
         link line regex: [^( *|.*[/\\])(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
         linker tool regex: [^[ 	]*(->|"|[0-9]+>[ 	-]*Build:[ 	0-9]+ ms[ 	]*)?[ 	]*(([^"]*[/\\])?(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)))("|,| |$)]
-        ignore line: [Change Dir: 'C:/FrogCompiler/a1files/code/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-x7q7c6']
+        ignore line: [Change Dir: 'C:/FrogCompiler/code/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-1iftar']
         ignore line: []
-        ignore line: [Run Build Command(s): C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/ninja.exe -v cmTC_45ee7]
-        ignore line: [[1/2] C:\\Qt\\Tools\\mingw1310_64\\bin\\g++.exe   -fdiagnostics-color=always   -v -o CMakeFiles/cmTC_45ee7.dir/CMakeCXXCompilerABI.cpp.obj -c C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeCXXCompilerABI.cpp]
+        ignore line: [Run Build Command(s): C:/Users/leopa/AppData/Local/Programs/CLion/bin/ninja/win/x64/ninja.exe -v cmTC_48ce1]
+        ignore line: [[1/2] C:\\Qt\\Tools\\mingw1310_64\\bin\\g++.exe   -fdiagnostics-color=always   -v -o CMakeFiles/cmTC_48ce1.dir/CMakeCXXCompilerABI.cpp.obj -c C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeCXXCompilerABI.cpp]
         ignore line: [Using built-in specs.]
         ignore line: [COLLECT_GCC=C:\\Qt\\Tools\\mingw1310_64\\bin\\g++.exe]
         ignore line: [Target: x86_64-w64-mingw32]
@@ -2370,8 +2751,8 @@ events:
         ignore line: [Thread model: posix]
         ignore line: [Supported LTO compression algorithms: zlib]
         ignore line: [gcc version 13.1.0 (x86_64-posix-seh-rev1  Built by MinGW-Builds project) ]
-        ignore line: [COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-v' '-o' 'CMakeFiles/cmTC_45ee7.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-shared-libgcc' '-mtune=core2' '-march=nocona' '-dumpdir' 'CMakeFiles/cmTC_45ee7.dir/']
-        ignore line: [ C:/Qt/Tools/mingw1310_64/bin/../libexec/gcc/x86_64-w64-mingw32/13.1.0/cc1plus.exe -quiet -v -iprefix C:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/ -D_REENTRANT C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_45ee7.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mtune=core2 -march=nocona -version -fdiagnostics-color=always -o C:\\Users\\leopa\\AppData\\Local\\Temp\\cco4QVoR.s]
+        ignore line: [COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-v' '-o' 'CMakeFiles/cmTC_48ce1.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-shared-libgcc' '-mtune=core2' '-march=nocona' '-dumpdir' 'CMakeFiles/cmTC_48ce1.dir/']
+        ignore line: [ C:/Qt/Tools/mingw1310_64/bin/../libexec/gcc/x86_64-w64-mingw32/13.1.0/cc1plus.exe -quiet -v -iprefix C:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/ -D_REENTRANT C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_48ce1.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mtune=core2 -march=nocona -version -fdiagnostics-color=always -o C:\\Users\\leopa\\AppData\\Local\\Temp\\cckKkw7v.s]
         ignore line: [GNU C++17 (x86_64-posix-seh-rev1  Built by MinGW-Builds project) version 13.1.0 (x86_64-w64-mingw32)]
         ignore line: [	compiled by GNU C version 13.1.0  GMP version 6.2.1  MPFR version 4.1.0  MPC version 1.2.1  isl version isl-0.25-GMP]
         ignore line: []
@@ -2394,8 +2775,8 @@ events:
         ignore line: [ C:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/include]
         ignore line: [End of search list.]
         ignore line: [Compiler executable checksum: b3d236387f35294e2a73c51628039e05]
-        ignore line: [COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-v' '-o' 'CMakeFiles/cmTC_45ee7.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-shared-libgcc' '-mtune=core2' '-march=nocona' '-dumpdir' 'CMakeFiles/cmTC_45ee7.dir/']
-        ignore line: [ C:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/bin/as.exe -v -o CMakeFiles/cmTC_45ee7.dir/CMakeCXXCompilerABI.cpp.obj C:\\Users\\leopa\\AppData\\Local\\Temp\\cco4QVoR.s]
+        ignore line: [COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-v' '-o' 'CMakeFiles/cmTC_48ce1.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-shared-libgcc' '-mtune=core2' '-march=nocona' '-dumpdir' 'CMakeFiles/cmTC_48ce1.dir/']
+        ignore line: [ C:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/bin/as.exe -v -o CMakeFiles/cmTC_48ce1.dir/CMakeCXXCompilerABI.cpp.obj C:\\Users\\leopa\\AppData\\Local\\Temp\\cckKkw7v.s]
         ignore line: [GNU assembler version 2.39 (x86_64-w64-mingw32) using BFD version (GNU Binutils) 2.39]
         ignore line: [COMPILER_PATH=C:/Qt/Tools/mingw1310_64/bin/../libexec/gcc/x86_64-w64-mingw32/13.1.0/]
         ignore line: [C:/Qt/Tools/mingw1310_64/bin/../libexec/gcc/]
@@ -2406,8 +2787,8 @@ events:
         ignore line: [C:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../lib/]
         ignore line: [C:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib/]
         ignore line: [C:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../]
-        ignore line: [COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-v' '-o' 'CMakeFiles/cmTC_45ee7.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-shared-libgcc' '-mtune=core2' '-march=nocona' '-dumpdir' 'CMakeFiles/cmTC_45ee7.dir/CMakeCXXCompilerABI.cpp.']
-        ignore line: [[2/2] C:\\WINDOWS\\system32\\cmd.exe /C "cd . && C:\\Qt\\Tools\\mingw1310_64\\bin\\g++.exe  -v -Wl -v CMakeFiles/cmTC_45ee7.dir/CMakeCXXCompilerABI.cpp.obj -o cmTC_45ee7.exe -Wl --out-implib libcmTC_45ee7.dll.a -Wl --major-image-version 0 --minor-image-version 0   && cd ."]
+        ignore line: [COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-v' '-o' 'CMakeFiles/cmTC_48ce1.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-shared-libgcc' '-mtune=core2' '-march=nocona' '-dumpdir' 'CMakeFiles/cmTC_48ce1.dir/CMakeCXXCompilerABI.cpp.']
+        ignore line: [[2/2] C:\\WINDOWS\\system32\\cmd.exe /C "cd . && C:\\Qt\\Tools\\mingw1310_64\\bin\\g++.exe  -v -Wl -v CMakeFiles/cmTC_48ce1.dir/CMakeCXXCompilerABI.cpp.obj -o cmTC_48ce1.exe -Wl --out-implib libcmTC_48ce1.dll.a -Wl --major-image-version 0 --minor-image-version 0   && cd ."]
         ignore line: [Using built-in specs.]
         ignore line: [COLLECT_GCC=C:\\Qt\\Tools\\mingw1310_64\\bin\\g++.exe]
         ignore line: [COLLECT_LTO_WRAPPER=C:/Qt/Tools/mingw1310_64/bin/../libexec/gcc/x86_64-w64-mingw32/13.1.0/lto-wrapper.exe]
@@ -2425,13 +2806,13 @@ events:
         ignore line: [C:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../lib/]
         ignore line: [C:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib/]
         ignore line: [C:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../]
-        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_45ee7.exe' '-shared-libgcc' '-mtune=core2' '-march=nocona' '-dumpdir' 'cmTC_45ee7.']
-        link line: [ C:/Qt/Tools/mingw1310_64/bin/../libexec/gcc/x86_64-w64-mingw32/13.1.0/collect2.exe -plugin C:/Qt/Tools/mingw1310_64/bin/../libexec/gcc/x86_64-w64-mingw32/13.1.0/liblto_plugin.dll -plugin-opt=C:/Qt/Tools/mingw1310_64/bin/../libexec/gcc/x86_64-w64-mingw32/13.1.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\\Users\\leopa\\AppData\\Local\\Temp\\ccwwk0tW.res -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmoldname -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-ladvapi32 -plugin-opt=-pass-through=-lshell32 -plugin-opt=-pass-through=-luser32 -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-liconv -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmoldname -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 --sysroot=C:/buildroot/x86_64-1310-posix-seh-msvcrt-rt_v11-rev1/mingw64 -m i386pep -Bdynamic -o cmTC_45ee7.exe C:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib/../lib/crt2.o C:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/crtbegin.o -LC:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0 -LC:/Qt/Tools/mingw1310_64/bin/../lib/gcc -LC:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib/../lib -LC:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../lib -LC:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib -LC:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../.. -v CMakeFiles/cmTC_45ee7.dir/CMakeCXXCompilerABI.cpp.obj --out-implib libcmTC_45ee7.dll.a --major-image-version 0 --minor-image-version 0 -lstdc++ -lmingw32 -lgcc_s -lgcc -lmoldname -lmingwex -lmsvcrt -lkernel32 -lpthread -ladvapi32 -lshell32 -luser32 -lkernel32 -liconv -lmingw32 -lgcc_s -lgcc -lmoldname -lmingwex -lmsvcrt -lkernel32 C:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/crtend.o]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_48ce1.exe' '-shared-libgcc' '-mtune=core2' '-march=nocona' '-dumpdir' 'cmTC_48ce1.']
+        link line: [ C:/Qt/Tools/mingw1310_64/bin/../libexec/gcc/x86_64-w64-mingw32/13.1.0/collect2.exe -plugin C:/Qt/Tools/mingw1310_64/bin/../libexec/gcc/x86_64-w64-mingw32/13.1.0/liblto_plugin.dll -plugin-opt=C:/Qt/Tools/mingw1310_64/bin/../libexec/gcc/x86_64-w64-mingw32/13.1.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\\Users\\leopa\\AppData\\Local\\Temp\\ccAWoreB.res -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmoldname -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-ladvapi32 -plugin-opt=-pass-through=-lshell32 -plugin-opt=-pass-through=-luser32 -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-liconv -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmoldname -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 --sysroot=C:/buildroot/x86_64-1310-posix-seh-msvcrt-rt_v11-rev1/mingw64 -m i386pep -Bdynamic -o cmTC_48ce1.exe C:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib/../lib/crt2.o C:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/crtbegin.o -LC:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0 -LC:/Qt/Tools/mingw1310_64/bin/../lib/gcc -LC:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib/../lib -LC:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../lib -LC:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib -LC:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../.. -v CMakeFiles/cmTC_48ce1.dir/CMakeCXXCompilerABI.cpp.obj --out-implib libcmTC_48ce1.dll.a --major-image-version 0 --minor-image-version 0 -lstdc++ -lmingw32 -lgcc_s -lgcc -lmoldname -lmingwex -lmsvcrt -lkernel32 -lpthread -ladvapi32 -lshell32 -luser32 -lkernel32 -liconv -lmingw32 -lgcc_s -lgcc -lmoldname -lmingwex -lmsvcrt -lkernel32 C:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/crtend.o]
           arg [C:/Qt/Tools/mingw1310_64/bin/../libexec/gcc/x86_64-w64-mingw32/13.1.0/collect2.exe] ==> ignore
           arg [-plugin] ==> ignore
           arg [C:/Qt/Tools/mingw1310_64/bin/../libexec/gcc/x86_64-w64-mingw32/13.1.0/liblto_plugin.dll] ==> ignore
           arg [-plugin-opt=C:/Qt/Tools/mingw1310_64/bin/../libexec/gcc/x86_64-w64-mingw32/13.1.0/lto-wrapper.exe] ==> ignore
-          arg [-plugin-opt=-fresolution=C:\\Users\\leopa\\AppData\\Local\\Temp\\ccwwk0tW.res] ==> ignore
+          arg [-plugin-opt=-fresolution=C:\\Users\\leopa\\AppData\\Local\\Temp\\ccAWoreB.res] ==> ignore
           arg [-plugin-opt=-pass-through=-lmingw32] ==> ignore
           arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
           arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
@@ -2457,7 +2838,7 @@ events:
           arg [i386pep] ==> ignore
           arg [-Bdynamic] ==> search dynamic
           arg [-o] ==> ignore
-          arg [cmTC_45ee7.exe] ==> ignore
+          arg [cmTC_48ce1.exe] ==> ignore
           arg [C:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib/../lib/crt2.o] ==> obj [C:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib/../lib/crt2.o]
           arg [C:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/crtbegin.o] ==> obj [C:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/crtbegin.o]
           arg [-LC:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0] ==> dir [C:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0]
@@ -2467,9 +2848,9 @@ events:
           arg [-LC:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib] ==> dir [C:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/lib]
           arg [-LC:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../..] ==> dir [C:/Qt/Tools/mingw1310_64/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../..]
           arg [-v] ==> ignore
-          arg [CMakeFiles/cmTC_45ee7.dir/CMakeCXXCompilerABI.cpp.obj] ==> ignore
+          arg [CMakeFiles/cmTC_48ce1.dir/CMakeCXXCompilerABI.cpp.obj] ==> ignore
           arg [--out-implib] ==> ignore
-          arg [libcmTC_45ee7.dll.a] ==> ignore
+          arg [libcmTC_48ce1.dll.a] ==> ignore
           arg [--major-image-version] ==> ignore
           arg [0] ==> ignore
           arg [--minor-image-version] ==> ignore
@@ -2520,7 +2901,7 @@ events:
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/Internal/CMakeDetermineLinkerId.cmake:38 (message)"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeDetermineCompilerABI.cmake:299 (cmake_determine_linker_id)"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
-      - "CMakeLists.txt:36 (project)"
+      - "CMakeLists.txt:38 (project)"
     message: |
       Running the CXX compiler's linker: "../src/gcc-13.1.0/configure --host=x86_64-w64-mingw32 --build=x86_64-w64-mingw32 --target=x86_64-w64-mingw32 --prefix=/mingw64 --with-sysroot=/c/buildroot/x86_64-1310-posix-seh-msvcrt-rt_v11-rev1/mingw64 --enable-host-shared --disable-multilib --enable-languages=c,c++,fortran,lto --enable-libstdcxx-time=yes --enable-threads=posix --enable-libgomp --enable-libatomic --enable-lto --enable-graphite --enable-checking=release --enable-fully-dynamic-string --enable-version-specific-runtime-libs --enable-libstdcxx-filesystem-ts=yes --disable-libssp --disable-libstdcxx-pch --disable-libstdcxx-debug --enable-bootstrap --disable-rpath --disable-win32-registry --disable-nls --disable-werror --disable-symvers --with-gnu-as --with-gnu-ld --with-arch=nocona --with-tune=core2 --with-libiconv --with-system-zlib --with-gmp=/c/buildroot/prerequisites/x86_64-w64-mingw32-static --with-mpfr=/c/buildroot/prerequisites/x86_64-w64-mingw32-static --with-mpc=/c/buildroot/prerequisites/x86_64-w64-mingw32-static --with-isl=/c/buildroot/prerequisites/x86_64-w64-mingw32-static --with-pkgversion='x86_64-posix-seh-rev1, Built by MinGW-Builds project' --with-bugurl=https:/github.com/niXman/mingw-builds CFLAGS='-O2 -pipe -fno-ident -I/c/buildroot/x86_64-1310-posix-seh-msvcrt-rt_v11-rev1/mingw64/opt/include -I/c/buildroot/prerequisites/x86_64-zlib-static/include -I/c/buildroot/prerequisites/x86_64-w64-mingw32-static/include' CXXFLAGS='-O2 -pipe -fno-ident -I/c/buildroot/x86_64-1310-posix-seh-msvcrt-rt_v11-rev1/mingw64/opt/include -I/c/buildroot/prerequisites/x86_64-zlib-static/include -I/c/buildroot/prerequisites/x86_64-w64-mingw32-static/include' CPPFLAGS=' -I/c/buildroot/x86_64-1310-posix-seh-msvcrt-rt_v11-rev1/mingw64/opt/include -I/c/buildroot/prerequisites/x86_64-zlib-static/include -I/c/buildroot/prerequisites/x86_64-w64-mingw32-static/include' LDFLAGS='-pipe -fno-ident -L/c/buildroot/x86_64-1310-posix-seh-msvcrt-rt_v11-rev1/mingw64/opt/lib -L/c/buildroot/prerequisites/x86_64-zlib-static/lib -L/c/buildroot/prerequisites/x86_64-w64-mingw32-static/lib ' LD_FOR_TARGET=/c/buildroot/x86_64-1310-posix-seh-msvcrt-rt_v11-rev1/mingw64/bin/ld.exe" "-v"
       
@@ -2530,7 +2911,7 @@ events:
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/Internal/CMakeDetermineLinkerId.cmake:38 (message)"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeDetermineCompilerABI.cmake:299 (cmake_determine_linker_id)"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
-      - "CMakeLists.txt:36 (project)"
+      - "CMakeLists.txt:38 (project)"
     message: |
       Running the CXX compiler's linker: "../src/gcc-13.1.0/configure --host=x86_64-w64-mingw32 --build=x86_64-w64-mingw32 --target=x86_64-w64-mingw32 --prefix=/mingw64 --with-sysroot=/c/buildroot/x86_64-1310-posix-seh-msvcrt-rt_v11-rev1/mingw64 --enable-host-shared --disable-multilib --enable-languages=c,c++,fortran,lto --enable-libstdcxx-time=yes --enable-threads=posix --enable-libgomp --enable-libatomic --enable-lto --enable-graphite --enable-checking=release --enable-fully-dynamic-string --enable-version-specific-runtime-libs --enable-libstdcxx-filesystem-ts=yes --disable-libssp --disable-libstdcxx-pch --disable-libstdcxx-debug --enable-bootstrap --disable-rpath --disable-win32-registry --disable-nls --disable-werror --disable-symvers --with-gnu-as --with-gnu-ld --with-arch=nocona --with-tune=core2 --with-libiconv --with-system-zlib --with-gmp=/c/buildroot/prerequisites/x86_64-w64-mingw32-static --with-mpfr=/c/buildroot/prerequisites/x86_64-w64-mingw32-static --with-mpc=/c/buildroot/prerequisites/x86_64-w64-mingw32-static --with-isl=/c/buildroot/prerequisites/x86_64-w64-mingw32-static --with-pkgversion='x86_64-posix-seh-rev1, Built by MinGW-Builds project' --with-bugurl=https:/github.com/niXman/mingw-builds CFLAGS='-O2 -pipe -fno-ident -I/c/buildroot/x86_64-1310-posix-seh-msvcrt-rt_v11-rev1/mingw64/opt/include -I/c/buildroot/prerequisites/x86_64-zlib-static/include -I/c/buildroot/prerequisites/x86_64-w64-mingw32-static/include' CXXFLAGS='-O2 -pipe -fno-ident -I/c/buildroot/x86_64-1310-posix-seh-msvcrt-rt_v11-rev1/mingw64/opt/include -I/c/buildroot/prerequisites/x86_64-zlib-static/include -I/c/buildroot/prerequisites/x86_64-w64-mingw32-static/include' CPPFLAGS=' -I/c/buildroot/x86_64-1310-posix-seh-msvcrt-rt_v11-rev1/mingw64/opt/include -I/c/buildroot/prerequisites/x86_64-zlib-static/include -I/c/buildroot/prerequisites/x86_64-w64-mingw32-static/include' LDFLAGS='-pipe -fno-ident -L/c/buildroot/x86_64-1310-posix-seh-msvcrt-rt_v11-rev1/mingw64/opt/lib -L/c/buildroot/prerequisites/x86_64-zlib-static/lib -L/c/buildroot/prerequisites/x86_64-w64-mingw32-static/lib ' LD_FOR_TARGET=/c/buildroot/x86_64-1310-posix-seh-msvcrt-rt_v11-rev1/mingw64/bin/ld.exe" "-V"
       
@@ -2540,7 +2921,7 @@ events:
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/Internal/CMakeDetermineLinkerId.cmake:38 (message)"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeDetermineCompilerABI.cmake:299 (cmake_determine_linker_id)"
       - "C:/Users/leopa/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
-      - "CMakeLists.txt:36 (project)"
+      - "CMakeLists.txt:38 (project)"
     message: |
       Running the CXX compiler's linker: "../src/gcc-13.1.0/configure --host=x86_64-w64-mingw32 --build=x86_64-w64-mingw32 --target=x86_64-w64-mingw32 --prefix=/mingw64 --with-sysroot=/c/buildroot/x86_64-1310-posix-seh-msvcrt-rt_v11-rev1/mingw64 --enable-host-shared --disable-multilib --enable-languages=c,c++,fortran,lto --enable-libstdcxx-time=yes --enable-threads=posix --enable-libgomp --enable-libatomic --enable-lto --enable-graphite --enable-checking=release --enable-fully-dynamic-string --enable-version-specific-runtime-libs --enable-libstdcxx-filesystem-ts=yes --disable-libssp --disable-libstdcxx-pch --disable-libstdcxx-debug --enable-bootstrap --disable-rpath --disable-win32-registry --disable-nls --disable-werror --disable-symvers --with-gnu-as --with-gnu-ld --with-arch=nocona --with-tune=core2 --with-libiconv --with-system-zlib --with-gmp=/c/buildroot/prerequisites/x86_64-w64-mingw32-static --with-mpfr=/c/buildroot/prerequisites/x86_64-w64-mingw32-static --with-mpc=/c/buildroot/prerequisites/x86_64-w64-mingw32-static --with-isl=/c/buildroot/prerequisites/x86_64-w64-mingw32-static --with-pkgversion='x86_64-posix-seh-rev1, Built by MinGW-Builds project' --with-bugurl=https:/github.com/niXman/mingw-builds CFLAGS='-O2 -pipe -fno-ident -I/c/buildroot/x86_64-1310-posix-seh-msvcrt-rt_v11-rev1/mingw64/opt/include -I/c/buildroot/prerequisites/x86_64-zlib-static/include -I/c/buildroot/prerequisites/x86_64-w64-mingw32-static/include' CXXFLAGS='-O2 -pipe -fno-ident -I/c/buildroot/x86_64-1310-posix-seh-msvcrt-rt_v11-rev1/mingw64/opt/include -I/c/buildroot/prerequisites/x86_64-zlib-static/include -I/c/buildroot/prerequisites/x86_64-w64-mingw32-static/include' CPPFLAGS=' -I/c/buildroot/x86_64-1310-posix-seh-msvcrt-rt_v11-rev1/mingw64/opt/include -I/c/buildroot/prerequisites/x86_64-zlib-static/include -I/c/buildroot/prerequisites/x86_64-w64-mingw32-static/include' LDFLAGS='-pipe -fno-ident -L/c/buildroot/x86_64-1310-posix-seh-msvcrt-rt_v11-rev1/mingw64/opt/lib -L/c/buildroot/prerequisites/x86_64-zlib-static/lib -L/c/buildroot/prerequisites/x86_64-w64-mingw32-static/lib ' LD_FOR_TARGET=/c/buildroot/x86_64-1310-posix-seh-msvcrt-rt_v11-rev1/mingw64/bin/ld.exe" "--version"
       

@@ -1,19 +1,6 @@
 # ninja log v7
-3	56	8012782105104118	CMakeFiles/Compilers.dir/Compilers.c.obj	592c2ac9f3d3bea
-15	67	8012781843991722	CMakeFiles/Compilers.dir/Main1Coder.c.obj	c09a34ab05391fb8
-13	70	8012781843981744	CMakeFiles/Compilers.dir/Step1Coder.c.obj	85767624bfed2c1d
-56	114	8012782105636564	Compilers.exe	978a2f713488bfeb
-8	124	8015327877834709	build.ninja	1eeb556a21261210
-8	124	8015327877804715	C:/FrogCompiler/a1files/code/cmake-build-debug/cmake_install.cmake	1eeb556a21261210
-12	90	8015327921234115	CMakeFiles/Compilers.dir/Step1Coder.c.obj	85767624bfed2c1d
-91	256	8015327922019414	Compilers.exe	978a2f713488bfeb
-3	55	8015333131952845	CMakeFiles/Compilers.dir/Step1Coder.c.obj	85767624bfed2c1d
-55	119	8015333132478179	Compilers.exe	978a2f713488bfeb
-9	60	8015333821769287	CMakeFiles/Compilers.dir/Step1Coder.c.obj	85767624bfed2c1d
-60	116	8015333822275474	Compilers.exe	978a2f713488bfeb
 2	54	8015335199189728	CMakeFiles/Compilers.dir/Compilers.c.obj	592c2ac9f3d3bea
-55	112	8015335199708331	Compilers.exe	978a2f713488bfeb
-27	171	8017025796111199	CMakeFiles/Compilers.dir/Step1Coder.c.obj	85767624bfed2c1d
-171	366	8017025797553527	Compilers.exe	978a2f713488bfeb
+15	67	8012781843991722	CMakeFiles/Compilers.dir/Main1Coder.c.obj	c09a34ab05391fb8
 14	71	8017026028866128	CMakeFiles/Compilers.dir/Step1Coder.c.obj	85767624bfed2c1d
 71	145	8017026029435307	Compilers.exe	978a2f713488bfeb
+8	124	8030852464864970	build.ninja	1eeb556a21261210
