@@ -155,6 +155,9 @@ BufferPointer readerAddChar(BufferPointer const readerPointer, frog_char ch) {
 		readerPointer->numReaderErrors++;
 		return NULL;
 	}
+
+	readerPointer->flags.isMoved = FROG_FALSE;
+
 	// check if the buffer is full and adjust flags accordingly
 	if (readerPointer->position.wrte * (frog_int)sizeof(frog_char) < readerPointer->size) {
 		readerPointer->flags.isFull = FROG_FALSE;

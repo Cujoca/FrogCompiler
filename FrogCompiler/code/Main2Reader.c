@@ -239,7 +239,7 @@ frog_void displayBuffer(BufferPointer ptr_Buffer) {
 	printf("Checksum: %d\n", readerChecksum(ptr_Buffer));
 	printf("%s", "Reader statistics : \n");
 	readerPrintStat(ptr_Buffer);
-	printf("Number of errors: %d\n",
+	printf("\nNumber of errors: %d\n",
 		readerNumErrors(ptr_Buffer));
 	printf("\nPrinting buffer contents:\n\n");
 	readerRecover(ptr_Buffer);
