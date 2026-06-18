@@ -47,7 +47,7 @@
 /*
  *.............................................................................
  * MAIN ADVICE:
- * Please check the "TODO" labels to develop your activity.
+ * Review the functions to use "Defensive Programming".
  *.............................................................................
  */
 
@@ -84,29 +84,14 @@
 #define READER_ASCII_START		0
 #define READER_ASCII_END		127
 
-/* TO_DO: Add your bit-masks constant definitions here */
-/*
-// BITS                             (    76543210)
-#define READER_DEFAULT_FLAG 0x00 	// (0b00000000) = (0x00)_16 = (000)_10
-// TO_DO: BIT 3: END = End of buffer flag
-#define READER_SET_FLAG_END 0x08	// (0b00001000) = (0x08)_16 = (008)_10
-// TO_DO: BIT 2: REL = Rellocation memory flag
-#define READER_SET_FLAG_REL 0x04	// (0b00000100) = (0x04)_16 = (004)_10
-// TO_DO: BIT 1: EMP = Buffer empty flag
-#define READER_SET_FLAG_FUL 0x02	// (0b00000010) = (0x02)_16 = (002)_10
-// TO_DO: BIT 0: FUL = Buffer full flag
-#define READER_SET_FLAG_EMP 0x01	// (0b00000001) = (0x01)_16 = (001)_10
-*/
+/* Buffer status flags are implemented as the Flag struct below
+ * (isEmpty / isFull / isRead / isMoved) rather than packed bit-masks. */
 
 #define NCHAR				128			/* Chars from 0 to 127 */
 
 #define CHARSEOF			(-1)		/* EOF Code for Reader */
 
 /* STRUCTURES DEFINITION: SUFIXED BY LANGUAGE NAME .................................. */
-
-/* TODO: Adjust datatypes
- * Completed by Leo
- */
 
 /* Offset declaration */
 typedef struct position {

@@ -9,24 +9,24 @@
 # ECHO "=---------------------------------------="
 # ECHO "|  COMPILERS - ALGONQUIN COLLEGE (S26)  |"
 # ECHO "=---------------------------------------="
-# ECHO "     -------------------------------	”
-# ECHO "	 |        o  o   o  o          |	”
-# ECHO "	 |        |\/ \^/ \/|          |	”
-# ECHO "	 |        |,-------.|          |	”
-# ECHO "	 |      ,-.(|)   (|),-.        |	”
-# ECHO "	 |      \_*._ ' '_.* _/        |	”
-# ECHO "	 |       /`-.`--' .-'\         |	”
-# ECHO "	 |  ,--./    `---'    \,--.    |	”
-# ECHO "	 |  \   |(  )     (  )|   /    |	”
-# ECHO "	 |   \  | ||       || |  /     |	”
-# ECHO "	 |    \ | /|\     /|\ | /      |	”
-# ECHO "	 |    /  \-._     _,-/  \      |	”
-# ECHO "	 |   //| \  `---'  // |\       |	”
-# ECHO "	 |  /,-.,-.\       /,-.,-.\    |	”
-# ECHO "	 |  o   o   o      o   o    o  |	”
-# ECHO "	 |                             |	”
-# ECHO "	 |  F       R       O       G  |	”
-# ECHO "	 -------------------------------    ”
+# ECHO "     -------------------------------	ï¿½
+# ECHO "	 |        o  o   o  o          |	ï¿½
+# ECHO "	 |        |\/ \^/ \/|          |	ï¿½
+# ECHO "	 |        |,-------.|          |	ï¿½
+# ECHO "	 |      ,-.(|)   (|),-.        |	ï¿½
+# ECHO "	 |      \_*._ ' '_.* _/        |	ï¿½
+# ECHO "	 |       /`-.`--' .-'\         |	ï¿½
+# ECHO "	 |  ,--./    `---'    \,--.    |	ï¿½
+# ECHO "	 |  \   |(  )     (  )|   /    |	ï¿½
+# ECHO "	 |   \  | ||       || |  /     |	ï¿½
+# ECHO "	 |    \ | /|\     /|\ | /      |	ï¿½
+# ECHO "	 |    /  \-._     _,-/  \      |	ï¿½
+# ECHO "	 |   //| \  `---'  // |\       |	ï¿½
+# ECHO "	 |  /,-.,-.\       /,-.,-.\    |	ï¿½
+# ECHO "	 |  o   o   o      o   o    o  |	ï¿½
+# ECHO "	 |                             |	ï¿½
+# ECHO "	 |  F       R       O       G  |	ï¿½
+# ECHO "	 -------------------------------    ï¿½
 # ECHO "                                         "
 # ECHO "[READER SCRIPT .........................]"
 # ECHO "                                         "
@@ -36,7 +36,7 @@
 ***********************************************************
 * File name: Reader.c
 * Compiler: MS Visual Studio 2022
-* Course: CST 8152 – Compilers, Lab Section: [011, 012, 013]
+* Course: CST 8152 ï¿½ Compilers, Lab Section: [011, 012, 013]
 * Assignment: A2
 * Date:
 * Professor: Vardaan Sangar
@@ -47,7 +47,6 @@
 /*
  *.............................................................................
  * MAIN ADVICE:
- * - Please check the "TODO" labels to develop your activity.
  * - Review the functions to use "Defensive Programming".
  *.............................................................................
  */
@@ -81,17 +80,12 @@
 *   mode = operational mode
 * Return value: bPointer (pointer to reader)
 * Algorithm: Allocation of memory according to inicial (default) values.
-* TODO ......................................................
-*	- Adjust datatypes for your LANGUAGE.
-*   - Use defensive programming
-*	- Check boundary conditions
-*	- Check flags.
 *************************************************************
 */
 
 BufferPointer readerCreate(frog_int size, frog_float factor) {
 	BufferPointer readerPointer = NULL;
-	/* TO_DO: Defensive programming: size */
+	// default checks for null or invalid sizes
 	if (size < 0  || size > READER_MAX_SIZE) {
 		size = READER_DEFAULT_SIZE;
 	}
@@ -99,16 +93,14 @@ BufferPointer readerCreate(frog_int size, frog_float factor) {
 		factor = READER_DEFAULT_FACTOR;
 	}
 
-	/* TO_DO: readerPointer allocation */
+	// allocate memory for the reader and check was successful
 	readerPointer = (BufferPointer)calloc(1, sizeof(Buffer));
-	/* TO_DO: Defensive programming: readerPointer */
 	if (readerPointer == NULL) {
 		return NULL;
 	}
 
-	/* TO_DO: content allocation */
+	// allocate memory for the content and check was successful
 	readerPointer->content = (frog_str)malloc(size);
-	/* TO_DO: Defensive programming: content */
 	if (readerPointer->content == NULL) {
 		free(readerPointer);
 		return NULL;
@@ -116,23 +108,23 @@ BufferPointer readerCreate(frog_int size, frog_float factor) {
 	readerPointer->size = size;
 	readerPointer->factor = factor;
 
-	/* TO_DO: Initialize the histogram */
+	// initialize the histogram
 	for (frog_int i = 0; i < NCHAR; i++) {
 		readerPointer->histogram[i] = 0;
 	}
 
-	/* TO_DO: Update the properties */
+	// set properties to default values
 	readerPointer->position.wrte = 0;
 	readerPointer->position.read = 0;
 	readerPointer->position.mark = 0;
 
-	/* TO_DO: Initialize flags */
+	// set flags to default values
 	readerPointer->flags.isEmpty = FROG_TRUE;
 	readerPointer->flags.isFull = FROG_FALSE;
 	readerPointer->flags.isRead = FROG_FALSE;
 	readerPointer->flags.isMoved = FROG_FALSE;
 
-	/* TO_DO: Initialize errors */
+	// initialize errors
 	readerPointer->numReaderErrors = 0;
 	readerPointer->checkSum = 0;
 	return readerPointer;
@@ -148,17 +140,13 @@ BufferPointer readerCreate(frog_int size, frog_float factor) {
 *   ch = char to be added
 * Return value:
 *	readerPointer (pointer to Buffer Reader)
-* TO_DO:
-*   - Use defensive programming
-*	- Check boundary conditions
-*	- Adjust for your LANGUAGE.
 *************************************************************
 */
 
 BufferPointer readerAddChar(BufferPointer const readerPointer, frog_char ch) {
 	frog_str tempReader = NULL;
 	frog_int newSize = 0;
-	/* TO_DO: Defensive programming */
+	// check that readerPointer is not NULL and that ch is a valid char
 	if (readerPointer == NULL ) {
 		printf("readerPointer is NULL\n");
 		return NULL;
@@ -167,19 +155,20 @@ BufferPointer readerAddChar(BufferPointer const readerPointer, frog_char ch) {
 		readerPointer->numReaderErrors++;
 		return NULL;
 	}
-	/* TO_DO: Test the inclusion of chars */
+
+	readerPointer->flags.isMoved = FROG_FALSE;
+
+	// check if the buffer is full and adjust flags accordingly
 	if (readerPointer->position.wrte * (frog_int)sizeof(frog_char) < readerPointer->size) {
-		/* TO_DO: Buffer not full: set flag */
 		readerPointer->flags.isFull = FROG_FALSE;
 		readerPointer->flags.isEmpty = FROG_FALSE;
 	}
 	else {
-		/* TO_DO: Reset Full flag */
+		// is full, resize buffer then set flags
 		readerPointer->flags.isFull = FROG_TRUE;
-		/* TO_DO: Adjust the size to be duplicated */
+
 		frog_float ratio = 1.0f + readerPointer->factor;
 		newSize = readerPointer->size * ratio;
-		/* TO_DO: Defensive programming */
 		if (newSize <= 0 || newSize > READER_MAX_SIZE) {
 			readerPointer->numReaderErrors++;
 			return NULL;
@@ -192,14 +181,14 @@ BufferPointer readerAddChar(BufferPointer const readerPointer, frog_char ch) {
 		if (tempReader != readerPointer->content) {
 			readerPointer->flags.isMoved = FROG_TRUE;
 		}
+		// reset reader to new size
 		readerPointer->content = tempReader;
 		readerPointer->size = newSize;
 		readerPointer->flags.isFull = FROG_FALSE;
 	}
-	/* TO_DO: Add the char */
+	// continue as normal and update histogram with new char
 	readerPointer->content[readerPointer->position.wrte] = ch;
 	readerPointer->position.wrte++;
-	/* TO_DO: Updates histogram */
 	if (ch >= ASCII_START && ch <= ASCII_END) {
 		readerPointer->histogram[ch]++;
 	}
@@ -244,12 +233,10 @@ frog_bool readerClear(BufferPointer const readerPointer) {
 *   readerPointer = pointer to Buffer Reader
 * Return value:
 *	Boolean value about operation success
-* TO_DO:
 * Completed by Leo
 *************************************************************
 */
 frog_bool readerFree(BufferPointer const readerPointer) {
-	// Defensive programming
 	if (readerPointer == NULL) {
 		return FROG_FALSE;
 	}
@@ -268,16 +255,14 @@ frog_bool readerFree(BufferPointer const readerPointer) {
 *   readerPointer = pointer to Buffer Reader
 * Return value:
 *	Boolean value about operation success
-* TO_DO:
 * Completed by Leo
 *************************************************************
 */
 frog_bool readerIsFull(BufferPointer const readerPointer) {
-	/* TO_DO: Defensive programming */
 	if (readerPointer == NULL) {
 		return FROG_FALSE;
 	}
-	/* TO_DO: Check flag if buffer is FUL */
+	// returns flag state
 	return readerPointer->flags.isFull;
 }
 
@@ -290,16 +275,15 @@ frog_bool readerIsFull(BufferPointer const readerPointer) {
 *   readerPointer = pointer to Buffer Reader
 * Return value:
 *	Boolean value about operation success
-* TO_DO:
 * Completed by Leo
 *************************************************************
 */
 frog_bool readerIsEmpty(BufferPointer const readerPointer) {
-	/* TO_DO: Defensive programming */
+	/* Defensive programming */
 	if (readerPointer == NULL) {
 		return FROG_FALSE;
 	}
-	/* TO_DO: Check flag if buffer is EMP */
+	// returns flag state
 	return readerPointer->flags.isEmpty;
 }
 
@@ -312,16 +296,14 @@ frog_bool readerIsEmpty(BufferPointer const readerPointer) {
 *   mark = mark position for char
 * Return value:
 *	Boolean value about operation success
-* TO_DO:
 * Completed by Leo
 *************************************************************
 */
 frog_bool readerSetMark(BufferPointer const readerPointer, frog_int mark) {
-	/* TO_DO: Defensive programming */
 	if (readerPointer == NULL) {
 		return FROG_FALSE;
 	}
-	/* TO_DO: Adjust mark */
+	// adjusts mark position if within bounds
 	if (!(mark >= 0 && mark < readerPointer->size)) {
 		return FROG_FALSE;
 	}
@@ -338,23 +320,18 @@ frog_bool readerSetMark(BufferPointer const readerPointer, frog_int mark) {
 *   readerPointer = pointer to Buffer Reader
 * Return value:
 *	Number of chars printed.
-* TO_DO:
-*   - Use defensive programming
-*	- Check boundary conditions
-*	- Adjust for your LANGUAGE.
 *************************************************************
 */
 frog_int readerPrint(BufferPointer const readerPointer) {
-	/* TO_DO: Defensive programming (including invalid chars) */
 	if (readerPointer == NULL) {
 		return READER_ERROR;
 	}
-	/* TO_DO: Print the buffer content */
+	// output buffer
 	frog_int count = 0;
 	frog_char ch;
 
 	while ((ch = readerGetChar(readerPointer)) != READER_TERMINATOR) {
-		/* TO_DO: Defensive programming (including invalid chars) */
+	    // check char is valid
 		if (ch < READER_ASCII_START || ch > READER_ASCII_END) {
 			readerPointer->numReaderErrors++;
 			continue;
@@ -376,22 +353,16 @@ frog_int readerPrint(BufferPointer const readerPointer) {
 *   fileDescriptor = pointer to file descriptor
 * Return value:
 *	Number of chars read and put in buffer.
-* TO_DO:
-*   - Use defensive programming
-*	- Check boundary conditions
-*	- Adjust for your LANGUAGE.
 *************************************************************
 */
 frog_int readerLoad(BufferPointer const readerPointer, frog_str fileName) {
-	/* TO_DO: Defensive programming */
 	if (readerPointer == NULL) {
 		return READER_ERROR;
 	}
 	if (fileName == NULL) {
 		return READER_ERROR;
 	}
-	/* TO_DO: Loads the file */
-	/* TO_DO: Creates the string calling vigenereMem(fileName, STR_LANGNAME, DECYPHER) */
+	// loads file and begins reading process
 	frog_str content = vigenereMem(fileName, STR_LANGNAME, DECYPHER);
 	if (content == NULL) {
 		return READER_ERROR;
@@ -417,16 +388,14 @@ frog_int readerLoad(BufferPointer const readerPointer, frog_str fileName) {
 *   readerPointer = pointer to Buffer Reader
 * Return value
 *	Boolean value about operation success
-* TO_DO:
 * Completed by Leo
 *************************************************************
 */
 frog_bool readerRecover(BufferPointer const readerPointer) {
-	/* TO_DO: Defensive programming */
 	if (readerPointer == NULL) {
 		return FROG_FALSE;
 	}
-	/* TO_DO: Adjust read and mark to zero */
+	// reset reader position
 	readerPointer->position.read = 0;
 	readerPointer->position.mark = 0;
 	return FROG_TRUE;
@@ -441,19 +410,17 @@ frog_bool readerRecover(BufferPointer const readerPointer) {
 *   readerPointer = pointer to Buffer Reader
 * Return value:
 *	Boolean value about operation success
-* TO_DO:
 * Completed by Leo
 *************************************************************
 */
 frog_bool readerRetract(BufferPointer const readerPointer) {
-	/* TO_DO: Defensive programming */
 	if (readerPointer == NULL) {
 		return FROG_FALSE;
 	}
+	// can not go negative
 	if (readerPointer->position.read <= 0) {
 		return FROG_FALSE;
 	}
-	/* TO_DO: Retract (return 1 pos read) */
 	readerPointer->position.read--;
 	return FROG_TRUE;
 }
@@ -467,16 +434,14 @@ frog_bool readerRetract(BufferPointer const readerPointer) {
 *   readerPointer = pointer to Buffer Reader
 * Return value:
 *	Boolean value about operation success
-* TO_DO:
 * Completed by Leo
 *************************************************************
 */
 frog_bool readerRestore(BufferPointer const readerPointer) {
-	/* TO_DO: Defensive programming */
 	if (readerPointer == NULL) {
 		return FROG_FALSE;
 	}
-	/* TO_DO: Restore read to mark */
+	// restore read position to mark
 	readerPointer->position.read = readerPointer->position.mark;
 	return FROG_TRUE;
 }
@@ -491,20 +456,19 @@ frog_bool readerRestore(BufferPointer const readerPointer) {
 *   readerPointer = pointer to Buffer Reader
 * Return value:
 *	Char in the getC position.
-* TO_DO:
 * Completed by Leo
 *************************************************************
 */
 frog_char readerGetChar(BufferPointer const readerPointer) {
-	/* TO_DO: Defensive programming */
 	if (readerPointer == NULL) {
 		return READER_TERMINATOR;
 	}
+	// returns terminator if read position is beyond write position
 	if (readerPointer->position.read >= readerPointer->position.wrte) {
 		readerPointer->flags.isRead = FROG_TRUE;
 		return READER_TERMINATOR;
 	}
-	/* TO_DO: Returns size in the read position and updates read */
+	// returns char at read position and updates read position
 	readerPointer->flags.isRead = FROG_FALSE;
 	frog_char ch = readerPointer->content[readerPointer->position.read];
 	readerPointer->position.read++;
@@ -521,21 +485,17 @@ frog_char readerGetChar(BufferPointer const readerPointer) {
 *   pos = position to get the pointer
 * Return value:
 *	Position of string char.
-* TO_DO:
-*   - Use defensive programming
-*	- Check boundary conditions
-*	- Adjust for your LANGUAGE.
 *************************************************************
 */
 frog_str readerGetContent(BufferPointer const readerPointer, frog_int pos) {
-	/* TO_DO: Defensive programming */
+	/* Defensive programming */
 	if (readerPointer == NULL) {
 		return NULL;
 	}
 	if (!(pos >= 0 && pos < readerPointer->size)) {
 		return NULL;
 	}
-	/* TO_DO: Return content (string) */
+	/* Return content (string) */
 	return &(readerPointer->content[pos]);
 }
 
@@ -547,16 +507,15 @@ frog_str readerGetContent(BufferPointer const readerPointer, frog_int pos) {
 *   readerPointer = pointer to Buffer Reader
 * Return value:
 *	The read position offset.
-* TO_DO:
 * Completed by Leo
 *************************************************************
 */
 frog_int readerGetPosRead(BufferPointer const readerPointer) {
-	/* TO_DO: Defensive programming */
+	/* Defensive programming */
 	if (readerPointer == NULL) {
 		return READER_ERROR;
 	}
-	/* TO_DO: Return read */
+	/* Return read */
 	return readerPointer->position.read;
 }
 
@@ -569,16 +528,15 @@ frog_int readerGetPosRead(BufferPointer const readerPointer) {
 *   readerPointer = pointer to Buffer Reader
 * Return value:
 *	Write position
-* TO_DO:
 * Completed by Leo
 *************************************************************
 */
 frog_int readerGetPosWrte(BufferPointer const readerPointer) {
-	/* TO_DO: Defensive programming */
+	/* Defensive programming */
 	if (readerPointer == NULL) {
 		return READER_ERROR;
 	}
-	/* TO_DO: Return wrte */
+	/* Return wrte */
 	return readerPointer->position.wrte;}
 
 
@@ -590,16 +548,15 @@ frog_int readerGetPosWrte(BufferPointer const readerPointer) {
 *   readerPointer = pointer to Buffer Reader
 * Return value:
 *	Mark position.
-* TO_DO:
 * Completed by Leo
 *************************************************************
 */
 frog_int readerGetPosMark(BufferPointer const readerPointer) {
-	/* TO_DO: Defensive programming */
+	/* Defensive programming */
 	if (readerPointer == NULL) {
 		return READER_ERROR;
 	}
-	/* TO_DO: Return mark */
+	/* Return mark */
 	return readerPointer->position.mark;}
 
 
@@ -611,16 +568,15 @@ frog_int readerGetPosMark(BufferPointer const readerPointer) {
 *   readerPointer = pointer to Buffer Reader
 * Return value:
 *	Size of buffer.
-* TO_DO:
 * Completed by Leo
 *************************************************************
 */
 frog_int readerGetSize(BufferPointer const readerPointer) {
-	/* TO_DO: Defensive programming */
+	/* Defensive programming */
 	if (readerPointer == NULL) {
 		return READER_ERROR;
 	}
-	/* TO_DO: Return size */
+	/* Return size */
 	return readerPointer->size;}
 
 /*
@@ -631,7 +587,6 @@ frog_int readerGetSize(BufferPointer const readerPointer) {
 *   readerPointer = pointer to Buffer Reader
 * Return value:
 *	Flags from Buffer.
-* TO_DO:
 * Completed by Leo
 *************************************************************
 */
@@ -639,11 +594,11 @@ frog_int readerGetSize(BufferPointer const readerPointer) {
 #undef FLAGS_
 #ifndef FLAGS_
 frog_void readerPrintFlags(BufferPointer const readerPointer) {
-	/* TO_DO: Defensive programming */
+	/* Defensive programming */
 	if (readerPointer == NULL) {
 		return;
 	}
-	/* TO_DO: Return flags */
+	/* Return flags */
 	printf("Flags.isEmpty = %d\n", readerPointer->flags.isEmpty);
 	printf("Flags.isFull = %d\n", readerPointer->flags.isFull);
 	printf("Flags.isRead = %d\n", readerPointer->flags.isRead);
@@ -660,16 +615,15 @@ frog_void readerPrintFlags(BufferPointer const readerPointer) {
 * Parameters:
 *   readerPointer = pointer to Buffer Reader
 * Return value: (Void)
-* TO_DO:
 * Completed by Leo
 *************************************************************
 */
 frog_void readerPrintStat(BufferPointer const readerPointer) {
-	/* TO_DO: Defensive programming */
+	/* Defensive programming */
 	if (readerPointer == NULL) {
 		return;
 	}
-	/* TO_DO: Print statistics */
+	/* Print statistics */
 	for (frog_int i = 0; i < NCHAR - 1; i++) {
 		if (readerPointer->histogram[i] > 0) {
 			printf("B[%c]=%d, ", (char)i, readerPointer->histogram[i]);
@@ -685,16 +639,15 @@ frog_void readerPrintStat(BufferPointer const readerPointer) {
 *   readerPointer = pointer to Buffer Reader
 * Return value:
 *	Number of errors.
-* TO_DO:
 * Completed by Leo
 *************************************************************
 */
 frog_int readerNumErrors(BufferPointer const readerPointer) {
-	/* TO_DO: Defensive programming */
+	/* Defensive programming */
 	if (readerPointer == NULL) {
 		return READER_ERROR;
 	}
-	/* TO_DO: Return the number of errors */
+	/* Return the number of errors */
 	return readerPointer->numReaderErrors;
 }
 
@@ -706,19 +659,15 @@ frog_int readerNumErrors(BufferPointer const readerPointer) {
 *   readerPointer = pointer to Buffer Reader
 * Return value:
 *	[None]
-* TO_DO:
-*   - Use defensive programming
-*	- Check boundary conditions
-*	- Adjust for your LANGUAGE.
 *************************************************************
 */
 
 frog_int readerChecksum(BufferPointer readerPointer) {
-	/* TO_DO: Defensive programming */
+	/* Defensive programming */
 	if (readerPointer == NULL) {
 		return READER_ERROR;
 	}
-	/* TO_DO: Return the checksum (given by the content) */
+	/* Return the checksum (given by the content) */
 	frog_int sum = 0;
 	frog_int i = 0;
 	for (i = 0; i < readerPointer->position.wrte; i++) {

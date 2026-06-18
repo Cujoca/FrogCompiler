@@ -2,31 +2,31 @@
 ************************************************************
 * COMPILERS COURSE - Algonquin College
 * Code version: Fall, 2025
-* Author: TO_DO
+* Author: Andrei Cojocaru and Leo Paquette
 * Professors: Paulo Sousa
 ************************************************************
 #
 # ECHO "=---------------------------------------="
 # ECHO "|  COMPILERS - ALGONQUIN COLLEGE (S26)  |"
 # ECHO "=---------------------------------------="
-# ECHO "     -------------------------------	”
-# ECHO "	 |        o  o   o  o          |	”
-# ECHO "	 |        |\/ \^/ \/|          |	”
-# ECHO "	 |        |,-------.|          |	”
-# ECHO "	 |      ,-.(|)   (|),-.        |	”
-# ECHO "	 |      \_*._ ' '_.* _/        |	”
-# ECHO "	 |       /`-.`--' .-'\         |	”
-# ECHO "	 |  ,--./    `---'    \,--.    |	”
-# ECHO "	 |  \   |(  )     (  )|   /    |	”
-# ECHO "	 |   \  | ||       || |  /     |	”
-# ECHO "	 |    \ | /|\     /|\ | /      |	”
-# ECHO "	 |    /  \-._     _,-/  \      |	”
-# ECHO "	 |   //| \  `---'  // |\       |	”
-# ECHO "	 |  /,-.,-.\       /,-.,-.\    |	”
-# ECHO "	 |  o   o   o      o   o    o  |	”
-# ECHO "	 |                             |	”
-# ECHO "	 |  F       R       O       G  |	”
-# ECHO "	 -------------------------------    ”
+# ECHO "     -------------------------------	ï¿½
+# ECHO "	 |        o  o   o  o          |	ï¿½
+# ECHO "	 |        |\/ \^/ \/|          |	ï¿½
+# ECHO "	 |        |,-------.|          |	ï¿½
+# ECHO "	 |      ,-.(|)   (|),-.        |	ï¿½
+# ECHO "	 |      \_*._ ' '_.* _/        |	ï¿½
+# ECHO "	 |       /`-.`--' .-'\         |	ï¿½
+# ECHO "	 |  ,--./    `---'    \,--.    |	ï¿½
+# ECHO "	 |  \   |(  )     (  )|   /    |	ï¿½
+# ECHO "	 |   \  | ||       || |  /     |	ï¿½
+# ECHO "	 |    \ | /|\     /|\ | /      |	ï¿½
+# ECHO "	 |    /  \-._     _,-/  \      |	ï¿½
+# ECHO "	 |   //| \  `---'  // |\       |	ï¿½
+# ECHO "	 |  /,-.,-.\       /,-.,-.\    |	ï¿½
+# ECHO "	 |  o   o   o      o   o    o  |	ï¿½
+# ECHO "	 |                             |	ï¿½
+# ECHO "	 |  F       R       O       G  |	ï¿½
+# ECHO "	 -------------------------------    ï¿½
 # ECHO "                                         "
 # ECHO "[READER SCRIPT .........................]"
 # ECHO "                                         "
@@ -36,7 +36,7 @@
 ************************************************************
 * File name: MainReader.c
 * Compiler: MS Visual Studio 2022
-* Course: CST 8152 – Compilers, Lab Section: [011, 012]
+* Course: CST 8152 ï¿½ Compilers, Lab Section: [011, 012]
 * Assignment: A12, A22, A32.
 * Date: Jan 01 2025
 * Professor: Paulo Sousa
@@ -46,10 +46,7 @@
 
 /*
  *.............................................................................
- * ADVICE 1:
- * Please check the "TODO" labels to develop your activity.
- *
- * ADVICE 2: Preprocessor directives
+ * ADVICE: Preprocessor directives
  * The #define _CRT_SECURE_NO_WARNINGS should be used in MS Visual Studio projects
  * to suppress the warnings about using "unsafe" functions like fopen()
  * and standard sting library functions defined in string.h.
@@ -84,12 +81,6 @@
 #undef ANSI_C
 #define ANSI_C 1
 #endif
-
-/*
- * TODO .......................................................................
- * Basically, change all datatypes to your language definitions
- * (see "Compilers.h")
- */
 
 /*
  * -------------------------------------------------------------
@@ -248,7 +239,7 @@ frog_void displayBuffer(BufferPointer ptr_Buffer) {
 	printf("Checksum: %d\n", readerChecksum(ptr_Buffer));
 	printf("%s", "Reader statistics : \n");
 	readerPrintStat(ptr_Buffer);
-	printf("Number of errors: %d\n",
+	printf("\nNumber of errors: %d\n",
 		readerNumErrors(ptr_Buffer));
 	printf("\nPrinting buffer contents:\n\n");
 	readerRecover(ptr_Buffer);
