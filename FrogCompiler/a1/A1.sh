@@ -22,7 +22,7 @@ cd "$SCRIPT_DIR/../code"
 
 rm -f ../input/CODED.txt ../input/RESTORED.txt
 
-gcc Compilers.c Main1Coder.c Step1Coder.c -o compilers
+gcc Compilers.c Main1Coder.c Step1Coder.c Main2Reader.c Step2Reader.c -o compilers
 
 sleep 1
 ./compilers 1 1 ../input/README.txt "$arg" > ../output/out.txt 2> ../output/err.txt
