@@ -569,6 +569,9 @@ frog_void printToken(Token t) {
 	case MNID_T:
 		printf("MNID_T\t\t%s\n", t.attribute.idLexeme);
 		break;
+	case INL_T:
+		printf("INL_T\t\t%d\n", t.attribute.intValue);
+		break;
 	case STR_T:
 		printf("STR_T\t\t%d\t ", (frog_int)t.attribute.codeType);
 		printf("%s\n", readerGetContent(stringLiteralTable, (frog_int)t.attribute.codeType));
