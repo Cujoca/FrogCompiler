@@ -120,7 +120,7 @@ frog_void printToken(Token t);
  ***********************************************************
  */
 
-frog_int mainScanner(frog_int argc, frog_str* argv) {
+frog_int main3Scanner(frog_int argc, frog_str* argv) {
 
 	BufferPointer sourceBuffer;		/* Pointer to input (source) buffer */
 	FILE* fileHandler;				/* Input file handle */
@@ -141,7 +141,7 @@ frog_int mainScanner(frog_int argc, frog_str* argv) {
 	printf("%s%d%s", "[Debug mode: ", DEBUG, "]\n");
 
 	/* Create a source code input buffer - multiplicative mode */
-	sourceBuffer = readerCreate(READER_DEFAULT_SIZE, READER_DEFAULT_INCREMENT, MODE_MULTI);
+	sourceBuffer = readerCreate(READER_DEFAULT_SIZE, READER_DEFAULT_FACTOR);
 	if (sourceBuffer == NULL) {
 		printScannerError("%s%s", argv[1], ": Could not create source buffer");
 		exit(EXIT_FAILURE);
@@ -155,7 +155,7 @@ frog_int mainScanner(frog_int argc, frog_str* argv) {
 
 	/* Load source file into input buffer  */
 	printf("Reading file %s ....Please wait\n", argv[2]);
-	loadSize = readerLoad(sourceBuffer, fileHandler);
+	loadSize = readerLoad(sourceBuffer, argv[2]);
 	if (loadSize == READER_ERROR)
 		printScannerError("%s%s", argv[0], ": Error in loading buffer.");
 
@@ -175,7 +175,7 @@ frog_int mainScanner(frog_int argc, frog_str* argv) {
 	}
 
 	/* Create string Literal Table */
-	stringLiteralTable = readerCreate(READER_DEFAULT_SIZE, READER_DEFAULT_INCREMENT, MODE_ADDIT);
+	stringLiteralTable = readerCreate(READER_DEFAULT_SIZE, READER_DEFAULT_FACTOR);
 	if (stringLiteralTable == NULL) {
 		printScannerError("%s%s", argv[0], ": Could not create string literals buffer");
 		exit(EXIT_FAILURE);

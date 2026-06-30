@@ -154,7 +154,7 @@ typedef struct scannerData {
 /* TO_DO: Define lexeme FIXED classes */
 /* EOF definitions */
 #define EOS_CHR '\0'	// CH00
-#define EOF_CHR 0xFF	// CH01
+#define EOF_CHR (frog_char)0xFF	// CH01
 #define UND_CHR '_'		// CH02
 #define AMP_CHR '&'		// CH03
 #define QUT_CHR '\''	// CH04
@@ -305,9 +305,9 @@ typedef struct languageAttributes {
 } LanguageAttributes;
 
 /* Number of errors */
-frog_int numScannerErrors;
+extern frog_int numScannerErrors;
 
 /* Scanner data */
-ScannerData scData;
+extern ScannerData scData;
 
 #endif

@@ -99,6 +99,12 @@ extern frog_int transitionTable[NUM_STATES][CHAR_CLASSES];
 static BufferPointer lexemeBuffer;			/* Pointer to temporary lexeme buffer */
 static BufferPointer sourceBuffer;			/* Pointer to input source buffer */
 
+/* Number of errors */
+frog_int numScannerErrors;
+
+/* Scanner data */
+ScannerData scData;
+
 /*
  ************************************************************
  * Intitializes scanner
@@ -240,6 +246,7 @@ Token tokenizer(frog_void) {
 			for (i = 0; i < lexLength; i++)
 				readerAddChar(lexemeBuffer, readerGetChar(sourceBuffer));
 			readerAddChar(lexemeBuffer, READER_TERMINATOR);
+			free(lexeme);
 			lexeme = readerGetContent(lexemeBuffer, 0);
 			// TO_DO: Defensive programming
 			if (!lexeme)
