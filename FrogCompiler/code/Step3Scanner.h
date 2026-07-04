@@ -9,24 +9,24 @@
 # ECHO "=---------------------------------------="
 # ECHO "|  COMPILERS - ALGONQUIN COLLEGE (S26)  |"
 # ECHO "=---------------------------------------="
-# ECHO "     -------------------------------	
-# ECHO "	 |        o  o   o  o          |	
-# ECHO "	 |        |\/ \^/ \/|          |	
-# ECHO "	 |        |,-------.|          |	
-# ECHO "	 |      ,-.(|)   (|),-.        |	
-# ECHO "	 |      \_*._ ' '_.* _/        |	
-# ECHO "	 |       /`-.`--' .-'\         |	
-# ECHO "	 |  ,--./    `---'    \,--.    |	
-# ECHO "	 |  \   |(  )     (  )|   /    |	
-# ECHO "	 |   \  | ||       || |  /     |	
-# ECHO "	 |    \ | /|\     /|\ | /      |	
-# ECHO "	 |    /  \-._     _,-/  \      |	
-# ECHO "	 |   //| \  `---'  // |\       |	
-# ECHO "	 |  /,-.,-.\       /,-.,-.\    |	
-# ECHO "	 |  o   o   o      o   o    o  |	
-# ECHO "	 |                             |	
-# ECHO "	 |  F       R       O       G  |	
-# ECHO "	 -------------------------------    
+# ECHO "     -------------------------------	Â”
+# ECHO "	 |        o  o   o  o          |	Â”
+# ECHO "	 |        |\/ \^/ \/|          |	Â”
+# ECHO "	 |        |,-------.|          |	Â”
+# ECHO "	 |      ,-.(|)   (|),-.        |	Â”
+# ECHO "	 |      \_*._ ' '_.* _/        |	Â”
+# ECHO "	 |       /`-.`--' .-'\         |	Â”
+# ECHO "	 |  ,--./    `---'    \,--.    |	Â”
+# ECHO "	 |  \   |(  )     (  )|   /    |	Â”
+# ECHO "	 |   \  | ||       || |  /     |	Â”
+# ECHO "	 |    \ | /|\     /|\ | /      |	Â”
+# ECHO "	 |    /  \-._     _,-/  \      |	Â”
+# ECHO "	 |   //| \  `---'  // |\       |	Â”
+# ECHO "	 |  /,-.,-.\       /,-.,-.\    |	Â”
+# ECHO "	 |  o   o   o      o   o    o  |	Â”
+# ECHO "	 |                             |	Â”
+# ECHO "	 |  F       R       O       G  |	Â”
+# ECHO "	 -------------------------------    Â”
 # ECHO "                                         "
 # ECHO "[SCANNER SCRIPT ........................]"
 # ECHO "                                         "
@@ -36,7 +36,7 @@
 ************************************************************
 * File name: Scanner.h
 * Compiler: MS Visual Studio 2022
-* Course: CST 8152 � Compilers, Lab Section: [011, 012]
+* Course: CST 8152 ï¿½ Compilers, Lab Section: [011, 012]
 * Assignment: A22, A32.
 * Date: May 01 2024
 * Purpose: This file is the main header for Scanner (.h)
@@ -70,23 +70,29 @@
 #define RTE_CODE 1  /* Value for run-time error */
 
 /* TO_DO: Define the number of tokens */
-#define NUM_TOKENS 13
+#define NUM_TOKENS 19
 
 /* TO_DO: Define Token codes - Create your token classes */
 enum TOKENS {
 	ERR_T,		/*  0: Error token */
 	MNID_T,		/*  1: Method name identifier token (start: &) */
 	INL_T,		/*  2: Integer literal token */
-	STR_T,		/*  3: String literal token */
-	LPR_T,		/*  4: Left parenthesis token */
-	RPR_T,		/*  5: Right parenthesis token */
-	LBR_T,		/*  6: Left brace token */
-	RBR_T,		/*  7: Right brace token */
-	KW_T,		/*  8: Keyword token */
-	EOS_T,		/*  9: End of statement (semicolon) */
-	RTE_T,		/* 10: Run-time error token */
-	SEOF_T,		/* 11: Source end-of-file token */
-	CMT_T		/* 12: Comment token */
+	FPL_T,		/*  3: Floating-point (real) literal token */
+	STR_T,		/*  4: String literal token */
+	VID_T,		/*  5: Variable identifier token */
+	LPR_T,		/*  6: Left parenthesis token */
+	RPR_T,		/*  7: Right parenthesis token */
+	LBR_T,		/*  8: Left brace token */
+	RBR_T,		/*  9: Right brace token */
+	KW_T,		/* 10: Keyword token */
+	EOS_T,		/* 11: End of statement (semicolon) */
+	ARI_OP_T,	/* 12: Arithmetic operator token (+ - * /) */
+	REL_OP_T,	/* 13: Relational operator token (== != > <) */
+	LOG_OP_T,	/* 14: Logical operator token (&& || !) */
+	ASN_T,		/* 15: Assignment operator token (=) */
+	RTE_T,		/* 16: Run-time error token */
+	SEOF_T,		/* 17: Source end-of-file token */
+	CMT_T		/* 18: Comment token */
 };
 
 /* TO_DO: Define the list of keywords */
@@ -94,13 +100,19 @@ static frog_str tokenStrTable[NUM_TOKENS] = {
 	"ERR_T",
 	"MNID_T",
 	"INL_T",
+	"FPL_T",
 	"STR_T",
+	"VID_T",
 	"LPR_T",
 	"RPR_T",
 	"LBR_T",
 	"RBR_T",
 	"KW_T",
 	"EOS_T",
+	"ARI_OP_T",
+	"REL_OP_T",
+	"LOG_OP_T",
+	"ASN_T",
 	"RTE_T",
 	"SEOF_T",
 	"CMT_T"
@@ -167,36 +179,50 @@ typedef struct scannerData {
 #define RPR_CHR ')'		// CH11
 #define LBR_CHR '{'		// CH12
 #define RBR_CHR '}'		// CH13
+#define DOT_CHR '.'		// CH14
+#define PLS_CHR '+'		// CH15
+#define MIN_CHR '-'		// CH16
+#define MUL_CHR '*'		// CH17
+#define DIV_CHR '/'		// CH18
+#define GRT_CHR '>'		// CH19
+#define LSS_CHR '<'		// CH20
+#define EQL_CHR '='		// CH21
+#define NOT_CHR '!'		// CH22
+#define PIP_CHR '|'		// CH23
 
 /*  Special case tokens processed separately one by one in the token-driven part of the scanner:
- *  LPR_T, RPR_T, LBR_T, RBR_T, EOS_T, SEOF_T and special chars used for tokenis include _, & and ' */
+ *  LPR_T, RPR_T, LBR_T, RBR_T, EOS_T, SEOF_T, operator tokens (ARI_OP_T, REL_OP_T, LOG_OP_T, ASN_T)
+ *  and special chars used for tokens include _, & and " */
 
 
 /* TO_DO: Error states and illegal state */
 #define ESNR	8		/* Error state with no retract */
 #define ESWR	9		/* Error state with retract */
-#define FS		12		/* Illegal state (sentinel - must stay >= NUM_STATES) */
+#define FS		15		/* Illegal state (sentinel - must stay >= NUM_STATES) */
 
  /* TO_DO: State transition table definition */
-#define NUM_STATES		12
-#define CHAR_CLASSES	8
+#define NUM_STATES		15
+#define CHAR_CLASSES	9
 
 /* TO_DO: Transition table - type of states defined in separate table */
 static frog_int transitionTable[NUM_STATES][CHAR_CLASSES] = {
-/*    [A-z],[0-9],    _,    &,   \", SEOF,    #, other
-	   L(0), D(1), U(2), M(3), Q(4), E(5), C(6),  O(7) */
-	{     1,   10, ESNR, ESNR,    4, ESWR,	  6, ESNR},	// S0: NOAS
-	{     1,    1,    1,    2,	  3,    3,   3,    3},	// S1: NOAS
-	{    FS,   FS,   FS,   FS,   FS,   FS,	 FS,   FS},	// S2: ASNR (MVID)
-	{    FS,   FS,   FS,   FS,   FS,   FS,	 FS,   FS},	// S3: ASWR (KEY)
-	{     4,    4,    4,    4,    5, ESWR,	  4,    4},	// S4: NOAS
-	{    FS,   FS,   FS,   FS,   FS,   FS,	 FS,   FS},	// S5: ASNR (SL)
-	{     6,    6,    6,    6,    6, ESWR,	  7,    6},	// S6: NOAS
-	{    FS,   FS,   FS,   FS,   FS,   FS,	 FS,   FS},	// S7: ASNR (COM)
-	{    FS,   FS,   FS,   FS,   FS,   FS,	 FS,   FS},	// S8: ASNR (ES)
-	{    FS,   FS,   FS,   FS,   FS,   FS,	 FS,   FS},	// S9: ASWR (ER)
-	{    11,   10,   11,   11,   11,   11,	 11,   11},	// S10: NOAS (IL digit run)
-	{    FS,   FS,   FS,   FS,   FS,   FS,	 FS,   FS}  // S11: ASWR (IL)
+/*    [A-z],[0-9],    _,    &,   \", SEOF,    #, other,    .
+	   L(0), D(1), U(2), M(3), Q(4), E(5), C(6),  O(7), P(8) */
+	{     1,   10, ESNR, ESNR,    4, ESWR,	  6, ESNR, ESNR},	// S0: NOAS
+	{     1,    1,    1,    2,	  3,    3,   3,    3,    3},	// S1: NOAS (identifier body)
+	{    FS,   FS,   FS,   FS,   FS,   FS,	 FS,   FS,   FS},	// S2: ASNR (MNID)
+	{    FS,   FS,   FS,   FS,   FS,   FS,	 FS,   FS,   FS},	// S3: ASWR (KEY/VID)
+	{     4,    4,    4,    4,    5, ESWR,	  4,    4,    4},	// S4: NOAS (string body)
+	{    FS,   FS,   FS,   FS,   FS,   FS,	 FS,   FS,   FS},	// S5: ASNR (SL)
+	{     6,    6,    6,    6,    6, ESWR,	  7,    6,    6},	// S6: NOAS (comment body)
+	{    FS,   FS,   FS,   FS,   FS,   FS,	 FS,   FS,   FS},	// S7: ASNR (COM)
+	{    FS,   FS,   FS,   FS,   FS,   FS,	 FS,   FS,   FS},	// S8: ASNR (ES)
+	{    FS,   FS,   FS,   FS,   FS,   FS,	 FS,   FS,   FS},	// S9: ASWR (ER)
+	{    11,   10,   11,   11,   11,   11,	 11,   11,   12},	// S10: NOAS (IL digit run)
+	{    FS,   FS,   FS,   FS,   FS,   FS,	 FS,   FS,   FS},	// S11: ASWR (IL)
+	{  ESNR,   13, ESNR, ESNR, ESNR, ESWR, ESNR, ESNR, ESNR},	// S12: NOAS (post '.', needs 1st fraction digit)
+	{    14,   13,   14,   14,   14,   14,	 14,   14,   14},	// S13: NOAS (fraction digit run)
+	{    FS,   FS,   FS,   FS,   FS,   FS,	 FS,   FS,   FS}	// S14: ASWR (FPL)
 };
 
 /* Define accepting states types */
@@ -208,8 +234,8 @@ static frog_int transitionTable[NUM_STATES][CHAR_CLASSES] = {
 static frog_int stateType[NUM_STATES] = {
 	NOFS, /* 00 */
 	NOFS, /* 01 */
-	FSNR, /* 02 (MID) - Methods */
-	FSWR, /* 03 (KEY) */
+	FSNR, /* 02 (MNID) - Methods */
+	FSWR, /* 03 (KEY/VID) */
 	NOFS, /* 04 */
 	FSNR, /* 05 (SL) */
 	NOFS, /* 06 */
@@ -217,7 +243,10 @@ static frog_int stateType[NUM_STATES] = {
 	FSNR, /* 08 (Err1 - no retract) */
 	FSWR, /* 09 (Err2 - retract) */
 	NOFS, /* 10 (IL digit run) */
-	FSWR  /* 11 (IL) */
+	FSWR, /* 11 (IL) */
+	NOFS, /* 12 (post '.', needs 1st fraction digit) */
+	NOFS, /* 13 (fraction digit run) */
+	FSWR  /* 14 (FPL) */
 };
 
 /*
@@ -245,6 +274,7 @@ typedef Token(*PTR_ACCFUN)(frog_str lexeme);
 /* Declare accepting states functions */
 Token funcSL	(frog_str lexeme);
 Token funcIL	(frog_str lexeme);
+Token funcFPL	(frog_str lexeme);
 Token funcID	(frog_str lexeme);
 Token funcCMT   (frog_str lexeme);
 Token funcKEY	(frog_str lexeme);
@@ -260,15 +290,18 @@ static PTR_ACCFUN finalStateTable[NUM_STATES] = {
 	NULL,		/* -    [00] */
 	NULL,		/* -    [01] */
 	funcID,		/* MNID	[02] */
-	funcKEY,	/* KEY  [03] */
+	funcKEY,	/* KEY/VID [03] */
 	NULL,		/* -    [04] */
 	funcSL,		/* SL   [05] */
 	NULL,		/* -    [06] */
 	funcCMT,	/* COM  [07] */
-	funcErr,	/* ERR1 [06] */
-	funcErr,	/* ERR2 [07] */
+	funcErr,	/* ERR1 [08] */
+	funcErr,	/* ERR2 [09] */
 	NULL,		/* -    [10] */
-	funcIL		/* IL   [11] */
+	funcIL,		/* IL   [11] */
+	NULL,		/* -    [12] */
+	NULL,		/* -    [13] */
+	funcFPL		/* FPL  [14] */
 };
 
 /*
@@ -282,17 +315,17 @@ Language keywords
 
 /* TO_DO: Define the list of keywords */
 static frog_str keywordTable[KWT_SIZE] = {
-	"data",		/* KW00 */
-	"code",		/* KW01 */
-	"int",		/* KW02 */
-	"real",		/* KW03 */
-	"string",	/* KW04 */
+	"pond",		/* KW00 - variable declaration section (was: data) */
+	"swamp",	/* KW01 - executable code section (was: code) */
+	"tadpole",	/* KW02 - integer type (was: int) */
+	"lilypad",	/* KW03 - real/float type (was: real) */
+	"croak",	/* KW04 - string type (was: string) */
 	"if",		/* KW05 */
 	"then",		/* KW06 */
 	"else",		/* KW07 */
-	"while",	/* KW08 */
+	"hop",		/* KW08 - loop keyword (was: while) */
 	"do",		/* KW09 */
-	"return"	/* KW10 */
+	"leap"		/* KW10 - return keyword (was: return) */
 };
 
 /* NEW SECTION: About indentation */

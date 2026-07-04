@@ -11,22 +11,26 @@ echo '-    =     =  = = = = = = = =   ==  =  ==      -'
 echo '-     ====  ==  = = = =   = === === =    ==    -'
 echo '-                                              -'
 echo '------------------------------------------------'
-echo '-[A2: Scanner - Andrei Cojocaru / Leo Paquette]-'
+echo '-[A3: Scanner - Andrei Cojocaru / Leo Paquette]-'
 echo '------------------------------------------------'
 set "CODE_DIR=%~dp0..\code"
 set "INPUT_DIR=%~dp0..\input"
-set "arg=%1"
-set "param=2"
-if "%arg%"=="" set "arg=CODED.txt"
-:: del "%INPUT_DIR%\CODED.txt" "%INPUT_DIR%\RESTORED.txt"
+set "OUTPUT_DIR=%~dp0..\output"
+
+:: Parameter is the plaintext Frog source file (in INPUT_DIR) to encode and scan.
+:: Defaults to the Frog sample program if none is given.
+set "src=%1"
+if "%src%"=="" set "src=FrogHello.sof"
+set "coded=%INPUT_DIR%\CODED.txt"
 
 gcc "%CODE_DIR%\compilers.c" "%CODE_DIR%\main1coder.c" "%CODE_DIR%\step1coder.c" "%CODE_DIR%\main2reader.c" "%CODE_DIR%\step2reader.c" "%CODE_DIR%\main3scanner.c" "%CODE_DIR%\step3scanner.c" -o "%CODE_DIR%\compilers"
 ping -n 2 127.0.0.1 >nul
-"%CODE_DIR%\compilers" 1 1 "%INPUT_DIR%\README.txt" "%arg%"
+
+"%CODE_DIR%\compilers" 1 1 "%INPUT_DIR%\%src%" "%coded%"
 ping -n 2 127.0.0.1 >nul
 
-"%CODE_DIR%\compilers" 3 "%arg%" > "%~dp0..\output\out.txt" 2> "%~dp0..\output\err.txt"
+"%CODE_DIR%\compilers" 3 "%coded%" > "%OUTPUT_DIR%\out.txt" 2> "%OUTPUT_DIR%\err.txt"
 ping -n 2 127.0.0.1 >nul
 
-dir "%~dp0..\output\out.txt" "%~dp0..\output\err.txt"
-type "%~dp0..\output\out.txt"
+dir "%OUTPUT_DIR%\out.txt" "%OUTPUT_DIR%\err.txt"
+type "%OUTPUT_DIR%\out.txt"

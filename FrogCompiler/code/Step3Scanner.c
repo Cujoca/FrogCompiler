@@ -203,6 +203,87 @@ Token tokenizer(frog_void) {
 			currentToken.code = RBR_T;
 			scData.scanHistogram[currentToken.code]++;
 			return currentToken;
+
+		/* Cases for operators (arithmetic, relational, logical, assignment) */
+		case PLS_CHR:
+			currentToken.code = ARI_OP_T;
+			currentToken.attribute.arithmeticOperator = OP_ADD;
+			scData.scanHistogram[currentToken.code]++;
+			return currentToken;
+		case MIN_CHR:
+			currentToken.code = ARI_OP_T;
+			currentToken.attribute.arithmeticOperator = OP_SUB;
+			scData.scanHistogram[currentToken.code]++;
+			return currentToken;
+		case MUL_CHR:
+			currentToken.code = ARI_OP_T;
+			currentToken.attribute.arithmeticOperator = OP_MUL;
+			scData.scanHistogram[currentToken.code]++;
+			return currentToken;
+		case DIV_CHR:
+			currentToken.code = ARI_OP_T;
+			currentToken.attribute.arithmeticOperator = OP_DIV;
+			scData.scanHistogram[currentToken.code]++;
+			return currentToken;
+		case GRT_CHR:
+			currentToken.code = REL_OP_T;
+			currentToken.attribute.relationalOperator = OP_GT;
+			scData.scanHistogram[currentToken.code]++;
+			return currentToken;
+		case LSS_CHR:
+			currentToken.code = REL_OP_T;
+			currentToken.attribute.relationalOperator = OP_LT;
+			scData.scanHistogram[currentToken.code]++;
+			return currentToken;
+		case EQL_CHR:
+			/* '=' is assignment; '==' is the relational equality operator */
+			if (readerGetChar(sourceBuffer) == EQL_CHR) {
+				currentToken.code = REL_OP_T;
+				currentToken.attribute.relationalOperator = OP_EQ;
+			}
+			else {
+				readerRetract(sourceBuffer);
+				currentToken.code = ASN_T;
+			}
+			scData.scanHistogram[currentToken.code]++;
+			return currentToken;
+		case NOT_CHR:
+			/* '!' is logical NOT; '!=' is the relational not-equal operator */
+			if (readerGetChar(sourceBuffer) == EQL_CHR) {
+				currentToken.code = REL_OP_T;
+				currentToken.attribute.relationalOperator = OP_NE;
+			}
+			else {
+				readerRetract(sourceBuffer);
+				currentToken.code = LOG_OP_T;
+				currentToken.attribute.logicalOperator = OP_NOT;
+			}
+			scData.scanHistogram[currentToken.code]++;
+			return currentToken;
+		case AMP_CHR:
+			/* A leading '&' (not part of a method identifier) only makes
+			 * sense doubled, as the logical AND operator: '&&' */
+			if (readerGetChar(sourceBuffer) == AMP_CHR) {
+				currentToken.code = LOG_OP_T;
+				currentToken.attribute.logicalOperator = OP_AND;
+				scData.scanHistogram[currentToken.code]++;
+				return currentToken;
+			}
+			readerRetract(sourceBuffer);
+			currentToken = funcErr("&");
+			return currentToken;
+		case PIP_CHR:
+			/* A leading '|' only makes sense doubled, as logical OR: '||' */
+			if (readerGetChar(sourceBuffer) == PIP_CHR) {
+				currentToken.code = LOG_OP_T;
+				currentToken.attribute.logicalOperator = OP_OR;
+				scData.scanHistogram[currentToken.code]++;
+				return currentToken;
+			}
+			readerRetract(sourceBuffer);
+			currentToken = funcErr("|");
+			return currentToken;
+
 		/* Cases for END OF FILE */
 		case EOS_CHR:
 			currentToken.code = SEOF_T;
@@ -337,6 +418,9 @@ frog_int nextClass(frog_char c) {
 	case EOF_CHR:
 		val = 5;
 		break;
+	case DOT_CHR:
+		val = 8;
+		break;
 	default:
 		if (isalpha(c))
 			val = 0;
@@ -394,6 +478,36 @@ Token funcIL(frog_str lexeme) {
 			currentToken.code = INL_T;
 			scData.scanHistogram[currentToken.code]++;
 			currentToken.attribute.intValue = (frog_int)tlong;
+		}
+		else {
+			currentToken = (*finalStateTable[ESNR])(lexeme);
+		}
+	}
+	return currentToken;
+}
+
+
+/*
+ ************************************************************
+ * Acceptance State Function FPL
+ *		Function responsible to identify FPL (floating-point / real literals).
+ * - Respects a length limit similar to IL (digits + '.' + digits).
+ * - Only positive values are considered (no unary minus in this grammar).
+ ***********************************************************
+ */
+
+Token funcFPL(frog_str lexeme) {
+	Token currentToken = { 0 };
+	frog_doub tdouble;
+	if (lexeme[0] != EOS_CHR && (frog_int)strlen(lexeme) > (NUM_LEN * 2 + 1)) {
+		currentToken = (*finalStateTable[ESNR])(lexeme);
+	}
+	else {
+		tdouble = atof(lexeme);
+		if (tdouble >= 0 && tdouble <= FLT_MAX) {
+			currentToken.code = FPL_T;
+			scData.scanHistogram[currentToken.code]++;
+			currentToken.attribute.floatValue = (frog_float)tdouble;
 		}
 		else {
 			currentToken = (*finalStateTable[ESNR])(lexeme);
@@ -504,7 +618,11 @@ Token funcKEY(frog_str lexeme) {
 		currentToken.attribute.codeType = kwindex;
 	}
 	else {
-		currentToken = funcErr(lexeme);
+		/* Not a keyword: a plain variable identifier (VID) */
+		currentToken.code = VID_T;
+		scData.scanHistogram[currentToken.code]++;
+		strncpy(currentToken.attribute.idLexeme, lexeme, VID_LEN);
+		currentToken.attribute.idLexeme[VID_LEN] = EOS_CHR;
 	}
 	return currentToken;
 }
@@ -548,6 +666,10 @@ Token funcErr(frog_str lexeme) {
  ***********************************************************
  */
 
+static frog_str ariOpStrTable[] = { "+", "-", "*", "/" };
+static frog_str relOpStrTable[] = { "==", "!=", ">", "<" };
+static frog_str logOpStrTable[] = { "&&", "||", "!" };
+
 frog_void printToken(Token t) {
 	extern frog_str keywordTable[]; /* link to keyword table in */
 	switch (t.code) {
@@ -571,6 +693,12 @@ frog_void printToken(Token t) {
 		break;
 	case INL_T:
 		printf("INL_T\t\t%d\n", t.attribute.intValue);
+		break;
+	case FPL_T:
+		printf("FPL_T\t\t%f\n", t.attribute.floatValue);
+		break;
+	case VID_T:
+		printf("VID_T\t\t%s\n", t.attribute.idLexeme);
 		break;
 	case STR_T:
 		printf("STR_T\t\t%d\t ", (frog_int)t.attribute.codeType);
@@ -596,6 +724,18 @@ frog_void printToken(Token t) {
 		break;
 	case EOS_T:
 		printf("EOS_T\n");
+		break;
+	case ARI_OP_T:
+		printf("ARI_OP_T\t%s\n", ariOpStrTable[t.attribute.arithmeticOperator]);
+		break;
+	case REL_OP_T:
+		printf("REL_OP_T\t%s\n", relOpStrTable[t.attribute.relationalOperator]);
+		break;
+	case LOG_OP_T:
+		printf("LOG_OP_T\t%s\n", logOpStrTable[t.attribute.logicalOperator]);
+		break;
+	case ASN_T:
+		printf("ASN_T\t\t=\n");
 		break;
 	default:
 		printf("Scanner error: invalid token code: %d\n", t.code);
