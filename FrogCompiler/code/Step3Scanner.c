@@ -308,7 +308,7 @@ Token tokenizer(frog_void) {
 			state = nextState(state, c);
 			lexStart = readerGetPosRead(sourceBuffer) - 1;
 			readerSetMark(sourceBuffer, lexStart);
-			int pos = 0;
+			frog_int pos = 0;
 			while (stateType[state] == NOFS) {
 				c = readerGetChar(sourceBuffer);
 				state = nextState(state, c);
@@ -755,7 +755,7 @@ frog_void printScannerData(ScannerData scData) {
 	/* Print Scanner statistics */
 	printf("Statistics:\n");
 	printf("----------------------------------\n");
-	int cont = 0;
+	frog_int cont = 0;
 	for (cont = 0; cont < NUM_TOKENS; cont++) {
 		if (scData.scanHistogram[cont] > 0)
 			printf("%s%s%s%d%s", "Token[", tokenStrTable[cont], "]=", scData.scanHistogram[cont], "\n");
