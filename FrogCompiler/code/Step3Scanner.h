@@ -198,31 +198,32 @@ typedef struct scannerData {
 /* TO_DO: Error states and illegal state */
 #define ESNR	8		/* Error state with no retract */
 #define ESWR	9		/* Error state with retract */
-#define FS		15		/* Illegal state (sentinel - must stay >= NUM_STATES) */
+#define FS		16		/* Illegal state (sentinel - must stay >= NUM_STATES) */
 
  /* TO_DO: State transition table definition */
-#define NUM_STATES		15
-#define CHAR_CLASSES	9
+#define NUM_STATES		16
+#define CHAR_CLASSES	10
 
 /* TO_DO: Transition table - type of states defined in separate table */
 static frog_int transitionTable[NUM_STATES][CHAR_CLASSES] = {
-/*    [A-z],[0-9],    _,    &,   \", SEOF,    #, other,    .
-	   L(0), D(1), U(2), M(3), Q(4), E(5), C(6),  O(7), P(8) */
-	{     1,   10, ESNR, ESNR,    4, ESWR,	  6, ESNR, ESNR},	// S0: NOAS
-	{     1,    1,    1,    2,	  3,    3,   3,    3,    3},	// S1: NOAS (identifier body)
-	{    FS,   FS,   FS,   FS,   FS,   FS,	 FS,   FS,   FS},	// S2: ASNR (MNID)
-	{    FS,   FS,   FS,   FS,   FS,   FS,	 FS,   FS,   FS},	// S3: ASWR (KEY/VID)
-	{     4,    4,    4,    4,    5, ESWR,	  4,    4,    4},	// S4: NOAS (string body)
-	{    FS,   FS,   FS,   FS,   FS,   FS,	 FS,   FS,   FS},	// S5: ASNR (SL)
-	{     6,    6,    6,    6,    6, ESWR,	  7,    6,    6},	// S6: NOAS (comment body)
-	{    FS,   FS,   FS,   FS,   FS,   FS,	 FS,   FS,   FS},	// S7: ASNR (COM)
-	{    FS,   FS,   FS,   FS,   FS,   FS,	 FS,   FS,   FS},	// S8: ASNR (ES)
-	{    FS,   FS,   FS,   FS,   FS,   FS,	 FS,   FS,   FS},	// S9: ASWR (ER)
-	{    11,   10,   11,   11,   11,   11,	 11,   11,   12},	// S10: NOAS (IL digit run)
-	{    FS,   FS,   FS,   FS,   FS,   FS,	 FS,   FS,   FS},	// S11: ASWR (IL)
-	{  ESNR,   13, ESNR, ESNR, ESNR, ESWR, ESNR, ESNR, ESNR},	// S12: NOAS (post '.', needs 1st fraction digit)
-	{    14,   13,   14,   14,   14,   14,	 14,   14,   14},	// S13: NOAS (fraction digit run)
-	{    FS,   FS,   FS,   FS,   FS,   FS,	 FS,   FS,   FS}	// S14: ASWR (FPL)
+/*    [A-z],[0-9],    _,    &,   \", SEOF,    *, other,    .,    /
+	   L(0), D(1), U(2), M(3), Q(4), E(5), A(6),  O(7), P(8), S(9) */
+	{     1,   10, ESNR, ESNR,    4, ESWR, ESNR, ESNR, ESNR, ESNR},	// S0: NOAS
+	{     1,    1,    1,    2,	  3,    3,    3,    3,    3,    3},	// S1: NOAS (identifier body)
+	{    FS,   FS,   FS,   FS,   FS,   FS,   FS,   FS,   FS,   FS},	// S2: ASNR (MNID)
+	{    FS,   FS,   FS,   FS,   FS,   FS,   FS,   FS,   FS,   FS},	// S3: ASWR (KEY/VID)
+	{     4,    4,    4,    4,    5, ESWR,    4,    4,    4,    4},	// S4: NOAS (string body)
+	{    FS,   FS,   FS,   FS,   FS,   FS,   FS,   FS,   FS,   FS},	// S5: ASNR (SL)
+	{     6,    6,    6,    6,    6, ESWR,   15,    6,    6,    6},	// S6: NOAS (comment body)
+	{    FS,   FS,   FS,   FS,   FS,   FS,   FS,   FS,   FS,   FS},	// S7: ASNR (COM)
+	{    FS,   FS,   FS,   FS,   FS,   FS,   FS,   FS,   FS,   FS},	// S8: ASNR (ES)
+	{    FS,   FS,   FS,   FS,   FS,   FS,   FS,   FS,   FS,   FS},	// S9: ASWR (ER)
+	{    11,   10,   11,   11,   11,   11,   11,   11,   12,   11},	// S10: NOAS (IL digit run)
+	{    FS,   FS,   FS,   FS,   FS,   FS,   FS,   FS,   FS,   FS},	// S11: ASWR (IL)
+	{  ESNR,   13, ESNR, ESNR, ESNR, ESWR, ESNR, ESNR, ESNR, ESNR},	// S12: NOAS (post '.', needs 1st fraction digit)
+	{    14,   13,   14,   14,   14,   14,   14,   14,   14,   14},	// S13: NOAS (fraction digit run)
+	{    FS,   FS,   FS,   FS,   FS,   FS,   FS,   FS,   FS,   FS},	// S14: ASWR (FPL)
+	{     6,    6,    6,    6,    6, ESWR,   15,    6,    6,    7}	// S15: NOAS (comment body, saw '*', awaiting '/')
 };
 
 /* Define accepting states types */
@@ -246,7 +247,8 @@ static frog_int stateType[NUM_STATES] = {
 	FSWR, /* 11 (IL) */
 	NOFS, /* 12 (post '.', needs 1st fraction digit) */
 	NOFS, /* 13 (fraction digit run) */
-	FSWR  /* 14 (FPL) */
+	FSWR, /* 14 (FPL) */
+	NOFS  /* 15 (comment body, saw '*', awaiting '/') */
 };
 
 /*
@@ -301,7 +303,8 @@ static PTR_ACCFUN finalStateTable[NUM_STATES] = {
 	funcIL,		/* IL   [11] */
 	NULL,		/* -    [12] */
 	NULL,		/* -    [13] */
-	funcFPL		/* FPL  [14] */
+	funcFPL,	/* FPL  [14] */
+	NULL		/* -    [15] */
 };
 
 /*
@@ -311,21 +314,19 @@ Language keywords
 */
 
 /* TO_DO: Define the number of Keywords from the language */
-#define KWT_SIZE 11
+#define KWT_SIZE 9
 
 /* TO_DO: Define the list of keywords */
 static frog_str keywordTable[KWT_SIZE] = {
-	"pond",		/* KW00 - variable declaration section (was: data) */
-	"swamp",	/* KW01 - executable code section (was: code) */
-	"tadpole",	/* KW02 - integer type (was: int) */
-	"lilypad",	/* KW03 - real/float type (was: real) */
-	"croak",	/* KW04 - string type (was: string) */
-	"if",		/* KW05 */
-	"then",		/* KW06 */
-	"else",		/* KW07 */
-	"hop",		/* KW08 - loop keyword (was: while) */
-	"do",		/* KW09 */
-	"leap"		/* KW10 - return keyword (was: return) */
+	"tadpole",	/* KW00 - integer type (was: int) */
+	"lilypad",	/* KW01 - real/float type (was: real) */
+	"croak",	/* KW02 - string type (was: string) */
+	"if",		/* KW03 */
+	"then",		/* KW04 */
+	"else",		/* KW05 */
+	"hop",		/* KW06 - loop keyword (was: while) */
+	"do",		/* KW07 */
+	"leap"		/* KW08 - return keyword (was: return) */
 };
 
 /* NEW SECTION: About indentation */

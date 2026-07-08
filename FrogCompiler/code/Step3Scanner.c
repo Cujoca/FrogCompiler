@@ -128,11 +128,57 @@ frog_int startScanner(BufferPointer psc_buf) {
 
 /*
  ************************************************************
+ * Scan FSM Token
+ *		Runs the transition-table FSM from the given start state until an
+ *		accepting state is reached, materializes the lexeme into a buffer,
+ *		and calls the matching accepting-state function. Shared by the
+ *		general (default) case in tokenizer() and by the '/ *' comment-start
+ *		handoff, since both need to drive the same table-driven scan.
+ ***********************************************************
+ */
+
+static Token scanFsmToken(frog_int state, frog_int lexStart) {
+	Token currentToken = { 0 };
+	frog_char c;
+	frog_int lexEnd;
+	frog_int lexLength;
+	frog_int i;
+	frog_str lexeme;
+
+	readerSetMark(sourceBuffer, lexStart);
+	while (stateType[state] == NOFS) {
+		c = readerGetChar(sourceBuffer);
+		state = nextState(state, c);
+	}
+	if (stateType[state] == FSWR)
+		readerRetract(sourceBuffer);
+	lexEnd = readerGetPosRead(sourceBuffer);
+	lexLength = lexEnd - lexStart;
+	lexemeBuffer = readerCreate((frog_int)lexLength + 2, READER_DEFAULT_FACTOR);
+	if (!lexemeBuffer) {
+		fprintf(stderr, "Scanner error: Can not create buffer\n");
+		exit(1);
+	}
+	readerRestore(sourceBuffer);
+	for (i = 0; i < lexLength; i++)
+		readerAddChar(lexemeBuffer, readerGetChar(sourceBuffer));
+	readerAddChar(lexemeBuffer, READER_TERMINATOR);
+	lexeme = readerGetContent(lexemeBuffer, 0);
+	// TO_DO: Defensive programming
+	if (!lexeme)
+		return currentToken;
+	currentToken = (*finalStateTable[state])(lexeme);
+	readerRestore(lexemeBuffer);
+	return currentToken;
+}
+
+/*
+ ************************************************************
  * Process Token
  *		Main function of buffer, responsible to classify a char (or sequence
  *		of chars). In the first part, a specific sequence is detected (reading
  *		from buffer). In the second part, a pattern (defined by Regular Expression)
- *		is recognized and the appropriate function is called (related to final states 
+ *		is recognized and the appropriate function is called (related to final states
  *		in the Transition Diagram).
  ***********************************************************
  */
@@ -145,10 +191,6 @@ Token tokenizer(frog_void) {
 	frog_char c;			/* input symbol */
 	frog_int state = 0;	/* initial state of the FSM */
 	frog_int lexStart;	/* start offset of a lexeme in the input char buffer (array) */
-	frog_int lexEnd;		/* end offset of a lexeme in the input char buffer (array)*/
-
-	frog_int lexLength;	/* token length */
-	frog_int i;			/* counter */
 	///frog_char newc;		// new char
 
 	/* Starting lexeme */
@@ -221,6 +263,14 @@ Token tokenizer(frog_void) {
 			scData.scanHistogram[currentToken.code]++;
 			return currentToken;
 		case DIV_CHR:
+			/* '/' is division; '/*' opens a C-style block comment */
+			if (readerGetChar(sourceBuffer) == MUL_CHR) {
+				lexStart = readerGetPosRead(sourceBuffer) - 2;
+				free(lexeme);
+				currentToken = scanFsmToken(6, lexStart);
+				return currentToken;
+			}
+			readerRetract(sourceBuffer);
 			currentToken.code = ARI_OP_T;
 			currentToken.attribute.arithmeticOperator = OP_DIV;
 			scData.scanHistogram[currentToken.code]++;
@@ -307,33 +357,8 @@ Token tokenizer(frog_void) {
 		default: // general case
 			state = nextState(state, c);
 			lexStart = readerGetPosRead(sourceBuffer) - 1;
-			readerSetMark(sourceBuffer, lexStart);
-			frog_int pos = 0;
-			while (stateType[state] == NOFS) {
-				c = readerGetChar(sourceBuffer);
-				state = nextState(state, c);
-				pos++;
-			}
-			if (stateType[state] == FSWR)
-				readerRetract(sourceBuffer);
-			lexEnd = readerGetPosRead(sourceBuffer);
-			lexLength = lexEnd - lexStart;
-			lexemeBuffer = readerCreate((frog_int)lexLength + 2, READER_DEFAULT_FACTOR);
-			if (!lexemeBuffer) {
-				fprintf(stderr, "Scanner error: Can not create buffer\n");
-				exit(1);
-			}
-			readerRestore(sourceBuffer);
-			for (i = 0; i < lexLength; i++)
-				readerAddChar(lexemeBuffer, readerGetChar(sourceBuffer));
-			readerAddChar(lexemeBuffer, READER_TERMINATOR);
 			free(lexeme);
-			lexeme = readerGetContent(lexemeBuffer, 0);
-			// TO_DO: Defensive programming
-			if (!lexeme)
-				return currentToken;
-			currentToken = (*finalStateTable[state])(lexeme);
-			readerRestore(lexemeBuffer);
+			currentToken = scanFsmToken(state, lexStart);
 			return currentToken;
 		} // switch
 
@@ -396,8 +421,8 @@ frog_int nextState(frog_int state, frog_char c) {
 /* TO_DO: Use your column configuration */
 
 /* Adjust the logic to return next column in TT */
-/*    [A-z],[0-9],    _,    &,   \', SEOF,    #, other
-	   L(0), D(1), U(2), M(3), Q(4), E(5), C(6),  O(7) */
+/*    [A-z],[0-9],    _,    &,   \', SEOF,    *, other,    .,    /
+	   L(0), D(1), U(2), M(3), Q(4), E(5), A(6),  O(7), P(8), S(9) */
 
 frog_int nextClass(frog_char c) {
 	frog_int val = -1;
@@ -411,7 +436,7 @@ frog_int nextClass(frog_char c) {
 	case QUT_CHR:
 		val = 4;
 		break;
-	case HST_CHR:
+	case MUL_CHR:
 		val = 6;
 		break;
 	case EOS_CHR:
@@ -420,6 +445,9 @@ frog_int nextClass(frog_char c) {
 		break;
 	case DOT_CHR:
 		val = 8;
+		break;
+	case DIV_CHR:
+		val = 9;
 		break;
 	default:
 		if (isalpha(c))

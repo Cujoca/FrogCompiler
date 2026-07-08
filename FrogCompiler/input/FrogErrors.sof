@@ -1,18 +1,16 @@
-# Frog error test: this file intentionally contains lexical errors
+/* Frog error test: this file intentionally contains lexical errors
    so we can verify the scanner detects bad lexemes and keeps going
-   instead of crashing #
+   instead of crashing */
 tadpole main&() {
-pond {
 	5.
 	_oops
 	@
 	&
 	|
 	croak note
-}
-swamp {
 	note
+	/* a valid comment, should not confuse the scanner */
+	10 / 2
 	leap 0
-}
 }
 print&("this string is opened here but never gets a closing quote so the scanner must truncate it with three dots at the end of the file
