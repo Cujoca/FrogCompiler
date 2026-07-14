@@ -22,34 +22,152 @@
 	[CODER SCRIPT ..........................]
 
 
-[Option '2': Starting READER .....]
+[Option '3': Starting SCANNER .....]
 
-Reading file /Users/andrei/School/Compilers/FrogCompiler/a2/../input/CODED.txt ....Please wait
+[Debug mode: 0]
+Reading file /Users/andrei/School/Compilers/FrogCompiler/a3/../input/CODED.txt ....Please wait
 
 Printing buffer parameters:
 
-The size of the buffer is:  225
-The current size of the buffer is:  168
-The first symbol in the buffer is:  #
-The value of the flags:
-Flags.isEmpty = 0
-Flags.isFull = 0
-Flags.isRead = 0
-Flags.isMoved = 1
-Checksum: 43
-Reader statistics : 
-B[ ]=22, B[!]=1, B["]=4, B[#]=2, B[&]=2, B[(]=2, B[)]=2, B[0]=1, B[;]=2, B[E]=1, B[H]=1, B[S]=1, B[T]=1, B[a]=10, B[c]=4, B[d]=5, B[e]=11, B[f]=1, B[g]=2, B[h]=2, B[i]=6, B[l]=8, B[m]=3, B[n]=8, B[o]=9, B[p]=3, B[r]=12, B[s]=2, B[t]=7, B[u]=2, B[w]=1, B[x]=2, B[y]=2, B[{]=3, B[}]=3, Number of errors: 0
+The capacity of the buffer is:  505
+The current size of the buffer is:  493
 
 Printing buffer contents:
 
-# Sofia Example
-  The program is "lexically" correct
-  and should not generate any error #
-int main&() {
-	data {
+/* Frog Example: The Pond Program
+   This program is written in the Frog language.
+   It should hop through the scanner without any lexical errors */
+tadpole main() {
+	tadpole count;
+	lilypad price;
+	croak greeting;
+	print("Ribbit! Hello from the pond!");
+	count = 42;
+	price = 3.14;
+	count + count;
+	count - count;
+	count * count;
+	count / count;
+	count > count;
+	count < count;
+	count == count;
+	count != count;
+	count && count;
+	count || count;
+	!count;
+	hop;
+	do {
+		count;
 	}
-	code {
-		print&("Hello world!");
-		return 0;
-	}
+	leap 0;
 }
+
+Scanning source file...
+
+Token		Attribute
+----------------------------------
+CMT_T
+KW_T		tadpole
+MNID_T		main(
+RPR_T
+LBR_T
+KW_T		tadpole
+VID_T		count
+EOS_T
+KW_T		lilypad
+VID_T		price
+EOS_T
+KW_T		croak
+VID_T		greeting
+EOS_T
+MNID_T		print(
+STR_T		0	 Ribbit! Hello from the pond!
+RPR_T
+EOS_T
+VID_T		count
+ASN_T		=
+INL_T		42
+EOS_T
+VID_T		price
+ASN_T		=
+FPL_T		3.140000
+EOS_T
+VID_T		count
+ARI_OP_T	+
+VID_T		count
+EOS_T
+VID_T		count
+ARI_OP_T	-
+VID_T		count
+EOS_T
+VID_T		count
+ARI_OP_T	*
+VID_T		count
+EOS_T
+VID_T		count
+ARI_OP_T	/
+VID_T		count
+EOS_T
+VID_T		count
+REL_OP_T	>
+VID_T		count
+EOS_T
+VID_T		count
+REL_OP_T	<
+VID_T		count
+EOS_T
+VID_T		count
+REL_OP_T	==
+VID_T		count
+EOS_T
+VID_T		count
+REL_OP_T	!=
+VID_T		count
+EOS_T
+VID_T		count
+LOG_OP_T	&&
+VID_T		count
+EOS_T
+VID_T		count
+LOG_OP_T	||
+VID_T		count
+EOS_T
+LOG_OP_T	!
+VID_T		count
+EOS_T
+KW_T		hop
+EOS_T
+KW_T		do
+LBR_T
+VID_T		count
+EOS_T
+RBR_T
+KW_T		leap
+INL_T		0
+EOS_T
+RBR_T
+SEOF_T		0	
+
+Printing string table...
+----------------------------------
+Ribbit! Hello from the pond!
+----------------------------------
+Statistics:
+----------------------------------
+Token[MNID_T]=2
+Token[INL_T]=2
+Token[FPL_T]=1
+Token[STR_T]=1
+Token[VID_T]=27
+Token[RPR_T]=2
+Token[LBR_T]=2
+Token[RBR_T]=2
+Token[KW_T]=7
+Token[EOS_T]=20
+Token[ARI_OP_T]=4
+Token[REL_OP_T]=4
+Token[LOG_OP_T]=3
+Token[ASN_T]=2
+Token[SEOF_T]=1
+Token[CMT_T]=1
+----------------------------------
