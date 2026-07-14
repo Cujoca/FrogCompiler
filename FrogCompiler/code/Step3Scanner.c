@@ -321,6 +321,7 @@ Token tokenizer(frog_void) {
 			}
 			readerRetract(sourceBuffer);
 			currentToken = funcErr("&");
+			// TODO: Retract from leftover ampterand from MNID
 			return currentToken;
 		case PIP_CHR:
 			/* A leading '|' only makes sense doubled, as logical OR: '||' */
