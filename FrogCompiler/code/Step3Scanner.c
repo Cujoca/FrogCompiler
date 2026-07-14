@@ -421,7 +421,7 @@ frog_int nextState(frog_int state, frog_char c) {
 /* TO_DO: Use your column configuration */
 
 /* Adjust the logic to return next column in TT */
-/*    [A-z],[0-9],    _,    &,   \', SEOF,    *, other,    .,    /
+/*    [A-z],[0-9],    _,    (,   \', SEOF,    *, other,    .,    /
 	   L(0), D(1), U(2), M(3), Q(4), E(5), A(6),  O(7), P(8), S(9) */
 
 frog_int nextClass(frog_char c) {
@@ -430,7 +430,7 @@ frog_int nextClass(frog_char c) {
 	case UND_CHR:
 		val = 2;
 		break;
-	case AMP_CHR:
+	case LPR_CHR:
 		val = 3;
 		break;
 	case QUT_CHR:
@@ -565,7 +565,7 @@ Token funcID(frog_str lexeme) {
 	frog_char lastch = lexeme[length - 1];
 	frog_int isID = FROG_FALSE;
 	switch (lastch) {
-		case AMP_CHR:
+		case LPR_CHR:
 			currentToken.code = MNID_T;
 			scData.scanHistogram[currentToken.code]++;
 			isID = FROG_TRUE;

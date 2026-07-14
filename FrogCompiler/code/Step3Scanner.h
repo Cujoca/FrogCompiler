@@ -75,7 +75,7 @@
 /* TO_DO: Define Token codes - Create your token classes */
 enum TOKENS {
 	ERR_T,		/*  0: Error token */
-	MNID_T,		/*  1: Method name identifier token (start: &) */
+	MNID_T,		/*  1: Method name identifier token (start: '(') */
 	INL_T,		/*  2: Integer literal token */
 	FPL_T,		/*  3: Floating-point (real) literal token */
 	STR_T,		/*  4: String literal token */
@@ -206,10 +206,10 @@ typedef struct scannerData {
 
 /* TO_DO: Transition table - type of states defined in separate table */
 static frog_int transitionTable[NUM_STATES][CHAR_CLASSES] = {
-/*    [A-z],[0-9],    _,    &,   \", SEOF,    *, other,    .,    /
+/*    [A-z],[0-9],    _,    (,   \", SEOF,    *, other,    .,    /
 	   L(0), D(1), U(2), M(3), Q(4), E(5), A(6),  O(7), P(8), S(9) */
 	{     1,   10, ESNR, ESNR,    4, ESWR, ESNR, ESNR, ESNR, ESNR},	// S0: NOAS
-	{     1,    1,    1,    2,	  3,    3,    3,    3,    3,    3},	// S1: NOAS (identifier body)
+	{     1,    1,    1,    2,	 3,    3,    3,    3,    3,    3},	// S1: NOAS (identifier body)
 	{    FS,   FS,   FS,   FS,   FS,   FS,   FS,   FS,   FS,   FS},	// S2: ASNR (MNID)
 	{    FS,   FS,   FS,   FS,   FS,   FS,   FS,   FS,   FS,   FS},	// S3: ASWR (KEY/VID)
 	{     4,    4,    4,    4,    5, ESWR,    4,    4,    4,    4},	// S4: NOAS (string body)
