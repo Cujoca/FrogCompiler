@@ -185,36 +185,28 @@ frog_void printError() {
 /*
  ************************************************************
  * Program statement
- * BNF: <program> -> main& { <opt_statements> }
- * FIRST(<program>)= {CMT_T, MNID_T (main&), SEOF_T}.
+ * BNF: <program> -> <opt_comment> tadpole MNID(main() { <opt_statements> }
+ * FIRST(<program>) = {CMT_T, KW_T (tadpole)}.
+ * Note: MNID_T's lexeme already includes the trailing '(' (see funcID),
+ * so "main(" is matched as a single MNID_T token - there is no separate
+ * LPR_T to match afterwards.
  ***********************************************************
  */
 frog_void program() {
 	psData.parsHistogram[BNF_program]++;
-	switch (lookahead.code) {
-	case CMT_T:
+	if (lookahead.code == CMT_T) {
 		comment();
-	case KW_T:
-		matchToken(KW_T, KW_int);
-	case MNID_T:
-		if (strncmp(lookahead.attribute.idLexeme, LANG_MAIN, 5) == 0) {
-			matchToken(MNID_T, NO_ATTR);
-			matchToken(LPR_T, NO_ATTR);
-			optParams();
-			matchToken(RPR_T, NO_ATTR);
-			matchToken(LBR_T, NO_ATTR);
-			dataSession();
-			codeSession();
-			matchToken(RBR_T, NO_ATTR);
-			break;
-		}
-		else {
-			printError();
-		}
-	case SEOF_T:
-		; // Empty
-		break;
-	default:
+	}
+	matchToken(KW_T, KW_tadpole);
+	if (lookahead.code == MNID_T && strncmp(lookahead.attribute.idLexeme, LANG_MAIN, strlen(LANG_MAIN)) == 0) {
+		matchToken(MNID_T, NO_ATTR);
+		optParams();
+		matchToken(RPR_T, NO_ATTR);
+		matchToken(LBR_T, NO_ATTR);
+		optionalStatements();
+		matchToken(RBR_T, NO_ATTR);
+	}
+	else {
 		printError();
 	}
 	printf("%s%s\n", STR_LANGNAME, ": Program parsed");
@@ -272,27 +264,6 @@ frog_void paramList() {
 
 /*
  ************************************************************
- * dataSession
- * BNF: <dataSession> -> data { <opt_varlist_declarations> }
- * FIRST(<program>)= {KW_T (KW_data)}.
- ***********************************************************
- */
-frog_void dataSession() {
-	psData.parsHistogram[BNF_dataSession]++;
-	switch (lookahead.code) {
-	case CMT_T:
-		comment();
-	default:
-		matchToken(KW_T, KW_data);
-		matchToken(LBR_T, NO_ATTR);
-		optVarListDeclarations();
-		matchToken(RBR_T, NO_ATTR);
-		printf("%s%s\n", STR_LANGNAME, ": Data Session parsed");
-	}
-}
-
-/*
- ************************************************************
  * Optional Var List Declarations
  * BNF: <opt_varlist_declarations> -> <varlist_declarations> | e
  * FIRST(<opt_varlist_declarations>) = { e, KW_T (KW_int), KW_T (KW_real), KW_T (KW_string)}.
@@ -305,27 +276,6 @@ frog_void optVarListDeclarations() {
 		; // Empty
 	}
 	printf("%s%s\n", STR_LANGNAME, ": Optional Variable List Declarations parsed");
-}
-
-/*
- ************************************************************
- * codeSession statement
- * BNF: <codeSession> -> code { <opt_statements> }
- * FIRST(<codeSession>)= {KW_T (KW_code)}.
- ***********************************************************
- */
-frog_void codeSession() {
-	psData.parsHistogram[BNF_codeSession]++;
-	switch (lookahead.code) {
-	case CMT_T:
-		comment();
-	default:
-		matchToken(KW_T, KW_code);
-		matchToken(LBR_T, NO_ATTR);
-		optionalStatements();
-		matchToken(RBR_T, NO_ATTR);
-		printf("%s%s\n", STR_LANGNAME, ": Code Session parsed");
-	}
 }
 
 /* TO_DO: Continue the development (all non-terminal functions) */

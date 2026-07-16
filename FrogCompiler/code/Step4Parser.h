@@ -74,28 +74,30 @@ static frog_int		syntaxErrorNumber = 0;
 
 #define LANG_WRTE		"print&"
 #define LANG_READ		"input&"
-#define LANG_MAIN		"main&"
+#define LANG_MAIN		"main("
 
-/* TO_DO: Create ALL constants for keywords (sequence given in table.h) */
-
-/* Constants */
+/* Keyword token attribute codes - the value of each MUST match the index
+ * of the corresponding keyword in Step3Scanner.h's keywordTable, since
+ * funcKEY() sets codeType to that index directly. */
 enum KEYWORDS {
 	NO_ATTR = -1,
-	KW_data,
-	KW_code,
-	KW_int,
-	KW_real,
-	KW_string,
-	KW_if,
-	KW_then,
-	KW_else,
-	KW_while,
-	KW_do,
-	KW_return
+	KW_tadpole,	// 0
+	KW_lilypad,	// 1
+	KW_croak,	// 2
+	KW_if,		// 3
+	KW_then,	// 4
+	KW_else,	// 5
+	KW_hop,		// 6
+	KW_do,		// 7
+	KW_leap,	// 8
+	/* TO_DO: legacy aliases still used by functions not yet ported to Frog's grammar - remove once those are updated */
+	KW_int = KW_tadpole,
+	KW_while = KW_hop,
+	KW_return = KW_leap
 };
 
 /* TO_DO: Define the number of BNF rules */
-#define NUM_BNF_RULES 14
+#define NUM_BNF_RULES 12
 
 /* Parser */
 typedef struct parserData {
@@ -118,28 +120,24 @@ frog_void printBNFData(ParserData psData);
 /* List of BNF statements */
 enum BNF_RULES {
 	BNF_error,										/*  0: Error token */
-	BNF_codeSession,								/*  1 */
-	BNF_comment,									/*  2 */
-	BNF_dataSession,								/*  3 */
-	BNF_optVarListDeclarations,						/*  4 */
-	BNF_optionalStatements,							/*  5 */
-	BNF_outputStatement,							/*  6 */
-	BNF_outputVariableList,							/*  7 */
-	BNF_program,									/*  8 */
-	BNF_statement,									/*  9 */
-	BNF_statements,									/* 10 */
-	BNF_statementsPrime,							/* 11 */
-	BNF_optParams,									/* 12 */
-	BNF_returnStatement								/* 13 */	
+	BNF_comment,									/*  1 */
+	BNF_optVarListDeclarations,						/*  2 */
+	BNF_optionalStatements,							/*  3 */
+	BNF_outputStatement,							/*  4 */
+	BNF_outputVariableList,							/*  5 */
+	BNF_program,									/*  6 */
+	BNF_statement,									/*  7 */
+	BNF_statements,									/*  8 */
+	BNF_statementsPrime,							/*  9 */
+	BNF_optParams,									/* 10 */
+	BNF_returnStatement								/* 11 */
 };
 
 
 /* TO_DO: Define the list of keywords */
 static frog_str BNFStrTable[NUM_BNF_RULES] = {
 	"BNF_error",
-	"BNF_codeSession",
 	"BNF_comment",
-	"BNF_dataSession",
 	"BNF_optVarListDeclarations",
 	"BNF_optionalStatements",
 	"BNF_outputStatement",
@@ -153,9 +151,7 @@ static frog_str BNFStrTable[NUM_BNF_RULES] = {
 };
 
 /* TO_DO: Place ALL non-terminal function declarations */
-frog_void codeSession();
 frog_void comment();
-frog_void dataSession();
 frog_void optVarListDeclarations();
 frog_void optionalStatements();
 frog_void outputStatement();
