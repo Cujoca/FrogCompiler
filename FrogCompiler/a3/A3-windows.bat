@@ -19,6 +19,7 @@ set "OUTPUT_DIR=%~dp0..\output"
 
 :: Parameter is the plaintext Frog source file (in INPUT_DIR) to encode and scan.
 :: Defaults to the Frog sample program if none is given.
+:: Set the src file to FrogHello.txt for valid input and FrogErrors.txt for invalid input.
 set "src=%1"
 if "%src%"=="" set "src=FrogHello.txt"
 set "coded=%INPUT_DIR%\CODED.txt"
