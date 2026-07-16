@@ -113,6 +113,7 @@ Main functions signatures
 frog_int main1Coder	(frog_int argc, frog_str* argv);
 frog_int main2Reader (frog_int argc, frog_str* argv);
 frog_int main3Scanner(frog_int argc, frog_str* argv);
+frog_int main4Parser (frog_int argc, frog_str* argv);
 frog_void printLogo();
 frog_void errorPrint(frog_str fmt, ...);
 

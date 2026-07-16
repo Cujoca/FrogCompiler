@@ -43,6 +43,7 @@ add_executable (Compilers
 	"Step1Coder.h"		"Step1Coder.c"		"Main1Coder.c"
 	"Step2Reader.h"		"Step2Reader.c"		"Main2Reader.c"
 	"Step3Scanner.h"	"Step3Scanner.c"	"Main3Scanner.c"
+	"Step4Parser.h"		"Step4Parser.c"		"Main4Parser.c"
  )
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)

@@ -28,7 +28,7 @@
 # ECHO "	 |  F       R       O       G  |	 "
 # ECHO "	 -------------------------------     "
 # ECHO "                                         "
-# ECHO "[READER SCRIPT ..........................]"
+# ECHO "[PARSER SCRIPT ..........................]"
 # ECHO "                                         "
 */
 
@@ -36,7 +36,7 @@
 ************************************************************
 * File name: MainParser.c
 * Compiler: MS Visual Studio 2022
-* Course: CST 8152 – Compilers, Lab Section: [011, 012, 013]
+* Course: CST 8152 ï¿½ Compilers, Lab Section: [011, 012, 013]
 * Assignment: A32.
 * Date: Jan 01 2025
 * Professor: Paulo Sousa
@@ -94,8 +94,8 @@
 
  /* Global objects - variables */
 static BufferPointer sourceBuffer; /* pointer to input (source) buffer */
-BufferPointer stringLiteralTable; /* This buffer is used as a repository for string literals */
-frog_int errorNumber;     /* Run-time error number = 0 by default (ANSI) */
+extern BufferPointer stringLiteralTable; /* This buffer is used as a repository for string literals - defined in Main3Scanner.c */
+extern frog_int errorNumber;     /* Run-time error number = 0 by default (ANSI) - defined in Main3Scanner.c */
 
 /* External objects */
 extern frog_int syntaxErrorNumber /* number of syntax errors reported by the parser */;
@@ -145,7 +145,7 @@ frog_int main4Parser(frog_int argc, frog_str* argv) {
 	}
 
 	/* create a source code input buffer - multiplicative mode */
-	sourceBuffer = readerCreate(READER_DEFAULT_SIZE);
+	sourceBuffer = readerCreate(READER_DEFAULT_SIZE, READER_DEFAULT_FACTOR);
 	if (sourceBuffer == NULL) {
 		errorPrint("%s%s%s", argv[0], ": ", "Could not create source buffer");
 		exit(EXIT_FAILURE);
@@ -168,7 +168,7 @@ frog_int main4Parser(frog_int argc, frog_str* argv) {
 		}
 	}
 	/* create string Literal Table */
-	stringLiteralTable = readerCreate(READER_DEFAULT_SIZE);
+	stringLiteralTable = readerCreate(READER_DEFAULT_SIZE, READER_DEFAULT_FACTOR);
 	if (stringLiteralTable == NULL) {
 		errorPrint("%s%s%s", argv[0], ": ", "Could not create string literal buffer");
 		exit(EXIT_FAILURE);

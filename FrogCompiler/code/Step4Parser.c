@@ -28,7 +28,7 @@
 # ECHO "	 |  F       R       O       G  |	 "
 # ECHO "	 -------------------------------     "
 # ECHO "                                         "
-# ECHO "[READER SCRIPT ..........................]"
+# ECHO "[PARSER SCRIPT ..........................]"
 # ECHO "                                         "
 */
 
@@ -60,7 +60,8 @@
 #endif
 
 /* Parser data */
-extern ParserData psData; /* BNF statistics */
+ParserData psData; /* BNF statistics */
+frog_int numParserErrors; /* Number of syntax errors reported by the parser */
 
 /*
 ************************************************************
@@ -140,7 +141,7 @@ frog_void syncErrorHandler(frog_int syncTokenCode) {
  */
 /* TO_DO: This is the function to error printing - adjust basically datatypes */
 frog_void printError() {
-	extern numParserErrors;			/* link to number of errors (defined in Parser.h) */
+	extern frog_int numParserErrors;			/* link to number of errors (defined in Parser.h) */
 	Token t = lookahead;
 	printf("%s%s%3d\n", STR_LANGNAME, ": Syntax error:  Line:", line);
 	printf("*****  Token code:%3d Attribute: ", t.code);

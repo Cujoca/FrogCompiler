@@ -28,7 +28,7 @@
 # ECHO "	 |  F       R       O       G  |	 "
 # ECHO "	 -------------------------------     "
 # ECHO "                                         "
-# ECHO "[READER SCRIPT ..........................]"
+# ECHO "[PARSER SCRIPT ..........................]"
 # ECHO "                                         "
 */
 
@@ -37,7 +37,7 @@
 ************************************************************
 * File name: Parser.h
 * Compiler: MS Visual Studio 2022
-* Course: CST 8152 – Compilers, Lab Section: [011, 012]
+* Course: CST 8152 ï¿½ Compilers, Lab Section: [011, 012]
 * Assignment: A32.
 * Date: May 01 2023
 * Professor: Paulo Sousa
@@ -103,10 +103,10 @@ typedef struct parserData {
 } ParserData, * pParsData;
 
 /* Number of errors */
-frog_int numParserErrors;
+extern frog_int numParserErrors;
 
 /* Scanner data */
-ParserData psData;
+extern ParserData psData;
 
 /* Function definitions */
 frog_void startParser();
