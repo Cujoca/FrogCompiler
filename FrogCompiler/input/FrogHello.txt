@@ -1,7 +1,7 @@
 /* Frog Example: The Pond Program
    This program is written in the Frog language.
    It should hop through the scanner without any lexical errors */
-tadpole main() {
+tadpole main(tadpole x, tadpole y) {
 	tadpole count;
 	lilypad price;
 	croak greeting;
@@ -19,9 +19,8 @@ tadpole main() {
 	count && count;
 	count || count;
 	!count;
-	hop;
 	do {
 		count;
-	}
+	} hop count > 0;
 	leap 0;
 }
