@@ -173,6 +173,9 @@ frog_void printError() {
 	case RBR_T:
 		printf("RBR_T\n");
 		break;
+	case COM_T:
+		printf("COM_T\n");
+		break;
 	case EOS_T:
 		printf("NA\n");
 		break;
@@ -230,36 +233,74 @@ frog_void comment() {
  ************************************************************
  * optParams
  * BNF: <optParams> -> <paramList> | e
- * FIRST(<optParams>) = { e, KW_T (KW_int), KW_T (KW_real), KW_T (KW_string)}.
+ * FIRST(<optParams>) = { e, KW_T (tadpole), KW_T (lilypad), KW_T (croak) }
  ***********************************************************
  */
 frog_void optParams() {
 	psData.parsHistogram[BNF_optParams]++;
-	switch (lookahead.code) {
-	case CMT_T:
+	if (lookahead.code == CMT_T) {
 		comment();
-	case KW_T:
+	}
+	if (lookahead.code == KW_T &&
+		(lookahead.attribute.codeType == KW_tadpole ||
+		 lookahead.attribute.codeType == KW_lilypad ||
+		 lookahead.attribute.codeType == KW_croak)) {
 		paramList();
-	default:
-		; // Empty
 	}
 	printf("%s%s\n", STR_LANGNAME, ": Optional param list parsed");
 }
 
 /*
  ************************************************************
+ * matchType
+ * Consumes a KW_T token whose attribute is tadpole/lilypad/croak.
+ * Callers must only invoke this when they already know (via FIRST)
+ * that the lookahead is a type keyword.
+ ***********************************************************
+ */
+static frog_void matchType() {
+	if (lookahead.code == KW_T &&
+		(lookahead.attribute.codeType == KW_tadpole ||
+		 lookahead.attribute.codeType == KW_lilypad ||
+		 lookahead.attribute.codeType == KW_croak)) {
+		matchToken(KW_T, lookahead.attribute.codeType);
+	}
+	else {
+		printError();
+	}
+}
+
+/*
+ ************************************************************
  * paramList
- * BNF: <paramList> -> <opt_varlist_declarations>
- * FIRST(<paramList>) = { KW_T (KW_int), KW_T (KW_real), KW_T (KW_string)}.
+ * BNF: <paramList> -> <type> VID_T <paramListPrime>
+ * FIRST(<paramList>) = { KW_T (tadpole), KW_T (lilypad), KW_T (croak) }
  ***********************************************************
  */
 frog_void paramList() {
-	psData.parsHistogram[BNF_optParams]++;
-	switch (lookahead.attribute.codeType) {
-	default:
-		break;
-	}
+	psData.parsHistogram[BNF_paramList]++;
+	matchType();
+	matchToken(VID_T, NO_ATTR);
+	paramListPrime();
 	printf("%s%s\n", STR_LANGNAME, ": Param list parsed");
+}
+
+/*
+ ************************************************************
+ * paramListPrime
+ * BNF: <paramListPrime> -> , <type> VID_T <paramListPrime> | e
+ * FIRST(<paramListPrime>) = { e, COM_T (,) }
+ ***********************************************************
+ */
+frog_void paramListPrime() {
+	psData.parsHistogram[BNF_paramListPrime]++;
+	if (lookahead.code == COM_T) {
+		matchToken(COM_T, NO_ATTR);
+		matchType();
+		matchToken(VID_T, NO_ATTR);
+		paramListPrime();
+	}
+	printf("%s%s\n", STR_LANGNAME, ": Param list prime parsed");
 }
 
 /*
