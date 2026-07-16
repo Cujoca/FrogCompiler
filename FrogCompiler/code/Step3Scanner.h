@@ -70,7 +70,7 @@
 #define RTE_CODE 1  /* Value for run-time error */
 
 /* TO_DO: Define the number of tokens */
-#define NUM_TOKENS 19
+#define NUM_TOKENS 20
 
 /* TO_DO: Define Token codes - Create your token classes */
 enum TOKENS {
@@ -92,7 +92,8 @@ enum TOKENS {
 	ASN_T,		/* 15: Assignment operator token (=) */
 	RTE_T,		/* 16: Run-time error token */
 	SEOF_T,		/* 17: Source end-of-file token */
-	CMT_T		/* 18: Comment token */
+	CMT_T,		/* 18: Comment token */
+	COM_T		/* 19: Comma token (,) */
 };
 
 /* TO_DO: Define the list of keywords */
@@ -115,7 +116,8 @@ static frog_str tokenStrTable[NUM_TOKENS] = {
 	"ASN_T",
 	"RTE_T",
 	"SEOF_T",
-	"CMT_T"
+	"CMT_T",
+	"COM_T"
 };
 
 /* TO_DO: Operators token attributes */
@@ -189,9 +191,10 @@ typedef struct scannerData {
 #define EQL_CHR '='		// CH21
 #define NOT_CHR '!'		// CH22
 #define PIP_CHR '|'		// CH23
+#define COM_CHR ','		// CH24
 
 /*  Special case tokens processed separately one by one in the token-driven part of the scanner:
- *  LPR_T, RPR_T, LBR_T, RBR_T, EOS_T, SEOF_T, operator tokens (ARI_OP_T, REL_OP_T, LOG_OP_T, ASN_T)
+ *  LPR_T, RPR_T, LBR_T, RBR_T, COM_T, EOS_T, SEOF_T, operator tokens (ARI_OP_T, REL_OP_T, LOG_OP_T, ASN_T)
  *  and special chars used for tokens include _, & and " */
 
 

@@ -245,6 +245,10 @@ Token tokenizer(frog_void) {
 			currentToken.code = RBR_T;
 			scData.scanHistogram[currentToken.code]++;
 			return currentToken;
+		case COM_CHR:
+			currentToken.code = COM_T;
+			scData.scanHistogram[currentToken.code]++;
+			return currentToken;
 
 		/* Cases for operators (arithmetic, relational, logical, assignment) */
 		case PLS_CHR:
@@ -743,6 +747,9 @@ frog_void printToken(Token t) {
 		break;
 	case RBR_T:
 		printf("RBR_T\n");
+		break;
+	case COM_T:
+		printf("COM_T\n");
 		break;
 	case KW_T:
 		printf("KW_T\t\t%s\n", keywordTable[t.attribute.codeType]);
