@@ -1,0 +1,20 @@
+/* Frog Example: Control Flow and Precedence
+   This program exercises if/else, the pre-test hop loop, and
+   parenthesized/precedence-sensitive expressions.
+   It should parse without any syntax errors */
+tadpole main() {
+	tadpole count;
+	tadpole total;
+	count = 5;
+	total = 0;
+	if count > 0 then {
+		total = total + count * 2;
+	} else {
+		total = 0;
+	}
+	hop count > 0 {
+		count = count - 1;
+	}
+	total = (count + total) * 2;
+	leap 0;
+}

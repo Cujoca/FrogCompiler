@@ -1,0 +1,20 @@
+/* Frog Example: User-Defined Functions
+   This program exercises helper function definitions, calls used
+   inside expressions, nested calls, and a bare call statement.
+   It should parse without any syntax errors */
+tadpole add(tadpole x, tadpole y) {
+	leap x + y;
+}
+
+tadpole square(tadpole n) {
+	leap n * n;
+}
+
+tadpole main() {
+	tadpole total;
+	total = add(1, 2);
+	total = add(1, 2) + square(3);
+	total = add(square(2), 3);
+	log(total);
+	leap 0;
+}

@@ -19,9 +19,9 @@ set "OUTPUT_DIR=%~dp0..\output"
 
 :: Parameter is the plaintext Frog source file (in INPUT_DIR) to encode and parse.
 :: Defaults to the Frog sample program if none is given.
-:: Set the src file to FrogHello.txt for valid input and FrogErrors.txt for invalid input.
+:: Set the src file to FrogHello.txt/FrogControlFlow.txt/FrogFunctions.txt for valid input and FrogErrors.txt for invalid input.
 set "src=%1"
-if "%src%"=="" set "src=FrogHello.txt"
+if "%src%"=="" set "src=FrogErrors.txt"
 set "coded=%INPUT_DIR%\CODED.txt"
 
 gcc "%CODE_DIR%\compilers.c" "%CODE_DIR%\main1coder.c" "%CODE_DIR%\step1coder.c" "%CODE_DIR%\main2reader.c" "%CODE_DIR%\step2reader.c" "%CODE_DIR%\main3scanner.c" "%CODE_DIR%\step3scanner.c" "%CODE_DIR%\main4parser.c" "%CODE_DIR%\step4parser.c" -o "%CODE_DIR%\compilers"

@@ -70,10 +70,9 @@ extern BufferPointer	stringLiteralTable;
 extern frog_int		line;
 extern Token			tokenizer(frog_void);
 extern frog_str		keywordTable[KWT_SIZE];
-static frog_int		syntaxErrorNumber = 0;
 
-#define LANG_WRTE		"print&"
-#define LANG_READ		"input&"
+#define LANG_WRTE		"print("
+#define LANG_READ		"input("
 #define LANG_MAIN		"main("
 
 /* Keyword token attribute codes - the value of each MUST match the index
@@ -89,15 +88,11 @@ enum KEYWORDS {
 	KW_else,	// 5
 	KW_hop,		// 6
 	KW_do,		// 7
-	KW_leap,	// 8
-	/* TO_DO: legacy aliases still used by functions not yet ported to Frog's grammar - remove once those are updated */
-	KW_int = KW_tadpole,
-	KW_while = KW_hop,
-	KW_return = KW_leap
+	KW_leap		// 8
 };
 
 /* TO_DO: Define the number of BNF rules */
-#define NUM_BNF_RULES 14
+#define NUM_BNF_RULES 33
 
 /* Parser */
 typedef struct parserData {
@@ -121,7 +116,7 @@ frog_void printBNFData(ParserData psData);
 enum BNF_RULES {
 	BNF_error,										/*  0: Error token */
 	BNF_comment,									/*  1 */
-	BNF_optVarListDeclarations,						/*  2 */
+	BNF_varDeclaration,								/*  2 */
 	BNF_optionalStatements,							/*  3 */
 	BNF_outputStatement,							/*  4 */
 	BNF_outputVariableList,							/*  5 */
@@ -132,7 +127,26 @@ enum BNF_RULES {
 	BNF_optParams,									/* 10 */
 	BNF_returnStatement,							/* 11 */
 	BNF_paramList,									/* 12 */
-	BNF_paramListPrime								/* 13 */
+	BNF_paramListPrime,								/* 13 */
+	BNF_assignOrExprStatement,						/* 14 */
+	BNF_expression,									/* 15 */
+	BNF_notStatement,								/* 16 */
+	BNF_doWhileStatement,							/* 17 */
+	BNF_andExpr,									/* 18 */
+	BNF_relExpr,									/* 19 */
+	BNF_addExpr,									/* 20 */
+	BNF_mulExpr,									/* 21 */
+	BNF_unary,										/* 22 */
+	BNF_ifStatement,								/* 23 */
+	BNF_optElse,									/* 24 */
+	BNF_whileStatement,								/* 25 */
+	BNF_inputStatement,								/* 26 */
+	BNF_functionDefs,								/* 27 */
+	BNF_functionDef,								/* 28 */
+	BNF_call,										/* 29 */
+	BNF_callStatement,								/* 30 */
+	BNF_argList,									/* 31 */
+	BNF_argListPrime								/* 32 */
 };
 
 
@@ -140,7 +154,7 @@ enum BNF_RULES {
 static frog_str BNFStrTable[NUM_BNF_RULES] = {
 	"BNF_error",
 	"BNF_comment",
-	"BNF_optVarListDeclarations",
+	"BNF_varDeclaration",
 	"BNF_optionalStatements",
 	"BNF_outputStatement",
 	"BNF_outputVariableList",
@@ -151,12 +165,31 @@ static frog_str BNFStrTable[NUM_BNF_RULES] = {
 	"BNF_optParams",
 	"BNF_returnStatement",
 	"BNF_paramList",
-	"BNF_paramListPrime"
+	"BNF_paramListPrime",
+	"BNF_assignOrExprStatement",
+	"BNF_expression",
+	"BNF_notStatement",
+	"BNF_doWhileStatement",
+	"BNF_andExpr",
+	"BNF_relExpr",
+	"BNF_addExpr",
+	"BNF_mulExpr",
+	"BNF_unary",
+	"BNF_ifStatement",
+	"BNF_optElse",
+	"BNF_whileStatement",
+	"BNF_inputStatement",
+	"BNF_functionDefs",
+	"BNF_functionDef",
+	"BNF_call",
+	"BNF_callStatement",
+	"BNF_argList",
+	"BNF_argListPrime"
 };
 
 /* TO_DO: Place ALL non-terminal function declarations */
 frog_void comment();
-frog_void optVarListDeclarations();
+frog_void varDeclaration();
 frog_void optionalStatements();
 frog_void outputStatement();
 frog_void outputVariableList();
@@ -167,5 +200,24 @@ frog_void statementsPrime();
 frog_void optParams();
 frog_void paramList();
 frog_void paramListPrime();
+frog_void assignOrExprStatement();
+frog_void andExpr();
+frog_void relExpr();
+frog_void addExpr();
+frog_void mulExpr();
+frog_void unary();
+frog_void ifStatement();
+frog_void optElse();
+frog_void whileStatement();
+frog_void expression();
+frog_void notStatement();
+frog_void doWhileStatement();
+frog_void inputStatement();
+frog_void functionDefs();
+frog_void functionDef();
+frog_void call();
+frog_void callStatement();
+frog_void argList();
+frog_void argListPrime();
 
 #endif

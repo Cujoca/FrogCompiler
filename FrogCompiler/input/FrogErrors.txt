@@ -1,7 +1,11 @@
-/* Frog error test: this file intentionally contains lexical errors
-   so we can verify the scanner detects bad lexemes and keeps going
-   instead of crashing */
-tadpole main&() {
+/* Frog error test: this file intentionally contains both lexical errors
+   (Section 1, scanner-level) and syntax errors (Section 2, parser-level)
+   so we can verify that the scanner detects bad lexemes and the parser
+   detects bad token sequences - reporting each error with its line number
+   and recovering to keep going, instead of crashing on the first one. */
+
+/* --- Section 1: lexical errors (bad lexemes for the scanner) --- */
+tadpole main() {
 	5.
 	_oops
 	@
@@ -13,4 +17,15 @@ tadpole main&() {
 	10 / 2
 	leap 0
 }
-print&("this string is opened here but never gets a closing quote so the scanner must truncate it with three dots at the end of the file
+
+/* --- Section 2: syntax errors (every token is lexically valid, but the
+   grammar is broken in several independent, recoverable spots) --- */
+tadpole checkErrors() {
+	tadpole count
+	tadpole total;
+	count = 5
+	total = count + 1;
+	leap 0;
+}
+
+print("this string is opened here but never gets a closing quote so the scanner must truncate it with three dots at the end of the file

@@ -98,7 +98,6 @@ extern BufferPointer stringLiteralTable; /* This buffer is used as a repository 
 extern frog_int errorNumber;     /* Run-time error number = 0 by default (ANSI) - defined in Main3Scanner.c */
 
 /* External objects */
-extern frog_int syntaxErrorNumber /* number of syntax errors reported by the parser */;
 extern frog_int line; /* source code line number - defined in scanner.c */
 
 extern ParserData psData;
@@ -242,8 +241,6 @@ frog_void displayParser(BufferPointer ptrBuffer) {
 */
 
 frog_void callGarbageCollector(frog_void) {
-	if (syntaxErrorNumber)
-		printf("\nSyntax errors: %d\n", syntaxErrorNumber);
 	printf("\nCollecting garbage...\n");
 	readerFree(sourceBuffer);
 	readerFree(stringLiteralTable);
