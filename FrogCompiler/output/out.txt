@@ -22,22 +22,21 @@
 	[CODER SCRIPT ..........................]
 
 
-[Option '3': Starting SCANNER .....]
+[Option '4': Starting PARSER .....]
 
-[Debug mode: 0]
-Reading file /Users/andrei/School/Compilers/FrogCompiler/a3/../input/CODED.txt ....Please wait
+Reading file /Users/andrei/School/Compilers/FrogCompiler/a4/../input/CODED.txt ....Please wait
 
-Printing buffer parameters:
+Printing input buffer parameters:
 
-The capacity of the buffer is:  505
-The current size of the buffer is:  493
+The capacity of the buffer is:  757
+The current size of the buffer is:  522
 
-Printing buffer contents:
+Printing input buffer contents:
 
 /* Frog Example: The Pond Program
    This program is written in the Frog language.
    It should hop through the scanner without any lexical errors */
-tadpole main() {
+tadpole main(tadpole x, tadpole y) {
 	tadpole count;
 	lilypad price;
 	croak greeting;
@@ -55,119 +54,97 @@ tadpole main() {
 	count && count;
 	count || count;
 	!count;
-	hop;
 	do {
 		count;
-	}
+	} hop count > 0;
 	leap 0;
 }
 
-Scanning source file...
+Parsing the source file...
 
-Token		Attribute
-----------------------------------
-CMT_T
-KW_T		tadpole
-MNID_T		main(
-RPR_T
-LBR_T
-KW_T		tadpole
-VID_T		count
-EOS_T
-KW_T		lilypad
-VID_T		price
-EOS_T
-KW_T		croak
-VID_T		greeting
-EOS_T
-MNID_T		print(
-STR_T		0	 Ribbit! Hello from the pond!
-RPR_T
-EOS_T
-VID_T		count
-ASN_T		=
-INL_T		42
-EOS_T
-VID_T		price
-ASN_T		=
-FPL_T		3.140000
-EOS_T
-VID_T		count
-ARI_OP_T	+
-VID_T		count
-EOS_T
-VID_T		count
-ARI_OP_T	-
-VID_T		count
-EOS_T
-VID_T		count
-ARI_OP_T	*
-VID_T		count
-EOS_T
-VID_T		count
-ARI_OP_T	/
-VID_T		count
-EOS_T
-VID_T		count
-REL_OP_T	>
-VID_T		count
-EOS_T
-VID_T		count
-REL_OP_T	<
-VID_T		count
-EOS_T
-VID_T		count
-REL_OP_T	==
-VID_T		count
-EOS_T
-VID_T		count
-REL_OP_T	!=
-VID_T		count
-EOS_T
-VID_T		count
-LOG_OP_T	&&
-VID_T		count
-EOS_T
-VID_T		count
-LOG_OP_T	||
-VID_T		count
-EOS_T
-LOG_OP_T	!
-VID_T		count
-EOS_T
-KW_T		hop
-EOS_T
-KW_T		do
-LBR_T
-VID_T		count
-EOS_T
-RBR_T
-KW_T		leap
-INL_T		0
-EOS_T
-RBR_T
-SEOF_T		0	
+Frog: Comment parsed
+Frog: Param list parsed
+Frog: Optional param list parsed
+Frog: Variable declaration parsed
+Frog: Statement parsed
+Frog: Variable declaration parsed
+Frog: Statement parsed
+Frog: Variable declaration parsed
+Frog: Statement parsed
+Frog: Output variable list parsed
+Frog: Output statement parsed
+Frog: Statement parsed
+Frog: Expression parsed
+Frog: Assignment or expression statement parsed
+Frog: Statement parsed
+Frog: Expression parsed
+Frog: Assignment or expression statement parsed
+Frog: Statement parsed
+Frog: Assignment or expression statement parsed
+Frog: Statement parsed
+Frog: Assignment or expression statement parsed
+Frog: Statement parsed
+Frog: Assignment or expression statement parsed
+Frog: Statement parsed
+Frog: Assignment or expression statement parsed
+Frog: Statement parsed
+Frog: Assignment or expression statement parsed
+Frog: Statement parsed
+Frog: Assignment or expression statement parsed
+Frog: Statement parsed
+Frog: Assignment or expression statement parsed
+Frog: Statement parsed
+Frog: Assignment or expression statement parsed
+Frog: Statement parsed
+Frog: Assignment or expression statement parsed
+Frog: Statement parsed
+Frog: Assignment or expression statement parsed
+Frog: Statement parsed
+Frog: Not statement parsed
+Frog: Statement parsed
+Frog: Assignment or expression statement parsed
+Frog: Statement parsed
+Frog: Statements parsed
+Frog: Optional statements parsed
+Frog: Expression parsed
+Frog: Do-while statement parsed
+Frog: Statement parsed
+Frog: Expression parsed
+Frog: Return statement parsed
+Frog: Statement parsed
+Frog: Statements parsed
+Frog: Optional statements parsed
+Frog: Function definition parsed
+Frog: Program parsed
+Frog: Source file parsed
 
-Printing string table...
-----------------------------------
-Ribbit! Hello from the pond!
-----------------------------------
+Number of Parser errors: 0
 Statistics:
 ----------------------------------
-Token[MNID_T]=2
-Token[INL_T]=2
-Token[FPL_T]=1
-Token[STR_T]=1
-Token[VID_T]=27
-Token[RPR_T]=2
-Token[LBR_T]=2
-Token[RBR_T]=2
-Token[KW_T]=7
-Token[EOS_T]=20
-Token[ARI_OP_T]=4
-Token[REL_OP_T]=4
-Token[LOG_OP_T]=3
-Token[ASN_T]=2
-Token[SEOF_T]=1
-Token[CMT_T]=1
+Token[BNF_comment]=1
+Token[BNF_varDeclaration]=3
+Token[BNF_optionalStatements]=2
+Token[BNF_outputStatement]=1
+Token[BNF_outputVariableList]=1
+Token[BNF_program]=1
+Token[BNF_statement]=20
+Token[BNF_statements]=2
+Token[BNF_statementsPrime]=20
+Token[BNF_optParams]=1
+Token[BNF_returnStatement]=1
+Token[BNF_paramList]=1
+Token[BNF_paramListPrime]=2
+Token[BNF_assignOrExprStatement]=13
+Token[BNF_expression]=4
+Token[BNF_notStatement]=1
+Token[BNF_doWhileStatement]=1
+Token[BNF_andExpr]=5
+Token[BNF_relExpr]=6
+Token[BNF_addExpr]=11
+Token[BNF_mulExpr]=13
+Token[BNF_unary]=15
+Token[BNF_functionDefs]=2
+Token[BNF_functionDef]=1
 ----------------------------------
+
+Collecting garbage...
