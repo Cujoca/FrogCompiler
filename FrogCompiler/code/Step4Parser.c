@@ -117,7 +117,7 @@ frog_void matchToken(frog_int tokenCode, frog_int tokenAttribute) {
 		return;
 	if (matchFlag) {
 		lookahead = tokenizer();
-		if (lookahead.code == ERR_T) {
+		while (lookahead.code == ERR_T) {
 			printError();
 			lookahead = tokenizer();
 			numParserErrors++;
@@ -343,6 +343,7 @@ static frog_void matchType() {
 	}
 	else {
 		printError();
+		numParserErrors++;
 	}
 }
 
@@ -469,6 +470,7 @@ frog_void unary() {
 		}
 		else {
 			printError();
+			numParserErrors++;
 		}
 		break;
 	case ARI_OP_T:
@@ -478,6 +480,7 @@ frog_void unary() {
 		}
 		else {
 			printError();
+			numParserErrors++;
 		}
 		break;
 	case VID_T:
@@ -502,6 +505,7 @@ frog_void unary() {
 		break;
 	default:
 		printError();
+		numParserErrors++;
 	}
 }
 
