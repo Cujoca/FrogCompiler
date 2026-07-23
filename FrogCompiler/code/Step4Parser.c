@@ -66,6 +66,7 @@ static frog_bool sawMainFunction = FROG_FALSE; /* set by functionDef() when it s
 
 /* Forward declarations for static helpers used before their definition below */
 static frog_void matchType();
+static frog_bool tokenMatches(frog_int tokenCode, frog_int tokenAttribute);
 
 /*
 ************************************************************
@@ -92,20 +93,26 @@ frog_void startParser() {
 
 /*
  ************************************************************
+ * Token Matches
+ * Shared match-check used by both matchToken() and syncErrorHandler():
+ * a KW_T token must match on code AND keyword attribute (codeType), any
+ * other token code only needs to match on code.
+ ***********************************************************
+ */
+static frog_bool tokenMatches(frog_int tokenCode, frog_int tokenAttribute) {
+	if (lookahead.code == KW_T && lookahead.attribute.codeType != tokenAttribute)
+		return FROG_FALSE;
+	return lookahead.code == tokenCode;
+}
+
+/*
+ ************************************************************
  * Match Token
  ***********************************************************
  */
 /* TO_DO: This is the main code for match - check your definition */
 frog_void matchToken(frog_int tokenCode, frog_int tokenAttribute) {
-	frog_int matchFlag = FROG_TRUE;
-	switch (lookahead.code) {
-	case KW_T:
-		if (lookahead.attribute.codeType != tokenAttribute)
-			matchFlag = FROG_FALSE;
-	default:
-		if (lookahead.code != tokenCode)
-			matchFlag = FROG_FALSE;
-	}
+	frog_int matchFlag = tokenMatches(tokenCode, tokenAttribute);
 	if (matchFlag && lookahead.code == SEOF_T)
 		return;
 	if (matchFlag) {
@@ -117,7 +124,7 @@ frog_void matchToken(frog_int tokenCode, frog_int tokenAttribute) {
 		}
 	}
 	else
-		syncErrorHandler(tokenCode);
+		syncErrorHandler(tokenCode, tokenAttribute);
 }
 
 /*
@@ -126,10 +133,10 @@ frog_void matchToken(frog_int tokenCode, frog_int tokenAttribute) {
  ***********************************************************
  */
 /* TO_DO: This is the function to handler error - adjust basically datatypes */
-frog_void syncErrorHandler(frog_int syncTokenCode) {
+frog_void syncErrorHandler(frog_int syncTokenCode, frog_int syncTokenAttribute) {
 	printError();
 	numParserErrors++;
-	while (lookahead.code != syncTokenCode) {
+	while (!tokenMatches(syncTokenCode, syncTokenAttribute)) {
 		if (lookahead.code == SEOF_T)
 			exit(numParserErrors);
 		lookahead = tokenizer();
@@ -224,7 +231,7 @@ frog_void printError() {
  */
 frog_void program() {
 	psData.parsHistogram[BNF_program]++;
-	if (lookahead.code == CMT_T) {
+	while (lookahead.code == CMT_T) {
 		comment();
 	}
 	sawMainFunction = FROG_FALSE;
@@ -248,7 +255,7 @@ frog_void program() {
  */
 frog_void functionDefs() {
 	psData.parsHistogram[BNF_functionDefs]++;
-	if (lookahead.code == CMT_T) {
+	while (lookahead.code == CMT_T) {
 		comment();
 	}
 	if (lookahead.code == KW_T &&
@@ -307,7 +314,7 @@ frog_void comment() {
  */
 frog_void optParams() {
 	psData.parsHistogram[BNF_optParams]++;
-	if (lookahead.code == CMT_T) {
+	while (lookahead.code == CMT_T) {
 		comment();
 	}
 	if (lookahead.code == KW_T &&
@@ -648,7 +655,7 @@ frog_void varDeclaration() {
  */
 frog_void optionalStatements() {
 	psData.parsHistogram[BNF_optionalStatements]++;
-	if (lookahead.code == CMT_T) {
+	while (lookahead.code == CMT_T) {
 		comment();
 	}
 	if (isStatementStart()) {
@@ -683,7 +690,7 @@ frog_void statements() {
  */
 frog_void statementsPrime() {
 	psData.parsHistogram[BNF_statementsPrime]++;
-	if (lookahead.code == CMT_T) {
+	while (lookahead.code == CMT_T) {
 		comment();
 	}
 	if (isStatementStart()) {
@@ -882,7 +889,7 @@ frog_void statement() {
 			ifStatement();
 			break;
 		default:
-			syncErrorHandler(EOS_T);
+			syncErrorHandler(EOS_T, NO_ATTR);
 		}
 		break;
 	case VID_T:
@@ -893,7 +900,7 @@ frog_void statement() {
 			notStatement();
 		}
 		else {
-			syncErrorHandler(EOS_T);
+			syncErrorHandler(EOS_T, NO_ATTR);
 		}
 		break;
 	case MNID_T:
@@ -908,7 +915,7 @@ frog_void statement() {
 		}
 		break;
 	default:
-		syncErrorHandler(EOS_T);
+		syncErrorHandler(EOS_T, NO_ATTR);
 	}
 	printf("%s%s\n", STR_LANGNAME, ": Statement parsed");
 }

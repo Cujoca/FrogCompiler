@@ -108,7 +108,7 @@ extern ParserData psData;
 /* Function definitions */
 frog_void startParser();
 frog_void matchToken(frog_int, frog_int);
-frog_void syncErrorHandler(frog_int);
+frog_void syncErrorHandler(frog_int, frog_int);
 frog_void printError();
 frog_void printBNFData(ParserData psData);
 
