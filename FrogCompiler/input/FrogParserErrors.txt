@@ -1,0 +1,164 @@
+/* Frog parser error test: every lexeme in this file is lexically valid
+   (no scanner errors should ever be reported here) - each function below
+   breaks exactly one BNF grammar rule of the parser, so we can verify it
+   detects bad token sequences, reports each with printError() and a line
+   number, and recovers via syncErrorHandler() to keep parsing instead of
+   stopping at the first one. Comments may now repeat back to back (see
+   the two lines above and below) since <opt_comment> loops in the parser. */
+/* Each test function also doubles as its own recovery landing pad: where
+   panic-mode recovery would otherwise skip forward into the NEXT test
+   (since syncErrorHandler resyncs on the first later token of the exact
+   code/keyword it's hunting for), a harmless duplicate of the needed
+   token is placed later in the SAME function so recovery lands locally. */
+
+/* 1: varDeclaration missing EOS_T (';'). BNF: <varDeclaration> -> <type> VID_T ; */
+tadpole main() {
+	tadpole count
+	tadpole total;
+	leap 0;
+}
+
+/* 2: assignOrExprStatement missing EOS_T (';'). BNF: <assignOrExprStatement> -> VID_T = <expression> ; */
+tadpole assignMissingSemi() {
+	tadpole total;
+	total = 5
+	total = 6;
+	leap 0;
+}
+
+/* 3: assignOrExprStatement, VID_T not followed by '=' or an operator that
+   can continue an expression (missing operator between two atoms) */
+tadpole missingOperator() {
+	tadpole count;
+	tadpole total;
+	count total;
+	leap 0;
+}
+
+/* 4: unary() has no valid FIRST token after '=' (missing right-hand-side expression) */
+tadpole missingRHS() {
+	tadpole total;
+	total = ;
+	leap 0;
+}
+
+/* 5: ifStatement missing the 'then' keyword. BNF: <ifStatement> -> if <expression> then { <opt_statements> } <optElse> */
+tadpole ifMissingThen() {
+	tadpole count;
+	tadpole total;
+	if count > 0 {
+		total = 1;
+	}
+	if count > 0 then {
+		total = 2;
+	}
+	leap 0;
+}
+
+/* 6: ifStatement condition missing (unary() sees KW_T 'then', not a valid expression start) */
+tadpole ifMissingCondition() {
+	tadpole total;
+	if then {
+		total = 1;
+	}
+	leap 0;
+}
+
+/* 7: doWhileStatement missing the 'hop' keyword before the loop condition.
+   BNF: <doWhileStatement> -> do { <opt_statements> } hop <expression> ; */
+tadpole doMissingHop() {
+	tadpole count;
+	tadpole total;
+	do {
+		total = total - 1;
+	} count > 0;
+	do {
+		total = total - 1;
+	} hop count > 0;
+	leap 0;
+}
+
+/* 8: whileStatement missing its condition expression. BNF: <whileStatement> -> hop <expression> { <opt_statements> } */
+tadpole whileMissingCondition() {
+	tadpole total;
+	hop {
+		total = 0;
+	}
+	leap 0;
+}
+
+/* 9: notStatement missing the VID_T operand. BNF: <notStatement> -> ! VID_T ; */
+tadpole notMissingOperand() {
+	tadpole flag;
+	!;
+	!flag;
+	leap 0;
+}
+
+/* 10: outputStatement argument is neither STR_T nor VID_T, so outputVariableList()
+   falls through to e and the ')' is never found where expected */
+tadpole outputInvalidArg() {
+	print(5);
+	leap 0;
+}
+
+/* 11: inputStatement argument is not an lvalue (STR_T instead of VID_T). BNF: <inputStatement> -> input( VID_T ) ; */
+tadpole inputInvalidArg() {
+	tadpole total;
+	input("total");
+	input(total);
+	leap 0;
+}
+
+/* 12: callStatement, call() missing the closing ')'. BNF: <call> -> MNID_T <argList> ) */
+tadpole callMissingParen() {
+	add(1, 2;
+	add(3, 4);
+	leap 0;
+}
+
+/* 13: argListPrime missing the expression after ','. BNF: <argListPrime> -> , <expression> <argListPrime> | e */
+tadpole argListMissingExpr() {
+	add(1, );
+	leap 0;
+}
+
+/* 14: functionDef missing MNID_T, the function name. BNF: <functionDef> -> <type> MNID_T <optParams> ) { <opt_statements> }
+   The tiny "sacrifice14" function right after exists only to give this
+   test's recovery a function-shaped landing pad; it gets silently
+   absorbed into test 14's own (broken) definition and never runs on
+   its own - normal parsing resumes cleanly at test 15 afterward. */
+tadpole () {
+	leap 0;
+}
+tadpole sacrifice14(tadpole z) {
+	leap z;
+}
+
+/* 15: paramList missing VID_T after the parameter's type. BNF: <paramList> -> <type> VID_T <paramListPrime> */
+tadpole add(tadpole, lilypad y) {
+	leap y;
+}
+
+/* 16: paramListPrime missing the type after ','. BNF: <paramListPrime> -> , <type> VID_T <paramListPrime> | e */
+tadpole addTwo(tadpole x, y) {
+	leap x;
+}
+
+/* 17: paramListPrime missing the ',' between two parameters (second param dropped
+   silently by <paramListPrime> -> e, so the parser expects ')' where 'lilypad' is) */
+tadpole addThree(tadpole x lilypad y) {
+	leap x;
+}
+
+/* 18: statement() default case - a keyword that starts no known statement
+   (an 'else' with no matching if in this scope). Placed last: its own
+   recovery misaligns the block's closing brace with the function's, so
+   the leftover '}' is caught by the final SEOF check instead of bleeding
+   into another test. */
+tadpole elseWithoutIf() {
+	tadpole total;
+	else {
+		total = 0;
+	}
+}
