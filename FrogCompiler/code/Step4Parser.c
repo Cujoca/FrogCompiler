@@ -239,6 +239,7 @@ frog_void program() {
 	functionDefs();
 	if (!sawMainFunction) {
 		printError();
+		numParserErrors++;
 	}
 	printf("%s%s\n", STR_LANGNAME, ": Program parsed");
 }
