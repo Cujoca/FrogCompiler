@@ -92,7 +92,7 @@ enum KEYWORDS {
 };
 
 /* TO_DO: Define the number of BNF rules */
-#define NUM_BNF_RULES 33
+#define NUM_BNF_RULES 34
 
 /* Parser */
 typedef struct parserData {
@@ -146,7 +146,8 @@ enum BNF_RULES {
 	BNF_call,										/* 29 */
 	BNF_callStatement,								/* 30 */
 	BNF_argList,									/* 31 */
-	BNF_argListPrime								/* 32 */
+	BNF_argListPrime,								/* 32 */
+	BNF_optReturnValue								/* 33 */
 };
 
 
@@ -184,7 +185,8 @@ static frog_str BNFStrTable[NUM_BNF_RULES] = {
 	"BNF_call",
 	"BNF_callStatement",
 	"BNF_argList",
-	"BNF_argListPrime"
+	"BNF_argListPrime",
+	"BNF_optReturnValue"
 };
 
 /* TO_DO: Place ALL non-terminal function declarations */
@@ -219,5 +221,7 @@ frog_void call();
 frog_void callStatement();
 frog_void argList();
 frog_void argListPrime();
+frog_void returnStatement();
+frog_void optReturnValue();
 
 #endif
