@@ -153,6 +153,7 @@ frog_void syncErrorHandler(frog_int syncTokenCode, frog_int syncTokenAttribute) 
 /* TO_DO: This is the function to error printing - adjust basically datatypes */
 frog_void printError() {
 	Token t = lookahead;
+	psData.parsHistogram[BNF_error]++;
 	printf("%s%s%3d\n", STR_LANGNAME, ": Syntax error:  Line:", line);
 	printf("*****  Token code:%3d Attribute: ", t.code);
 	switch (t.code) {
@@ -265,6 +266,7 @@ frog_void functionDefs() {
 		functionDef();
 		functionDefs();
 	}
+	printf("%s%s\n", STR_LANGNAME, ": Function definitions parsed");
 }
 
 /*
@@ -507,6 +509,7 @@ frog_void unary() {
 		printError();
 		numParserErrors++;
 	}
+	printf("%s%s\n", STR_LANGNAME, ": Unary parsed");
 }
 
 /*
@@ -525,6 +528,7 @@ frog_void call() {
 	matchToken(MNID_T, NO_ATTR);
 	argList();
 	matchToken(RPR_T, NO_ATTR);
+	printf("%s%s\n", STR_LANGNAME, ": Call parsed");
 }
 
 /*
@@ -557,6 +561,7 @@ frog_void argListPrime() {
 		expression();
 		argListPrime();
 	}
+	printf("%s%s\n", STR_LANGNAME, ": Argument list prime parsed");
 }
 
 /* mulExpr -> <unary> <mulExprTail> */
@@ -564,6 +569,7 @@ frog_void mulExpr() {
 	psData.parsHistogram[BNF_mulExpr]++;
 	unary();
 	mulExprTail();
+	printf("%s%s\n", STR_LANGNAME, ": Mul expression parsed");
 }
 
 /* addExpr -> <mulExpr> <addExprTail> */
@@ -571,6 +577,7 @@ frog_void addExpr() {
 	psData.parsHistogram[BNF_addExpr]++;
 	mulExpr();
 	addExprTail();
+	printf("%s%s\n", STR_LANGNAME, ": Add expression parsed");
 }
 
 /* relExpr -> <addExpr> <relExprTail> */
@@ -578,6 +585,7 @@ frog_void relExpr() {
 	psData.parsHistogram[BNF_relExpr]++;
 	addExpr();
 	relExprTail();
+	printf("%s%s\n", STR_LANGNAME, ": Relational expression parsed");
 }
 
 /* andExpr -> <relExpr> <andExprTail> */
@@ -585,6 +593,7 @@ frog_void andExpr() {
 	psData.parsHistogram[BNF_andExpr]++;
 	relExpr();
 	andExprTail();
+	printf("%s%s\n", STR_LANGNAME, ": And expression parsed");
 }
 
 /*
@@ -630,6 +639,7 @@ frog_void paramListPrime() {
 		matchToken(VID_T, NO_ATTR);
 		paramListPrime();
 	}
+	printf("%s%s\n", STR_LANGNAME, ": Param list prime parsed");
 }
 
 /*
@@ -701,6 +711,7 @@ frog_void statementsPrime() {
 		statement();
 		statementsPrime();
 	}
+	printf("%s%s\n", STR_LANGNAME, ": Statements prime parsed");
 }
 
 /*
@@ -713,9 +724,11 @@ frog_void statementsPrime() {
  ***********************************************************
  */
 frog_void optReturnValue() {
+	psData.parsHistogram[BNF_optReturnValue]++;
 	if (isExpressionStart()) {
 		expression();
 	}
+	printf("%s%s\n", STR_LANGNAME, ": Optional return value parsed");
 }
 
 /*
