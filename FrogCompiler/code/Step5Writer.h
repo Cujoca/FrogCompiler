@@ -36,7 +36,7 @@
 ************************************************************
 * File name: Writer.h
 * Compiler: MS Visual Studio 2022
-* Course: CST 8152 – Compilers, Lab Section: [011, 012]
+* Course: CST 8152 ï¿½ Compilers, Lab Section: [011, 012]
 * Assignment: A12.
 * Date: Jan 01 2025
 * Professor: Paulo Sousa
@@ -55,33 +55,35 @@
 #include "Compilers.h"
 #endif
 
+#ifndef READER_H_
+#include "Step2Reader.h"
+#endif
+
+#ifndef SCANNER_H_
+#include "Step3Scanner.h"
+#endif
+
+#ifndef PARSER_H_
+#include "Step4Parser.h"
+#endif
+
 #ifndef WRITER_H_
 #define WRITER_H_
 
-#define MAX_VARS 100
-#define MAX_EXPR_LEN 256
-#define MAX_LINES 100
+/*
+ * NOTE: The Writer drives the same tokenizer()/Buffer machinery the Parser
+ * (Step4Parser.c) uses instead of re-parsing the decoded source as raw text.
+ * It walks the token stream with its own grammar-mirroring functions that
+ * compute real values instead of just validating syntax.
+ */
 
-#define WRITE "print&"
+#define MAX_VARS 100
+#define MAX_FUNCS 20
+#define MAX_PARAMS 8
 
 #define EOS '\0'
 #define ZERO 0.0
 #define STREMPTY ""
-#define LPAR '('
-#define RPAR ')'
-#define PLUS '+'
-#define MINUS '-'
-#define MULT '*'
-#define DIV '/'
-
-#define EQUALS '='
-#define MOD '%'
-#define SPACE ' '
-#define TAB '\t'
-#define NEWLINE '\n'
-#define RETURN '\r'
-#define QUOTES '"'
-#define QUOTE '\''
 
 #define TRUE "true"
 #define FALSE "false"
@@ -89,7 +91,7 @@
 typedef enum { NUMERIC, STRING, BOOLEAN, CHAR } VarType;
 
 typedef struct {
-    frog_char name[32];
+    frog_char name[VID_LEN + 1];
     VarType type;
     union {
         frog_doub num_value;
@@ -99,24 +101,23 @@ typedef struct {
     } value;
 } Variable;
 
-frog_int find_variable(const frog_str name);
+/* An expression result is just a Variable that hasn't (necessarily) been
+ * registered under a name in the variable table. */
+typedef Variable Value;
 
-frog_void assign_boolean_variable(const frog_str name, frog_int value);
-frog_void assign_char_variable(const frog_str name, frog_char value);
-frog_void assign_numeric_variable(const frog_str name, frog_doub value);
-frog_void assign_string_variable(const frog_str name, const frog_str value);
+/* A registered function definition: its parameter names and where its body
+ * starts in the source buffer (right after the opening '{'), so runFunction()
+ * can seek the buffer there and re-run it on every call. */
+typedef struct {
+    frog_char name[VID_LEN + 1];
+    frog_int paramCount;
+    frog_char paramNames[MAX_PARAMS][VID_LEN + 1];
+    frog_int bodyPos;
+} FuncEntry;
 
-frog_int get_boolean_value(const frog_str name);
-frog_char get_char_value(const frog_str name);
-frog_doub get_numeric_value(const frog_str name);
-const frog_str get_string_value(const frog_str name);
-
-frog_doub parse_term(frog_str* expr);
-frog_doub parse_expression(frog_str* expr);
-frog_void calculate(frog_str expression);
-
-frog_void handle_write(frog_str expression);
-frog_void process_file(const frog_str filename);
-frog_void process_content(frog_str content);
+/* Entry point: registers all function definitions, then runs "main(".
+ * Takes the already-loaded source Buffer (same one passed to startScanner())
+ * so it can seek/rewind the token stream around function bodies. */
+frog_void runProgram(BufferPointer buf);
 
 #endif
