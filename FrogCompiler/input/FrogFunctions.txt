@@ -15,6 +15,6 @@ tadpole main() {
 	total = add(1, 2);
 	total = add(1, 2) + square(3);
 	total = add(square(2), 3);
-	log(total);
+	print(total);
 	leap 0;
 }

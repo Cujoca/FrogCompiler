@@ -126,6 +126,7 @@ static frog_void runWhileStatement(frog_void);
 static frog_void formatValue(frog_char* out, size_t outSize, Value v);
 static frog_void addOutput(const frog_str s);
 static frog_void runOutputStatement(frog_void);
+static frog_void runInputStatement(frog_void);
 static frog_void runCallStatement(frog_void);
 static frog_void runStatement(frog_void);
 static frog_void runStatements(frog_void);
@@ -766,6 +767,44 @@ static frog_void runOutputStatement(frog_void) {
 	addOutput(buffer);
 }
 
+/* <inputStatement> -> input( VID_T ) ; -- reads a value from stdin into the
+ * named variable. If the variable already exists as STRING, a whole line is
+ * read into it; otherwise (new variable, or already NUMERIC/BOOLEAN) a
+ * number is read, matching the "minimum grammar ... float arithmetic
+ * expressions" the assignment asks for. */
+static frog_void runInputStatement(frog_void) {
+	frog_char name[VID_LEN + 1];
+	frog_int idx;
+	Value v;
+	frog_char discard[256];
+
+	advance(); /* consume MNID_T ("input(") */
+	strncpy(name, lookahead.attribute.idLexeme, VID_LEN);
+	name[VID_LEN] = EOS;
+	expect(VID_T, NO_ATTR);
+	expect(RPR_T, NO_ATTR);
+	expect(EOS_T, NO_ATTR);
+
+	idx = findVariableIdx(name);
+	if (idx != -1 && variables[idx].type == STRING) {
+		v.name[0] = EOS;
+		v.type = STRING;
+		if (fgets(v.value.str_value, sizeof(v.value.str_value), stdin) != NULL)
+			v.value.str_value[strcspn(v.value.str_value, "\r\n")] = EOS;
+		else
+			v.value.str_value[0] = EOS;
+	}
+	else {
+		frog_doub d = ZERO;
+		if (scanf("%lf", &d) != 1)
+			d = ZERO;
+		if (fgets(discard, sizeof(discard), stdin) == NULL)
+			; /* rest of the line (incl. newline) discarded either way */
+		v = numericValue(d);
+	}
+	setVariable(name, v);
+}
+
 /* <callStatement> -> <call> ; -- a user-defined function called for its
  * side effects; the return value is computed (evalCall() always runs the
  * callee) but discarded, same as a bare expression statement. */
@@ -776,9 +815,8 @@ static frog_void runCallStatement(frog_void) {
 }
 
 /* <statement> -> <varDeclaration> | <returnStatement> | <assignOrExprStatement> |
- *   <outputStatement> | <notStatement> | <doWhileStatement> | <ifStatement> |
- *   <whileStatement> | <callStatement> | ... (inputStatement is still not
- *   implemented - see notImplemented()) */
+ *   <outputStatement> | <inputStatement> | <notStatement> | <doWhileStatement> |
+ *   <ifStatement> | <whileStatement> | <callStatement> */
 static frog_void runStatement(frog_void) {
 	switch (lookahead.code) {
 	case KW_T:
@@ -817,7 +855,7 @@ static frog_void runStatement(frog_void) {
 		if (strncmp(lookahead.attribute.idLexeme, LANG_WRTE, strlen(LANG_WRTE)) == 0)
 			runOutputStatement();
 		else if (strncmp(lookahead.attribute.idLexeme, LANG_READ, strlen(LANG_READ)) == 0)
-			notImplemented("input statement");
+			runInputStatement();
 		else
 			runCallStatement();
 		break;
@@ -971,9 +1009,17 @@ frog_void runProgram(BufferPointer buf) {
 		exit(EXIT_FAILURE);
 	}
 
+	/* main() is run directly at the top-level scope instead of through
+	 * runFunction() - runFunction() always pops its scope on return (so a
+	 * callee's locals never leak into its caller), but main's locals ARE
+	 * the final variable table printReport() below is supposed to show, so
+	 * they must survive past the call instead of being popped. */
 	srcBuf->position.read = functions[mainIdx].bodyPos;
 	advance();
-	runFunction(mainIdx, NULL, 0);
+	returning = FROG_FALSE;
+	returnValue = numericValue(ZERO);
+	runStatements();
+	returning = FROG_FALSE;
 
 	printReport();
 }
