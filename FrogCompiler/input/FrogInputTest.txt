@@ -1,0 +1,10 @@
+/* Frog Example: input() statement test */
+tadpole main() {
+	tadpole n;
+	croak name;
+	input(n);
+	input(name);
+	print(name);
+	n = n * 2;
+	leap 0;
+}

@@ -59,6 +59,7 @@
 #define MAX_OUTPUTS 100
 #define OUTPUT_LEN 256
 #define MAX_LOOP_ITERATIONS 100000
+#define MAX_CALL_DEPTH 200
 
 /* ------------------------------------------------------------------------
  * Interpreter state
@@ -71,6 +72,7 @@ static frog_int scopeBase;				/* index in variables[] where the current call's l
 
 static FuncEntry functions[MAX_FUNCS];
 static frog_int funcCount;
+static frog_int callDepth;				/* active runFunction() nesting - guards against unbounded recursion */
 
 static frog_bool returning;					/* set by a 'leap' to unwind runStatements() */
 static Value returnValue;
@@ -87,6 +89,7 @@ static frog_bool isTypeKeyword(frog_void);
 static frog_bool isExpressionStart(frog_void);
 static frog_bool isStatementStart(frog_void);
 static frog_void notImplemented(const frog_str what);
+static frog_void stripTrailingParen(frog_char* name);
 
 static Value numericValue(frog_doub d);
 static Value booleanValue(frog_int b);
@@ -135,6 +138,7 @@ static frog_void registerFunctionDef(frog_void);
 static frog_void skipToMatchingBrace(frog_void);
 static frog_int findFunction(const frog_str name);
 static Value runFunction(frog_int idx, Value* args, frog_int argCount);
+static frog_str varTypeName(VarType t);
 static frog_void printReport(frog_void);
 
 /* ------------------------------------------------------------------------
@@ -216,6 +220,15 @@ static frog_void notImplemented(const frog_str what) {
 	exit(EXIT_FAILURE);
 }
 
+/* MNID_T lexemes (function names as both declared and called) already
+ * include the trailing '(' - fine for lookup, but ugly in a message like
+ * "undefined function add(". Strips it for display purposes only. */
+static frog_void stripTrailingParen(frog_char* name) {
+	size_t len = strlen(name);
+	if (len > 0 && name[len - 1] == '(')
+		name[len - 1] = EOS;
+}
+
 /* ------------------------------------------------------------------------
  * Value helpers
  * ------------------------------------------------------------------------ */
@@ -273,14 +286,34 @@ static Value applyArithmetic(AriOperator op, Value l, Value r) {
 	}
 }
 
+/* == and != work across any pair of same-typed operands (STRING/BOOLEAN/
+ * NUMERIC/CHAR), not just numbers - two croak variables holding equal text
+ * are just as comparable as two numbers. Values of different types are
+ * simply unequal. Ordering (< / >) only makes sense for NUMERIC, so those
+ * still go through numOf() and fail loudly on a non-numeric operand. */
 static Value applyRelational(RelOperator op, Value l, Value r) {
-	frog_doub a = numOf(l), b = numOf(r);
-	switch (op) {
-	case OP_EQ: return booleanValue(a == b);
-	case OP_NE: return booleanValue(a != b);
-	case OP_GT: return booleanValue(a > b);
-	case OP_LT: return booleanValue(a < b);
-	default:    return booleanValue(FROG_FALSE);
+	if (op == OP_EQ || op == OP_NE) {
+		frog_int eq;
+		if (l.type != r.type) {
+			eq = FROG_FALSE;
+		}
+		else {
+			switch (l.type) {
+			case STRING:  eq = (strcmp(l.value.str_value, r.value.str_value) == 0); break;
+			case BOOLEAN: eq = (l.value.bool_value == r.value.bool_value); break;
+			case CHAR:    eq = (l.value.char_value == r.value.char_value); break;
+			default:      eq = (l.value.num_value == r.value.num_value); break;
+			}
+		}
+		return booleanValue(op == OP_EQ ? eq : !eq);
+	}
+	{
+		frog_doub a = numOf(l), b = numOf(r);
+		switch (op) {
+		case OP_GT: return booleanValue(a > b);
+		case OP_LT: return booleanValue(a < b);
+		default:    return booleanValue(FROG_FALSE);
+		}
 	}
 }
 
@@ -346,8 +379,20 @@ static Value evalCall(frog_void) {
 
 	calleeIdx = findFunction(calleeName);
 	if (calleeIdx == -1) {
+		frog_char displayName[VID_LEN + 1];
+		strncpy(displayName, calleeName, VID_LEN + 1);
+		stripTrailingParen(displayName);
 		printf("%s%s%3d%s%s\n", STR_LANGNAME, ": Runtime error at line", line,
-			": call to undefined function ", calleeName);
+			": call to undefined function ", displayName);
+		exit(EXIT_FAILURE);
+	}
+	if (argCount != functions[calleeIdx].paramCount) {
+		frog_char displayName[VID_LEN + 1];
+		strncpy(displayName, calleeName, VID_LEN + 1);
+		stripTrailingParen(displayName);
+		printf("%s%s%3d%s%s%s%d%s%d\n", STR_LANGNAME, ": Runtime error at line", line,
+			": wrong number of arguments to ", displayName,
+			"() - expected ", functions[calleeIdx].paramCount, ", got ", argCount);
 		exit(EXIT_FAILURE);
 	}
 
@@ -583,6 +628,15 @@ static frog_void runAssignOrExprStatement(frog_void) {
 		Value v;
 		advance();
 		v = evalExpression();
+		/* Assignment updates an existing variable - it doesn't implicitly
+		 * declare one. The grammar has a dedicated <varDeclaration> for
+		 * that (tadpole/lilypad/croak), so a name assignment sees for the
+		 * first time here is almost always a typo, not a fresh variable. */
+		if (findVariableIdx(name) == -1) {
+			printf("%s%s%3d%s%s\n", STR_LANGNAME, ": Runtime error at line", line,
+				": assignment to undeclared variable ", name);
+			exit(EXIT_FAILURE);
+		}
 		setVariable(name, v);
 	}
 	else {
@@ -901,7 +955,13 @@ static frog_void skipToMatchingBrace(frog_void) {
 
 /* <functionDef> -> <type> MNID_T <optParams> ) { <opt_statements> } */
 static frog_void registerFunctionDef(frog_void) {
-	FuncEntry* fn = &functions[funcCount];
+	FuncEntry* fn;
+	if (funcCount >= MAX_FUNCS) {
+		printf("%s%s%3d%s%d%s\n", STR_LANGNAME, ": Runtime error at line", line,
+			": too many function definitions (max ", MAX_FUNCS, ")");
+		exit(EXIT_FAILURE);
+	}
+	fn = &functions[funcCount];
 	fn->paramCount = 0;
 	advance(); /* consume the type keyword - already confirmed by the caller */
 	strncpy(fn->name, lookahead.attribute.idLexeme, VID_LEN);
@@ -909,11 +969,14 @@ static frog_void registerFunctionDef(frog_void) {
 	expect(MNID_T, NO_ATTR);
 	while (isTypeKeyword()) {
 		advance(); /* consume the param's type keyword */
+		/* Beyond MAX_PARAMS, the parameter is still parsed (so the token
+		 * stream stays in sync) but not recorded - paramCount is capped so
+		 * a later call can never index paramNames[] out of bounds. */
 		if (fn->paramCount < MAX_PARAMS) {
 			strncpy(fn->paramNames[fn->paramCount], lookahead.attribute.idLexeme, VID_LEN);
 			fn->paramNames[fn->paramCount][VID_LEN] = EOS;
+			fn->paramCount++;
 		}
-		fn->paramCount++;
 		expect(VID_T, NO_ATTR);
 		if (lookahead.code == COM_T)
 			advance();
@@ -950,6 +1013,16 @@ static Value runFunction(frog_int idx, Value* args, frog_int argCount) {
 	frog_int savedVarCount = varCount;
 	Value result;
 
+	/* Loops guard against runaway iteration via MAX_LOOP_ITERATIONS; calls
+	 * need the equivalent for runaway recursion (e.g. a missing/broken base
+	 * case) - without it, the *real* C call stack overflows instead of
+	 * failing with a clean Frog-level runtime error. */
+	if (++callDepth > MAX_CALL_DEPTH) {
+		printf("%s%s%3d%s%d%s\n", STR_LANGNAME, ": Runtime error at line", line,
+			": call depth exceeded ", MAX_CALL_DEPTH, " (probable infinite recursion)");
+		exit(EXIT_FAILURE);
+	}
+
 	scopeBase = varCount;
 	returning = FROG_FALSE;
 	returnValue = numericValue(ZERO);
@@ -961,18 +1034,30 @@ static Value runFunction(frog_int idx, Value* args, frog_int argCount) {
 
 	varCount = savedVarCount;
 	scopeBase = savedScopeBase;
+	callDepth--;
 	return result;
+}
+
+static frog_str varTypeName(VarType t) {
+	switch (t) {
+	case NUMERIC: return "NUMERIC";
+	case STRING:  return "STRING";
+	case BOOLEAN: return "BOOLEAN";
+	case CHAR:    return "CHAR";
+	default:      return "UNKNOWN";
+	}
 }
 
 static frog_void printReport(frog_void) {
 	frog_int i;
 	printf("Variables ..................\n");
 	for (i = 0; i < varCount; i++) {
+		frog_str typeName = varTypeName(variables[i].type);
 		switch (variables[i].type) {
-		case STRING:  printf("%s = \"%s\"\n", variables[i].name, variables[i].value.str_value); break;
-		case NUMERIC: printf("%s = %.2lf\n", variables[i].name, variables[i].value.num_value); break;
-		case BOOLEAN: printf("%s = %s\n", variables[i].name, variables[i].value.bool_value ? TRUE : FALSE); break;
-		case CHAR:    printf("%s = '%c'\n", variables[i].name, variables[i].value.char_value); break;
+		case STRING:  printf("%s %s = \"%s\"\n", typeName, variables[i].name, variables[i].value.str_value); break;
+		case NUMERIC: printf("%s %s = %.2lf\n", typeName, variables[i].name, variables[i].value.num_value); break;
+		case BOOLEAN: printf("%s %s = %s\n", typeName, variables[i].name, variables[i].value.bool_value ? TRUE : FALSE); break;
+		case CHAR:    printf("%s %s = '%c'\n", typeName, variables[i].name, variables[i].value.char_value); break;
 		}
 	}
 	printf("Outputs ..................\n");
@@ -991,6 +1076,7 @@ frog_void runProgram(BufferPointer buf) {
 	varCount = 0;
 	funcCount = 0;
 	outputCount = 0;
+	callDepth = 0;
 	returning = FROG_FALSE;
 
 	advance();
