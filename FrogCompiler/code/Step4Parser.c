@@ -646,9 +646,11 @@ frog_void paramListPrime() {
 /*
  ************************************************************
  * varDeclaration
- * BNF: <varDeclaration> -> <type> VID_T ;
+ * BNF: <varDeclaration> -> <type> VID_T <optInit> ;
+ *      <optInit> -> = <expression> | e
  * FIRST(<varDeclaration>) = { KW_T (tadpole), KW_T (lilypad), KW_T (croak) }
- * A single variable declaration statement (e.g. "tadpole count;").
+ * A variable declaration statement, with an optional initializer
+ * (e.g. "tadpole count;" or "tadpole count = 0;").
  * Called by statement() when the lookahead is a type keyword.
  ***********************************************************
  */
@@ -656,6 +658,10 @@ frog_void varDeclaration() {
 	psData.parsHistogram[BNF_varDeclaration]++;
 	matchType();
 	matchToken(VID_T, NO_ATTR);
+	if (lookahead.code == ASN_T) {
+		matchToken(ASN_T, NO_ATTR);
+		expression();
+	}
 	matchToken(EOS_T, NO_ATTR);
 	printf("%s%s\n", STR_LANGNAME, ": Variable declaration parsed");
 }

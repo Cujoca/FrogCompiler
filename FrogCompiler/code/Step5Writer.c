@@ -1,0 +1,979 @@
+/*
+************************************************************
+* COMPILERS COURSE - Algonquin College
+* Code version: Summer, 2026
+* Author: Leo Paquette and Andrei Cojocaru
+* Professors: Paulo Sousa
+************************************************************
+#
+# ECHO "=---------------------------------------="
+# ECHO "|  COMPILERS - ALGONQUIN COLLEGE (S26)  |"
+# ECHO "=---------------------------------------="
+# ECHO "     -------------------------------	 "
+# ECHO "	 |        o  o   o  o          |	 "
+# ECHO "	 |        |\/ \^/ \/|          |	 "
+# ECHO "	 |        |,-------.|          |	 "
+# ECHO "	 |      ,-.(|)   (|),-.        |	 "
+# ECHO "	 |      \_*._ ' '_.* _/        |	 "
+# ECHO "	 |       /`-.`--' .-'\         |	 "
+# ECHO "	 |  ,--./    `---'    \,--.    |	 "
+# ECHO "	 |  \   |(  )     (  )|   /    |	 "
+# ECHO "	 |   \  | ||       || |  /     |	 "
+# ECHO "	 |    \ | /|\     /|\ | /      |	 "
+# ECHO "	 |    /  \-._     _,-/  \      |	 "
+# ECHO "	 |   //| \  `---'  // |\       |	 "
+# ECHO "	 |  /,-.,-.\       /,-.,-.\    |	 "
+# ECHO "	 |  o   o   o      o   o    o  |	 "
+# ECHO "	 |                             |	 "
+# ECHO "	 |  F       R       O       G  |	 "
+# ECHO "	 -------------------------------     "
+# ECHO "                                         "
+# ECHO "[WRITER SCRIPT ..........................]"
+# ECHO "                                         "
+*/
+
+/*
+***********************************************************
+* File name: Writer.c
+* Compiler: MS Visual Studio 2022
+* Course: CST 8152 – Compilers, Lab Section: [011, 012, 013]
+* Assignment: A5.
+* Date: Jul 29 2026
+* Professor: Paulo Sousa
+* Purpose: This file is the main code for the Writer (A5): a token-based
+*   interpreter that walks the same tokenizer()/Buffer machinery the Parser
+*   (Step4Parser.c) uses, but with semantic actions instead of pure syntax
+*   checking - it registers function definitions, evaluates expressions to
+*   real values, executes statements, and reports variables/outputs.
+************************************************************
+*/
+
+#ifndef WRITER_H_
+#include "Step5Writer.h"
+#endif
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_OUTPUTS 100
+#define OUTPUT_LEN 256
+#define MAX_LOOP_ITERATIONS 100000
+
+/* ------------------------------------------------------------------------
+ * Interpreter state
+ * ------------------------------------------------------------------------ */
+static BufferPointer srcBuf;					/* the source buffer handed to startScanner() */
+
+static Variable variables[MAX_VARS];
+static frog_int varCount;
+static frog_int scopeBase;				/* index in variables[] where the current call's locals start */
+
+static FuncEntry functions[MAX_FUNCS];
+static frog_int funcCount;
+
+static frog_bool returning;					/* set by a 'leap' to unwind runStatements() */
+static Value returnValue;
+
+static frog_char outputs[MAX_OUTPUTS][OUTPUT_LEN];
+static frog_int outputCount;
+
+/* ------------------------------------------------------------------------
+ * Forward declarations
+ * ------------------------------------------------------------------------ */
+static frog_void advance(frog_void);
+static frog_void expect(frog_int tokenCode, frog_int tokenAttribute);
+static frog_bool isTypeKeyword(frog_void);
+static frog_bool isExpressionStart(frog_void);
+static frog_bool isStatementStart(frog_void);
+static frog_void notImplemented(const frog_str what);
+
+static Value numericValue(frog_doub d);
+static Value booleanValue(frog_int b);
+static frog_doub numOf(Value v);
+static frog_int boolOf(Value v);
+static Value applyArithmetic(AriOperator op, Value l, Value r);
+static Value applyRelational(RelOperator op, Value l, Value r);
+static Value applyLogical(LogOperator op, Value l, Value r);
+static Value applyNot(Value v);
+static Value applyNegate(Value v);
+
+static Value evalCall(frog_void);
+static Value evalUnary(frog_void);
+static Value evalMulExprTail(Value left);
+static Value evalMulExpr(frog_void);
+static Value evalAddExprTail(Value left);
+static Value evalAddExpr(frog_void);
+static Value evalRelExprTail(Value left);
+static Value evalRelExpr(frog_void);
+static Value evalAndExprTail(Value left);
+static Value evalAndExpr(frog_void);
+static Value evalExpressionTail(Value left);
+static Value evalExpression(frog_void);
+
+static frog_int findVariableIdx(const frog_str name);
+static Value getVariable(const frog_str name);
+static frog_void setVariable(const frog_str name, Value v);
+
+static frog_void runVarDeclaration(frog_void);
+static frog_void runReturnStatement(frog_void);
+static frog_void runAssignOrExprStatement(frog_void);
+static frog_void runNotStatement(frog_void);
+static frog_void runDoWhileStatement(frog_void);
+static frog_void runBlock(frog_void);
+static frog_void runIfStatement(frog_void);
+static frog_void runWhileStatement(frog_void);
+static frog_void formatValue(frog_char* out, size_t outSize, Value v);
+static frog_void addOutput(const frog_str s);
+static frog_void runOutputStatement(frog_void);
+static frog_void runCallStatement(frog_void);
+static frog_void runStatement(frog_void);
+static frog_void runStatements(frog_void);
+
+static frog_void registerFunctionDef(frog_void);
+static frog_void skipToMatchingBrace(frog_void);
+static frog_int findFunction(const frog_str name);
+static Value runFunction(frog_int idx, Value* args, frog_int argCount);
+static frog_void printReport(frog_void);
+
+/* ------------------------------------------------------------------------
+ * Token stream primitives
+ * ------------------------------------------------------------------------ */
+
+/* Advance the lookahead, silently skipping scanner error tokens (the
+ * Parser already validates syntax as a separate option; the Writer is
+ * expected to run standalone on already-good source). */
+static frog_void advance(frog_void) {
+	lookahead = tokenizer();
+	while (lookahead.code == ERR_T) {
+		printf("%s%s%3d\n", STR_LANGNAME, ": Scanner error at line", line);
+		lookahead = tokenizer();
+	}
+}
+
+/* Like Step4Parser.c's matchToken(), minus the histogram/error-sync
+ * machinery - the Writer assumes syntactically valid input and fails loudly
+ * (with a line number) rather than trying to recover. */
+static frog_void expect(frog_int tokenCode, frog_int tokenAttribute) {
+	frog_bool ok;
+	if (lookahead.code == KW_T)
+		ok = (tokenCode == KW_T && lookahead.attribute.codeType == tokenAttribute);
+	else
+		ok = (lookahead.code == tokenCode);
+	if (!ok) {
+		printf("%s%s%3d%s%d\n", STR_LANGNAME, ": Runtime error at line", line,
+			": unexpected token, code=", lookahead.code);
+		exit(EXIT_FAILURE);
+	}
+	advance();
+}
+
+static frog_bool isTypeKeyword(frog_void) {
+	return lookahead.code == KW_T &&
+		(lookahead.attribute.codeType == KW_tadpole ||
+		 lookahead.attribute.codeType == KW_lilypad ||
+		 lookahead.attribute.codeType == KW_croak);
+}
+
+/* Mirrors Step4Parser.c's static isExpressionStart(): FIRST(<unary>). */
+static frog_bool isExpressionStart(frog_void) {
+	if (lookahead.code == VID_T || lookahead.code == INL_T || lookahead.code == FPL_T ||
+		lookahead.code == STR_T || lookahead.code == LPR_T || lookahead.code == MNID_T)
+		return FROG_TRUE;
+	if (lookahead.code == LOG_OP_T && lookahead.attribute.logicalOperator == OP_NOT)
+		return FROG_TRUE;
+	if (lookahead.code == ARI_OP_T && lookahead.attribute.arithmeticOperator == OP_SUB)
+		return FROG_TRUE;
+	return FROG_FALSE;
+}
+
+/* Mirrors Step4Parser.c's static isStatementStart(): FIRST(<statement>). */
+static frog_bool isStatementStart(frog_void) {
+	if (lookahead.code == VID_T || lookahead.code == MNID_T)
+		return FROG_TRUE;
+	if (lookahead.code == LOG_OP_T && lookahead.attribute.logicalOperator == OP_NOT)
+		return FROG_TRUE;
+	if (lookahead.code == KW_T &&
+		(lookahead.attribute.codeType == KW_tadpole ||
+		 lookahead.attribute.codeType == KW_lilypad ||
+		 lookahead.attribute.codeType == KW_croak ||
+		 lookahead.attribute.codeType == KW_do ||
+		 lookahead.attribute.codeType == KW_hop ||
+		 lookahead.attribute.codeType == KW_if ||
+		 lookahead.attribute.codeType == KW_leap))
+		return FROG_TRUE;
+	return FROG_FALSE;
+}
+
+/* A construct this iteration doesn't execute yet. Fails clearly (with a
+ * line number) instead of silently skipping and risking a desynced token
+ * stream or a wrong-looking result. Removed case by case as later input
+ * files (FrogHello/FrogControlFlow/FrogFunctions) come into scope. */
+static frog_void notImplemented(const frog_str what) {
+	printf("%s%s%3d%s%s%s\n", STR_LANGNAME, ": Writer error at line", line,
+		": ", what, " is not implemented yet in this iteration");
+	exit(EXIT_FAILURE);
+}
+
+/* ------------------------------------------------------------------------
+ * Value helpers
+ * ------------------------------------------------------------------------ */
+
+static Value numericValue(frog_doub d) {
+	Value v;
+	v.name[0] = EOS;
+	v.type = NUMERIC;
+	v.value.num_value = d;
+	return v;
+}
+
+static Value booleanValue(frog_int b) {
+	Value v;
+	v.name[0] = EOS;
+	v.type = BOOLEAN;
+	v.value.bool_value = b;
+	return v;
+}
+
+static frog_doub numOf(Value v) {
+	if (v.type != NUMERIC) {
+		printf("%s%s%3d\n", STR_LANGNAME, ": Runtime error at line", line);
+		printf("*****  expected a numeric value\n");
+		exit(EXIT_FAILURE);
+	}
+	return v.value.num_value;
+}
+
+static frog_int boolOf(Value v) {
+	if (v.type == BOOLEAN)
+		return v.value.bool_value;
+	if (v.type == NUMERIC)
+		return v.value.num_value != 0.0;
+	printf("%s%s%3d\n", STR_LANGNAME, ": Runtime error at line", line);
+	printf("*****  expected a boolean value\n");
+	exit(EXIT_FAILURE);
+}
+
+static Value applyArithmetic(AriOperator op, Value l, Value r) {
+	frog_doub a = numOf(l), b = numOf(r);
+	switch (op) {
+	case OP_ADD: return numericValue(a + b);
+	case OP_SUB: return numericValue(a - b);
+	case OP_MUL: return numericValue(a * b);
+	case OP_DIV:
+		if (b == 0.0) {
+			printf("%s%s%3d\n", STR_LANGNAME, ": Runtime error at line", line);
+			printf("*****  division by zero\n");
+			exit(EXIT_FAILURE);
+		}
+		return numericValue(a / b);
+	default:
+		return numericValue(ZERO);
+	}
+}
+
+static Value applyRelational(RelOperator op, Value l, Value r) {
+	frog_doub a = numOf(l), b = numOf(r);
+	switch (op) {
+	case OP_EQ: return booleanValue(a == b);
+	case OP_NE: return booleanValue(a != b);
+	case OP_GT: return booleanValue(a > b);
+	case OP_LT: return booleanValue(a < b);
+	default:    return booleanValue(FROG_FALSE);
+	}
+}
+
+static Value applyLogical(LogOperator op, Value l, Value r) {
+	frog_int a = boolOf(l), b = boolOf(r);
+	if (op == OP_AND)
+		return booleanValue(a && b);
+	return booleanValue(a || b);
+}
+
+static Value applyNot(Value v) {
+	return booleanValue(!boolOf(v));
+}
+
+static Value applyNegate(Value v) {
+	return numericValue(-numOf(v));
+}
+
+/* ------------------------------------------------------------------------
+ * Expression evaluator
+ * Mirrors expression()/andExpr()/relExpr()/addExpr()/mulExpr()/unary() in
+ * Step4Parser.c (same token/attribute checks) - each level here returns a
+ * Value instead of just validating and printing "X parsed".
+ * ------------------------------------------------------------------------ */
+
+/* A function call used as a value (also the shared core of a bare call
+ * statement - see runCallStatement()). Evaluates each argument in the
+ * caller's own (still-active) scope, then jumps the token stream to the
+ * callee's registered body position (same seek trick used for loops), runs
+ * it in a fresh scope via runFunction(), and jumps back to resume exactly
+ * where the caller left off. "Exactly" means saving/restoring not just the
+ * buffer position but the already-fetched lookahead token itself (a single
+ * token isn't reconstructible from a position alone) and the line counter
+ * (tokenizer() only ever increments 'line', so without restoring it, error
+ * messages reported after a call would show a drifted line number). */
+static Value evalCall(frog_void) {
+	frog_char calleeName[VID_LEN + 1];
+	Value args[MAX_PARAMS];
+	frog_int argCount = 0;
+	frog_int calleeIdx;
+	Token savedLookahead;
+	frog_int savedPos;
+	frog_int savedLine;
+	Value result;
+
+	strncpy(calleeName, lookahead.attribute.idLexeme, VID_LEN);
+	calleeName[VID_LEN] = EOS;
+	advance(); /* consume MNID_T - its lexeme already includes the '(' */
+	if (isExpressionStart()) {
+		if (argCount < MAX_PARAMS)
+			args[argCount++] = evalExpression();
+		else
+			evalExpression(); /* over the cap: still evaluated (side effects/sync), just not bound */
+		while (lookahead.code == COM_T) {
+			advance();
+			if (argCount < MAX_PARAMS)
+				args[argCount++] = evalExpression();
+			else
+				evalExpression();
+		}
+	}
+	expect(RPR_T, NO_ATTR);
+
+	calleeIdx = findFunction(calleeName);
+	if (calleeIdx == -1) {
+		printf("%s%s%3d%s%s\n", STR_LANGNAME, ": Runtime error at line", line,
+			": call to undefined function ", calleeName);
+		exit(EXIT_FAILURE);
+	}
+
+	savedLookahead = lookahead;
+	savedPos = readerGetPosRead(srcBuf);
+	savedLine = line;
+
+	srcBuf->position.read = functions[calleeIdx].bodyPos;
+	advance();
+	result = runFunction(calleeIdx, args, argCount);
+
+	srcBuf->position.read = savedPos;
+	lookahead = savedLookahead;
+	line = savedLine;
+
+	return result;
+}
+
+static Value evalUnary(frog_void) {
+	Value v;
+	switch (lookahead.code) {
+	case LOG_OP_T:
+		if (lookahead.attribute.logicalOperator == OP_NOT) {
+			advance();
+			v = applyNot(evalUnary());
+		}
+		else {
+			printf("%s%s%3d\n", STR_LANGNAME, ": Runtime error at line", line);
+			exit(EXIT_FAILURE);
+		}
+		break;
+	case ARI_OP_T:
+		if (lookahead.attribute.arithmeticOperator == OP_SUB) {
+			advance();
+			v = applyNegate(evalUnary());
+		}
+		else {
+			printf("%s%s%3d\n", STR_LANGNAME, ": Runtime error at line", line);
+			exit(EXIT_FAILURE);
+		}
+		break;
+	case VID_T:
+		v = getVariable(lookahead.attribute.idLexeme);
+		advance();
+		break;
+	case INL_T:
+		v = numericValue((frog_doub)lookahead.attribute.intValue);
+		advance();
+		break;
+	case FPL_T:
+		v = numericValue((frog_doub)lookahead.attribute.floatValue);
+		advance();
+		break;
+	case STR_T:
+		v.name[0] = EOS;
+		v.type = STRING;
+		strncpy(v.value.str_value, readerGetContent(stringLiteralTable, lookahead.attribute.contentString),
+			sizeof(v.value.str_value) - 1);
+		v.value.str_value[sizeof(v.value.str_value) - 1] = EOS;
+		advance();
+		break;
+	case MNID_T:
+		v = evalCall();
+		break;
+	case LPR_T:
+		advance();
+		v = evalExpression();
+		expect(RPR_T, NO_ATTR);
+		break;
+	default:
+		printf("%s%s%3d\n", STR_LANGNAME, ": Runtime error at line", line);
+		printf("*****  invalid expression\n");
+		exit(EXIT_FAILURE);
+	}
+	return v;
+}
+
+static Value evalMulExprTail(Value left) {
+	while (lookahead.code == ARI_OP_T &&
+		(lookahead.attribute.arithmeticOperator == OP_MUL || lookahead.attribute.arithmeticOperator == OP_DIV)) {
+		AriOperator op = lookahead.attribute.arithmeticOperator;
+		advance();
+		left = applyArithmetic(op, left, evalUnary());
+	}
+	return left;
+}
+
+static Value evalMulExpr(frog_void) {
+	return evalMulExprTail(evalUnary());
+}
+
+static Value evalAddExprTail(Value left) {
+	while (lookahead.code == ARI_OP_T &&
+		(lookahead.attribute.arithmeticOperator == OP_ADD || lookahead.attribute.arithmeticOperator == OP_SUB)) {
+		AriOperator op = lookahead.attribute.arithmeticOperator;
+		advance();
+		left = applyArithmetic(op, left, evalMulExpr());
+	}
+	return left;
+}
+
+static Value evalAddExpr(frog_void) {
+	return evalAddExprTail(evalMulExpr());
+}
+
+static Value evalRelExprTail(Value left) {
+	if (lookahead.code == REL_OP_T) {
+		RelOperator op = lookahead.attribute.relationalOperator;
+		advance();
+		left = applyRelational(op, left, evalAddExpr());
+	}
+	return left;
+}
+
+static Value evalRelExpr(frog_void) {
+	return evalRelExprTail(evalAddExpr());
+}
+
+static Value evalAndExprTail(Value left) {
+	while (lookahead.code == LOG_OP_T && lookahead.attribute.logicalOperator == OP_AND) {
+		advance();
+		left = applyLogical(OP_AND, left, evalRelExpr());
+	}
+	return left;
+}
+
+static Value evalAndExpr(frog_void) {
+	return evalAndExprTail(evalRelExpr());
+}
+
+static Value evalExpressionTail(Value left) {
+	while (lookahead.code == LOG_OP_T && lookahead.attribute.logicalOperator == OP_OR) {
+		advance();
+		left = applyLogical(OP_OR, left, evalAndExpr());
+	}
+	return left;
+}
+
+static Value evalExpression(frog_void) {
+	return evalExpressionTail(evalAndExpr());
+}
+
+/* ------------------------------------------------------------------------
+ * Variable table (single global scope for now - FrogTest/FrogHello/
+ * FrogControlFlow never call a function with arguments, so a per-call
+ * scope stack is deferred to the FrogFunctions.txt iteration).
+ * ------------------------------------------------------------------------ */
+
+/* Only searches the current call's frame ([scopeBase, varCount)), not outer
+ * frames - each function call gets an isolated set of locals/params, so a
+ * callee can't see (or clobber) its caller's variables. */
+static frog_int findVariableIdx(const frog_str name) {
+	frog_int i;
+	for (i = scopeBase; i < varCount; i++)
+		if (strcmp(variables[i].name, name) == 0)
+			return i;
+	return -1;
+}
+
+static Value getVariable(const frog_str name) {
+	frog_int idx = findVariableIdx(name);
+	if (idx == -1) {
+		printf("%s%s%3d%s%s\n", STR_LANGNAME, ": Runtime error at line", line,
+			": undefined variable ", name);
+		exit(EXIT_FAILURE);
+	}
+	return variables[idx];
+}
+
+static frog_void setVariable(const frog_str name, Value v) {
+	frog_int idx = findVariableIdx(name);
+	if (idx == -1) {
+		if (varCount >= MAX_VARS) {
+			printf("%s%s\n", STR_LANGNAME, ": Runtime error: too many variables");
+			exit(EXIT_FAILURE);
+		}
+		idx = varCount++;
+	}
+	variables[idx] = v;
+	strncpy(variables[idx].name, name, VID_LEN);
+	variables[idx].name[VID_LEN] = EOS;
+}
+
+/* ------------------------------------------------------------------------
+ * Statements
+ * Mirrors statement()/statements() in Step4Parser.c, but each case performs
+ * a real action instead of printing "X parsed".
+ * ------------------------------------------------------------------------ */
+
+/* <varDeclaration> -> <type> VID_T <optInit> ; | <optInit> -> = <expression> | e */
+static frog_void runVarDeclaration(frog_void) {
+	VarType declType = (lookahead.attribute.codeType == KW_croak) ? STRING : NUMERIC;
+	frog_char name[VID_LEN + 1];
+	Value v;
+	advance(); /* consume the type keyword - already confirmed by the caller */
+	strncpy(name, lookahead.attribute.idLexeme, VID_LEN);
+	name[VID_LEN] = EOS;
+	expect(VID_T, NO_ATTR);
+	if (lookahead.code == ASN_T) {
+		advance();
+		v = evalExpression();
+	}
+	else {
+		v.name[0] = EOS;
+		v.type = declType;
+		if (declType == STRING)
+			v.value.str_value[0] = EOS;
+		else
+			v.value.num_value = ZERO;
+	}
+	expect(EOS_T, NO_ATTR);
+	setVariable(name, v);
+}
+
+/* <returnStatement> -> leap <optReturnValue> ; */
+static frog_void runReturnStatement(frog_void) {
+	advance(); /* consume 'leap' */
+	if (isExpressionStart())
+		returnValue = evalExpression();
+	else
+		returnValue = numericValue(ZERO);
+	expect(EOS_T, NO_ATTR);
+	returning = FROG_TRUE;
+}
+
+/* <assignOrExprStatement> -> VID_T = <expression> ; | VID_T <exprTail> ; */
+static frog_void runAssignOrExprStatement(frog_void) {
+	frog_char name[VID_LEN + 1];
+	strncpy(name, lookahead.attribute.idLexeme, VID_LEN);
+	name[VID_LEN] = EOS;
+	advance(); /* consume VID_T */
+	if (lookahead.code == ASN_T) {
+		Value v;
+		advance();
+		v = evalExpression();
+		setVariable(name, v);
+	}
+	else {
+		/* The VID_T just consumed IS the leading <unary> atom - resume the
+		 * precedence climb from the Tail helpers, same as Step4Parser.c's
+		 * assignOrExprStatement() does. The computed value (if any) is a
+		 * bare expression statement's result and is simply discarded. */
+		Value v = getVariable(name);
+		v = evalMulExprTail(v);
+		v = evalAddExprTail(v);
+		v = evalRelExprTail(v);
+		v = evalAndExprTail(v);
+		v = evalExpressionTail(v);
+	}
+	expect(EOS_T, NO_ATTR);
+}
+
+static frog_void formatValue(frog_char* out, size_t outSize, Value v) {
+	switch (v.type) {
+	case STRING:  snprintf(out, outSize, "%s", v.value.str_value); break;
+	case NUMERIC: snprintf(out, outSize, "%.2lf", v.value.num_value); break;
+	case BOOLEAN: snprintf(out, outSize, "%s", v.value.bool_value ? TRUE : FALSE); break;
+	case CHAR:    snprintf(out, outSize, "%c", v.value.char_value); break;
+	}
+}
+
+static frog_void addOutput(const frog_str s) {
+	if (outputCount >= MAX_OUTPUTS)
+		return;
+	strncpy(outputs[outputCount], s, OUTPUT_LEN - 1);
+	outputs[outputCount][OUTPUT_LEN - 1] = EOS;
+	outputCount++;
+}
+
+/* <notStatement> -> ! VID_T ; -- evaluated and discarded, same as a bare
+ * expression statement; the grammar only allows a plain variable operand. */
+static frog_void runNotStatement(frog_void) {
+	Value v;
+	advance(); /* consume '!' */
+	v = applyNot(getVariable(lookahead.attribute.idLexeme));
+	(frog_void)v;
+	expect(VID_T, NO_ATTR);
+	expect(EOS_T, NO_ATTR);
+}
+
+/* <doWhileStatement> -> do { <opt_statements> } hop <expression> ;
+ * A post-test loop: run the body once, then re-evaluate the condition
+ * against whatever the body just did. Looping is done by rewinding the
+ * source buffer back to the body's start (same seek trick used to reach a
+ * function's body in registerFunctionDef()/runProgram()) rather than
+ * building any kind of AST, so each pass re-scans the same body/condition
+ * text but evaluates it against the current variable values. */
+static frog_void runDoWhileStatement(frog_void) {
+	frog_int bodyPos;
+	frog_int iterations = 0;
+	Value cond;
+	advance(); /* consume 'do' */
+	/* lookahead is now LBR_T; capture position before consuming it, same
+	 * reasoning as registerFunctionDef()'s bodyPos capture. */
+	bodyPos = readerGetPosRead(srcBuf);
+	expect(LBR_T, NO_ATTR);
+	for (;;) {
+		srcBuf->position.read = bodyPos;
+		advance();
+		runStatements();
+		if (returning)
+			return; /* a 'leap' inside the loop body unwinds the whole loop */
+		expect(RBR_T, NO_ATTR);
+		expect(KW_T, KW_hop);
+		cond = evalExpression();
+		expect(EOS_T, NO_ATTR);
+		if (!boolOf(cond))
+			break;
+		if (++iterations >= MAX_LOOP_ITERATIONS) {
+			printf("%s%s%3d%s%d%s\n", STR_LANGNAME, ": Runtime error at line", line,
+				": do-hop loop did not terminate within ", MAX_LOOP_ITERATIONS, " iterations");
+			exit(EXIT_FAILURE);
+		}
+	}
+}
+
+/* Runs a "{ <opt_statements> }" block whose opening '{' has already been
+ * matched (lookahead is positioned on the block's first token). Shared by
+ * runIfStatement()'s then/else arms. */
+static frog_void runBlock(frog_void) {
+	runStatements();
+	if (returning)
+		return; /* a 'leap' inside the block unwinds everything above it too */
+	expect(RBR_T, NO_ATTR);
+}
+
+/* <ifStatement> -> if <expression> then { <opt_statements> } <optElse>
+ * <optElse> -> else { <opt_statements> } | e
+ * No looping needed here - just run whichever arm the condition selects and
+ * skip the other one (reusing skipToMatchingBrace(), the same "consume
+ * without executing" helper functionDef registration uses for bodies). */
+static frog_void runIfStatement(frog_void) {
+	frog_bool condTrue;
+	advance(); /* consume 'if' */
+	condTrue = boolOf(evalExpression());
+	expect(KW_T, KW_then);
+	expect(LBR_T, NO_ATTR); /* lookahead now first token of the then-block */
+	if (condTrue) {
+		runBlock();
+		if (returning)
+			return;
+	}
+	else {
+		skipToMatchingBrace();
+	}
+	if (lookahead.code == KW_T && lookahead.attribute.codeType == KW_else) {
+		advance(); /* consume 'else' */
+		expect(LBR_T, NO_ATTR); /* lookahead now first token of the else-block */
+		if (!condTrue) {
+			runBlock();
+			if (returning)
+				return;
+		}
+		else {
+			skipToMatchingBrace();
+		}
+	}
+}
+
+/* <whileStatement> -> hop <expression> { <opt_statements> }
+ * A pre-test loop: the condition is checked before every pass, including
+ * the first. Unlike the post-test loop (whose saved position is the body's
+ * start), the position saved here is right after 'hop' - i.e. right before
+ * the condition - since the condition itself must be re-scanned and
+ * re-evaluated fresh each pass too (its truth can depend on variables the
+ * previous pass just changed), not just the body. */
+static frog_void runWhileStatement(frog_void) {
+	frog_int condPos;
+	frog_int iterations = 0;
+	Value cond;
+	/* lookahead is still the 'hop' keyword: capture position now, before
+	 * consuming it, same reasoning as every other saved-position capture
+	 * in this file - it's already "just past 'hop'", ready to replay. */
+	condPos = readerGetPosRead(srcBuf);
+	advance(); /* consume 'hop', fetch the condition's first token */
+	for (;;) {
+		cond = evalExpression();
+		expect(LBR_T, NO_ATTR); /* lookahead now first token of the body */
+		if (!boolOf(cond)) {
+			skipToMatchingBrace();
+			break;
+		}
+		runStatements();
+		if (returning)
+			return;
+		expect(RBR_T, NO_ATTR);
+		if (++iterations >= MAX_LOOP_ITERATIONS) {
+			printf("%s%s%3d%s%d%s\n", STR_LANGNAME, ": Runtime error at line", line,
+				": hop loop did not terminate within ", MAX_LOOP_ITERATIONS, " iterations");
+			exit(EXIT_FAILURE);
+		}
+		srcBuf->position.read = condPos;
+		advance(); /* re-fetch the condition's first token for the next pass */
+	}
+}
+
+/* <outputStatement> -> print( <outputVariableList> ) ; | <outputVariableList> -> STR_T | VID_T | e */
+static frog_void runOutputStatement(frog_void) {
+	frog_char buffer[OUTPUT_LEN];
+	buffer[0] = EOS;
+	advance(); /* consume MNID_T ("print(") */
+	switch (lookahead.code) {
+	case STR_T:
+		strncpy(buffer, readerGetContent(stringLiteralTable, lookahead.attribute.contentString), sizeof(buffer) - 1);
+		buffer[sizeof(buffer) - 1] = EOS;
+		advance();
+		break;
+	case VID_T:
+		formatValue(buffer, sizeof(buffer), getVariable(lookahead.attribute.idLexeme));
+		advance();
+		break;
+	default:
+		break; /* empty outputVariableList: print(); prints an empty line */
+	}
+	expect(RPR_T, NO_ATTR);
+	expect(EOS_T, NO_ATTR);
+	addOutput(buffer);
+}
+
+/* <callStatement> -> <call> ; -- a user-defined function called for its
+ * side effects; the return value is computed (evalCall() always runs the
+ * callee) but discarded, same as a bare expression statement. */
+static frog_void runCallStatement(frog_void) {
+	Value result = evalCall();
+	(frog_void)result;
+	expect(EOS_T, NO_ATTR);
+}
+
+/* <statement> -> <varDeclaration> | <returnStatement> | <assignOrExprStatement> |
+ *   <outputStatement> | <notStatement> | <doWhileStatement> | <ifStatement> |
+ *   <whileStatement> | <callStatement> | ... (inputStatement is still not
+ *   implemented - see notImplemented()) */
+static frog_void runStatement(frog_void) {
+	switch (lookahead.code) {
+	case KW_T:
+		switch (lookahead.attribute.codeType) {
+		case KW_tadpole:
+		case KW_lilypad:
+		case KW_croak:
+			runVarDeclaration();
+			break;
+		case KW_leap:
+			runReturnStatement();
+			break;
+		case KW_if:
+			runIfStatement();
+			break;
+		case KW_hop:
+			runWhileStatement();
+			break;
+		case KW_do:
+			runDoWhileStatement();
+			break;
+		default:
+			notImplemented("statement");
+		}
+		break;
+	case VID_T:
+		runAssignOrExprStatement();
+		break;
+	case LOG_OP_T:
+		if (lookahead.attribute.logicalOperator == OP_NOT)
+			runNotStatement();
+		else
+			notImplemented("statement");
+		break;
+	case MNID_T:
+		if (strncmp(lookahead.attribute.idLexeme, LANG_WRTE, strlen(LANG_WRTE)) == 0)
+			runOutputStatement();
+		else if (strncmp(lookahead.attribute.idLexeme, LANG_READ, strlen(LANG_READ)) == 0)
+			notImplemented("input statement");
+		else
+			runCallStatement();
+		break;
+	default:
+		notImplemented("statement");
+	}
+}
+
+/* <statements> -> <statement> <statementsPrime> | <statementsPrime> -> <statement> <statementsPrime> | e */
+static frog_void runStatements(frog_void) {
+	while (!returning && (lookahead.code == CMT_T || isStatementStart())) {
+		if (lookahead.code == CMT_T) {
+			advance();
+			continue;
+		}
+		runStatement();
+	}
+}
+
+/* ------------------------------------------------------------------------
+ * Function registration and execution
+ * ------------------------------------------------------------------------ */
+
+/* Skips a function body without executing it. Call with lookahead already
+ * positioned on the first token after the opening '{' (depth 1 represents
+ * that already-open brace). Consumes tokens (correctly diving into and out
+ * of any nested '{'/'}') until - and including - the matching '}', leaving
+ * lookahead positioned just past it. */
+static frog_void skipToMatchingBrace(frog_void) {
+	frog_int depth = 1;
+	while (depth > 0) {
+		if (lookahead.code == LBR_T)
+			depth++;
+		else if (lookahead.code == RBR_T)
+			depth--;
+		else if (lookahead.code == SEOF_T) {
+			printf("%s%s\n", STR_LANGNAME, ": Runtime error: unmatched '{' (unexpected end of file)");
+			exit(EXIT_FAILURE);
+		}
+		advance();
+	}
+}
+
+/* <functionDef> -> <type> MNID_T <optParams> ) { <opt_statements> } */
+static frog_void registerFunctionDef(frog_void) {
+	FuncEntry* fn = &functions[funcCount];
+	fn->paramCount = 0;
+	advance(); /* consume the type keyword - already confirmed by the caller */
+	strncpy(fn->name, lookahead.attribute.idLexeme, VID_LEN);
+	fn->name[VID_LEN] = EOS;
+	expect(MNID_T, NO_ATTR);
+	while (isTypeKeyword()) {
+		advance(); /* consume the param's type keyword */
+		if (fn->paramCount < MAX_PARAMS) {
+			strncpy(fn->paramNames[fn->paramCount], lookahead.attribute.idLexeme, VID_LEN);
+			fn->paramNames[fn->paramCount][VID_LEN] = EOS;
+		}
+		fn->paramCount++;
+		expect(VID_T, NO_ATTR);
+		if (lookahead.code == COM_T)
+			advance();
+		else
+			break;
+	}
+	expect(RPR_T, NO_ATTR);
+	/* lookahead is now LBR_T. Capture the buffer position *before* consuming
+	 * it: tokenizer() has already advanced position.read past the '{' char
+	 * itself to produce this very LBR_T token, so this offset is exactly
+	 * where a later advance() needs to start scanning from to reproduce the
+	 * body's first token - i.e. to "replay" being just past the '{'. */
+	fn->bodyPos = readerGetPosRead(srcBuf);
+	expect(LBR_T, NO_ATTR);
+	funcCount++;
+	skipToMatchingBrace();
+}
+
+static frog_int findFunction(const frog_str name) {
+	frog_int i;
+	for (i = 0; i < funcCount; i++)
+		if (strcmp(functions[i].name, name) == 0)
+			return i;
+	return -1;
+}
+
+/* Runs a registered function's body, assumed to already be positioned at
+ * (lookahead sitting on) the body's first token. Pushes a fresh variable
+ * scope for the call's params/locals and pops it on the way out, so callee
+ * locals never leak into (or collide with) the caller's. */
+static Value runFunction(frog_int idx, Value* args, frog_int argCount) {
+	frog_int i;
+	frog_int savedScopeBase = scopeBase;
+	frog_int savedVarCount = varCount;
+	Value result;
+
+	scopeBase = varCount;
+	returning = FROG_FALSE;
+	returnValue = numericValue(ZERO);
+	for (i = 0; i < functions[idx].paramCount && i < argCount; i++)
+		setVariable(functions[idx].paramNames[i], args[i]);
+	runStatements();
+	returning = FROG_FALSE;
+	result = returnValue;
+
+	varCount = savedVarCount;
+	scopeBase = savedScopeBase;
+	return result;
+}
+
+static frog_void printReport(frog_void) {
+	frog_int i;
+	printf("Variables ..................\n");
+	for (i = 0; i < varCount; i++) {
+		switch (variables[i].type) {
+		case STRING:  printf("%s = \"%s\"\n", variables[i].name, variables[i].value.str_value); break;
+		case NUMERIC: printf("%s = %.2lf\n", variables[i].name, variables[i].value.num_value); break;
+		case BOOLEAN: printf("%s = %s\n", variables[i].name, variables[i].value.bool_value ? TRUE : FALSE); break;
+		case CHAR:    printf("%s = '%c'\n", variables[i].name, variables[i].value.char_value); break;
+		}
+	}
+	printf("Outputs ..................\n");
+	for (i = 0; i < outputCount; i++)
+		printf("%s\n", outputs[i]);
+}
+
+/* ------------------------------------------------------------------------
+ * Entry point
+ * <program> -> <opt_comment> <functionDefs>
+ * ------------------------------------------------------------------------ */
+frog_void runProgram(BufferPointer buf) {
+	frog_int mainIdx;
+
+	srcBuf = buf;
+	varCount = 0;
+	funcCount = 0;
+	outputCount = 0;
+	returning = FROG_FALSE;
+
+	advance();
+	while (lookahead.code == CMT_T)
+		advance();
+
+	while (isTypeKeyword()) {
+		registerFunctionDef();
+		while (lookahead.code == CMT_T)
+			advance();
+	}
+
+	mainIdx = findFunction(LANG_MAIN);
+	if (mainIdx == -1) {
+		printf("%s%s%s%s\n", STR_LANGNAME, ": Runtime error: no '", LANG_MAIN, "' function found");
+		exit(EXIT_FAILURE);
+	}
+
+	srcBuf->position.read = functions[mainIdx].bodyPos;
+	advance();
+	runFunction(mainIdx, NULL, 0);
+
+	printReport();
+}

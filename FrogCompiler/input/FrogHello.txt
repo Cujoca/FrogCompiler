@@ -20,7 +20,7 @@ tadpole main(tadpole x, tadpole y) {
 	count || count;
 	!count;
 	do {
-		count;
+		count = count - 1;
 	} hop count > 0;
 	leap 0;
 }
