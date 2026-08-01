@@ -249,6 +249,27 @@ Token tokenizer(frog_void) {
 			currentToken.code = COM_T;
 			scData.scanHistogram[currentToken.code]++;
 			return currentToken;
+		case QUO_CHR: {
+			/* A character literal: exactly one char between single quotes,
+			 * e.g. 'Z'. Handled directly here (like the other single-char
+			 * tokens above) rather than through the DFA, since it's just a
+			 * fixed 3-character pattern with no variable-length body. */
+			frog_char inner = readerGetChar(sourceBuffer);
+			frog_char closing;
+			if (inner == EOS_CHR || inner == EOF_CHR || inner == NWL_CHR) {
+				currentToken = funcErr("'");
+				return currentToken;
+			}
+			closing = readerGetChar(sourceBuffer);
+			if (closing != QUO_CHR) {
+				currentToken = funcErr("'");
+				return currentToken;
+			}
+			currentToken.code = CHR_T;
+			scData.scanHistogram[currentToken.code]++;
+			currentToken.attribute.charValue = inner;
+			return currentToken;
+		}
 
 		/* Cases for operators (arithmetic, relational, logical, assignment) */
 		case PLS_CHR:
@@ -750,6 +771,9 @@ frog_void printToken(Token t) {
 		break;
 	case COM_T:
 		printf("COM_T\n");
+		break;
+	case CHR_T:
+		printf("CHR_T\t\t'%c'\n", t.attribute.charValue);
 		break;
 	case KW_T:
 		printf("KW_T\t\t%s\n", keywordTable[t.attribute.codeType]);

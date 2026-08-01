@@ -88,7 +88,6 @@ static frog_void expect(frog_int tokenCode, frog_int tokenAttribute);
 static frog_bool isTypeKeyword(frog_void);
 static frog_bool isExpressionStart(frog_void);
 static frog_bool isStatementStart(frog_void);
-static frog_void notImplemented(const frog_str what);
 static frog_void stripTrailingParen(frog_char* name);
 
 static Value numericValue(frog_doub d);
@@ -177,13 +176,14 @@ static frog_bool isTypeKeyword(frog_void) {
 	return lookahead.code == KW_T &&
 		(lookahead.attribute.codeType == KW_tadpole ||
 		 lookahead.attribute.codeType == KW_lilypad ||
-		 lookahead.attribute.codeType == KW_croak);
+		 lookahead.attribute.codeType == KW_croak ||
+		 lookahead.attribute.codeType == KW_ribbit);
 }
 
 /* Mirrors Step4Parser.c's static isExpressionStart(): FIRST(<unary>). */
 static frog_bool isExpressionStart(frog_void) {
 	if (lookahead.code == VID_T || lookahead.code == INL_T || lookahead.code == FPL_T ||
-		lookahead.code == STR_T || lookahead.code == LPR_T || lookahead.code == MNID_T)
+		lookahead.code == STR_T || lookahead.code == CHR_T || lookahead.code == LPR_T || lookahead.code == MNID_T)
 		return FROG_TRUE;
 	if (lookahead.code == LOG_OP_T && lookahead.attribute.logicalOperator == OP_NOT)
 		return FROG_TRUE;
@@ -202,6 +202,7 @@ static frog_bool isStatementStart(frog_void) {
 		(lookahead.attribute.codeType == KW_tadpole ||
 		 lookahead.attribute.codeType == KW_lilypad ||
 		 lookahead.attribute.codeType == KW_croak ||
+		 lookahead.attribute.codeType == KW_ribbit ||
 		 lookahead.attribute.codeType == KW_do ||
 		 lookahead.attribute.codeType == KW_hop ||
 		 lookahead.attribute.codeType == KW_if ||
@@ -210,15 +211,6 @@ static frog_bool isStatementStart(frog_void) {
 	return FROG_FALSE;
 }
 
-/* A construct this iteration doesn't execute yet. Fails clearly (with a
- * line number) instead of silently skipping and risking a desynced token
- * stream or a wrong-looking result. Removed case by case as later input
- * files (FrogHello/FrogControlFlow/FrogFunctions) come into scope. */
-static frog_void notImplemented(const frog_str what) {
-	printf("%s%s%3d%s%s%s\n", STR_LANGNAME, ": Writer error at line", line,
-		": ", what, " is not implemented yet in this iteration");
-	exit(EXIT_FAILURE);
-}
 
 /* MNID_T lexemes (function names as both declared and called) already
  * include the trailing '(' - fine for lookup, but ugly in a message like
@@ -454,6 +446,12 @@ static Value evalUnary(frog_void) {
 		v.value.str_value[sizeof(v.value.str_value) - 1] = EOS;
 		advance();
 		break;
+	case CHR_T:
+		v.name[0] = EOS;
+		v.type = CHAR;
+		v.value.char_value = lookahead.attribute.charValue;
+		advance();
+		break;
 	case MNID_T:
 		v = evalCall();
 		break;
@@ -584,7 +582,8 @@ static frog_void setVariable(const frog_str name, Value v) {
 
 /* <varDeclaration> -> <type> VID_T <optInit> ; | <optInit> -> = <expression> | e */
 static frog_void runVarDeclaration(frog_void) {
-	VarType declType = (lookahead.attribute.codeType == KW_croak) ? STRING : NUMERIC;
+	VarType declType = (lookahead.attribute.codeType == KW_croak) ? STRING :
+		(lookahead.attribute.codeType == KW_ribbit) ? CHAR : NUMERIC;
 	frog_char name[VID_LEN + 1];
 	Value v;
 	advance(); /* consume the type keyword - already confirmed by the caller */
@@ -598,10 +597,11 @@ static frog_void runVarDeclaration(frog_void) {
 	else {
 		v.name[0] = EOS;
 		v.type = declType;
-		if (declType == STRING)
-			v.value.str_value[0] = EOS;
-		else
-			v.value.num_value = ZERO;
+		switch (declType) {
+		case STRING: v.value.str_value[0] = EOS; break;
+		case CHAR:   v.value.char_value = EOS; break;
+		default:     v.value.num_value = ZERO; break;
+		}
 	}
 	expect(EOS_T, NO_ATTR);
 	setVariable(name, v);
@@ -630,7 +630,7 @@ static frog_void runAssignOrExprStatement(frog_void) {
 		v = evalExpression();
 		/* Assignment updates an existing variable - it doesn't implicitly
 		 * declare one. The grammar has a dedicated <varDeclaration> for
-		 * that (tadpole/lilypad/croak), so a name assignment sees for the
+		 * that (tadpole/lilypad/croak/ribbit), so a name assignment sees for the
 		 * first time here is almost always a typo, not a fresh variable. */
 		if (findVariableIdx(name) == -1) {
 			printf("%s%s%3d%s%s\n", STR_LANGNAME, ": Runtime error at line", line,
@@ -878,6 +878,7 @@ static frog_void runStatement(frog_void) {
 		case KW_tadpole:
 		case KW_lilypad:
 		case KW_croak:
+		case KW_ribbit:
 			runVarDeclaration();
 			break;
 		case KW_leap:
@@ -893,7 +894,9 @@ static frog_void runStatement(frog_void) {
 			runDoWhileStatement();
 			break;
 		default:
-			notImplemented("statement");
+			printf("%s%s%3d%s%d\n", STR_LANGNAME, ": Runtime error at line", line,
+				": unrecognized statement, token code=", lookahead.code);
+			exit(EXIT_FAILURE);
 		}
 		break;
 	case VID_T:
@@ -902,8 +905,11 @@ static frog_void runStatement(frog_void) {
 	case LOG_OP_T:
 		if (lookahead.attribute.logicalOperator == OP_NOT)
 			runNotStatement();
-		else
-			notImplemented("statement");
+		else {
+			printf("%s%s%3d%s%d\n", STR_LANGNAME, ": Runtime error at line", line,
+				": unrecognized statement, token code=", lookahead.code);
+			exit(EXIT_FAILURE);
+		}
 		break;
 	case MNID_T:
 		if (strncmp(lookahead.attribute.idLexeme, LANG_WRTE, strlen(LANG_WRTE)) == 0)
@@ -914,7 +920,9 @@ static frog_void runStatement(frog_void) {
 			runCallStatement();
 		break;
 	default:
-		notImplemented("statement");
+		printf("%s%s%3d%s%d\n", STR_LANGNAME, ": Runtime error at line", line,
+			": unrecognized statement, token code=", lookahead.code);
+		exit(EXIT_FAILURE);
 	}
 }
 
@@ -1071,6 +1079,7 @@ static frog_void printReport(frog_void) {
  * ------------------------------------------------------------------------ */
 frog_void runProgram(BufferPointer buf) {
 	frog_int mainIdx;
+	frog_int i;
 
 	srcBuf = buf;
 	varCount = 0;
@@ -1104,6 +1113,12 @@ frog_void runProgram(BufferPointer buf) {
 	advance();
 	returning = FROG_FALSE;
 	returnValue = numericValue(ZERO);
+	/* main() has no caller to supply real arguments, so any parameters it
+	 * declares (e.g. "main(tadpole x, tadpole y)") are just bound to zero -
+	 * enough for them to read as ordinary declared variables instead of
+	 * throwing "undefined variable" the moment the body references one. */
+	for (i = 0; i < functions[mainIdx].paramCount; i++)
+		setVariable(functions[mainIdx].paramNames[i], numericValue(ZERO));
 	runStatements();
 	returning = FROG_FALSE;
 

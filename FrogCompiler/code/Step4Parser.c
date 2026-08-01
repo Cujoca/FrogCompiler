@@ -169,6 +169,9 @@ frog_void printError() {
 	case STR_T:
 		printf("STR_T: %s\n", readerGetContent(stringLiteralTable, t.attribute.contentString));
 		break;
+	case CHR_T:
+		printf("CHR_T: '%c'\n", t.attribute.charValue);
+		break;
 	case KW_T:
 		printf("KW_T: %s\n", keywordTable[t.attribute.codeType]);
 		break;
@@ -223,7 +226,7 @@ frog_void printError() {
  ************************************************************
  * Program statement
  * BNF: <program> -> <opt_comment> <functionDefs>
- * FIRST(<program>) = { CMT_T, KW_T (tadpole/lilypad/croak) }
+ * FIRST(<program>) = { CMT_T, KW_T (tadpole/lilypad/croak/ribbit) }
  * Checks (after the fact) that at least one of the parsed function
  * definitions was literally named "main(" - not a grammar rule, just
  * a lightweight sanity check, same spirit as the original hardcoded
@@ -248,7 +251,7 @@ frog_void program() {
  ************************************************************
  * functionDefs
  * BNF: <functionDefs> -> <opt_comment> <functionDef> <functionDefs> | e
- * FIRST(<functionDefs>) = { e, CMT_T, KW_T (tadpole/lilypad/croak) }
+ * FIRST(<functionDefs>) = { e, CMT_T, KW_T (tadpole/lilypad/croak/ribbit) }
  * Zero or more function definitions, in any order/position - "main"
  * is not structurally special, it's just whichever <functionDef>
  * happens to be named "main(". A leading comment is tolerated before
@@ -263,7 +266,8 @@ frog_void functionDefs() {
 	if (lookahead.code == KW_T &&
 		(lookahead.attribute.codeType == KW_tadpole ||
 		 lookahead.attribute.codeType == KW_lilypad ||
-		 lookahead.attribute.codeType == KW_croak)) {
+		 lookahead.attribute.codeType == KW_croak ||
+		 lookahead.attribute.codeType == KW_ribbit)) {
 		functionDef();
 		functionDefs();
 	}
@@ -274,7 +278,7 @@ frog_void functionDefs() {
  ************************************************************
  * functionDef
  * BNF: <functionDef> -> <type> MNID_T <optParams> ) { <opt_statements> }
- * FIRST(<functionDef>) = { KW_T (tadpole/lilypad/croak) }
+ * FIRST(<functionDef>) = { KW_T (tadpole/lilypad/croak/ribbit) }
  * Note: MNID_T's lexeme already includes the trailing '(' (see funcID),
  * so there is no separate LPR_T to match after it.
  ***********************************************************
@@ -312,7 +316,7 @@ frog_void comment() {
  ************************************************************
  * optParams
  * BNF: <optParams> -> <paramList> | e
- * FIRST(<optParams>) = { e, KW_T (tadpole), KW_T (lilypad), KW_T (croak) }
+ * FIRST(<optParams>) = { e, KW_T (tadpole), KW_T (lilypad), KW_T (croak), KW_T (ribbit) }
  ***********************************************************
  */
 frog_void optParams() {
@@ -323,7 +327,8 @@ frog_void optParams() {
 	if (lookahead.code == KW_T &&
 		(lookahead.attribute.codeType == KW_tadpole ||
 		 lookahead.attribute.codeType == KW_lilypad ||
-		 lookahead.attribute.codeType == KW_croak)) {
+		 lookahead.attribute.codeType == KW_croak ||
+		 lookahead.attribute.codeType == KW_ribbit)) {
 		paramList();
 	}
 	printf("%s%s\n", STR_LANGNAME, ": Optional param list parsed");
@@ -332,7 +337,7 @@ frog_void optParams() {
 /*
  ************************************************************
  * matchType
- * Consumes a KW_T token whose attribute is tadpole/lilypad/croak.
+ * Consumes a KW_T token whose attribute is tadpole/lilypad/croak/ribbit.
  * Callers must only invoke this when they already know (via FIRST)
  * that the lookahead is a type keyword.
  ***********************************************************
@@ -341,7 +346,8 @@ static frog_void matchType() {
 	if (lookahead.code == KW_T &&
 		(lookahead.attribute.codeType == KW_tadpole ||
 		 lookahead.attribute.codeType == KW_lilypad ||
-		 lookahead.attribute.codeType == KW_croak)) {
+		 lookahead.attribute.codeType == KW_croak ||
+		 lookahead.attribute.codeType == KW_ribbit)) {
 		matchToken(KW_T, lookahead.attribute.codeType);
 	}
 	else {
@@ -354,7 +360,7 @@ static frog_void matchType() {
  ************************************************************
  * isStatementStart
  * Checks whether the lookahead can begin a <statement>:
- * a declaration (tadpole/lilypad/croak), an identifier-led
+ * a declaration (tadpole/lilypad/croak/ribbit), an identifier-led
  * assignment/expression (VID_T), a call statement (MNID_T: print(/input(/
  * a user-defined function), a unary-not expression (! - LOG_OP_T with OP_NOT),
  * a do-while loop (do), a pre-test while loop (hop), an if statement (if),
@@ -370,6 +376,7 @@ static frog_bool isStatementStart() {
 		(lookahead.attribute.codeType == KW_tadpole ||
 		 lookahead.attribute.codeType == KW_lilypad ||
 		 lookahead.attribute.codeType == KW_croak ||
+		 lookahead.attribute.codeType == KW_ribbit ||
 		 lookahead.attribute.codeType == KW_do ||
 		 lookahead.attribute.codeType == KW_hop ||
 		 lookahead.attribute.codeType == KW_if ||
@@ -382,13 +389,13 @@ static frog_bool isStatementStart() {
  ************************************************************
  * isExpressionStart
  * Checks whether the lookahead can begin an <expression>, i.e. FIRST(<unary>):
- * !, unary minus, VID_T, INL_T, FPL_T, STR_T, ( , or a call (MNID_T).
+ * !, unary minus, VID_T, INL_T, FPL_T, STR_T, CHR_T, ( , or a call (MNID_T).
  * Used by argList() to decide between an argument and the empty production.
  ***********************************************************
  */
 static frog_bool isExpressionStart() {
 	if (lookahead.code == VID_T || lookahead.code == INL_T || lookahead.code == FPL_T ||
-		lookahead.code == STR_T || lookahead.code == LPR_T || lookahead.code == MNID_T)
+		lookahead.code == STR_T || lookahead.code == CHR_T || lookahead.code == LPR_T || lookahead.code == MNID_T)
 		return FROG_TRUE;
 	if (lookahead.code == LOG_OP_T && lookahead.attribute.logicalOperator == OP_NOT)
 		return FROG_TRUE;
@@ -412,7 +419,7 @@ static frog_bool isExpressionStart() {
  *   <addExprTail>-> (+ | -) <mulExpr> <addExprTail> | e
  *   <mulExpr>    -> <unary> <mulExprTail>
  *   <mulExprTail>-> (* | /) <unary> <mulExprTail> | e
- *   <unary>      -> ! <unary> | - <unary> | VID_T | INL_T | FPL_T | STR_T | ( <expression> )
+ *   <unary>      -> ! <unary> | - <unary> | VID_T | INL_T | FPL_T | STR_T | CHR_T | ( <expression> )
  *
  * Each level parses the next-higher-precedence level first, then loops
  * on its own operators via a static "Tail" helper. The Tail helpers are
@@ -460,8 +467,8 @@ static frog_void expressionTail() {
 }
 
 /*
- * unary -> ! <unary> | - <unary> | VID_T | INL_T | FPL_T | STR_T | <call> | ( <expression> )
- * FIRST(<unary>) = { LOG_OP_T (!), ARI_OP_T (-), VID_T, INL_T, FPL_T, STR_T, MNID_T, LPR_T }
+ * unary -> ! <unary> | - <unary> | VID_T | INL_T | FPL_T | STR_T | CHR_T | <call> | ( <expression> )
+ * FIRST(<unary>) = { LOG_OP_T (!), ARI_OP_T (-), VID_T, INL_T, FPL_T, STR_T, CHR_T, MNID_T, LPR_T }
  */
 frog_void unary() {
 	psData.parsHistogram[BNF_unary]++;
@@ -497,6 +504,9 @@ frog_void unary() {
 		break;
 	case STR_T:
 		matchToken(STR_T, NO_ATTR);
+		break;
+	case CHR_T:
+		matchToken(CHR_T, NO_ATTR);
 		break;
 	case MNID_T:
 		call();
@@ -614,7 +624,7 @@ frog_void expression() {
  ************************************************************
  * paramList
  * BNF: <paramList> -> <type> VID_T <paramListPrime>
- * FIRST(<paramList>) = { KW_T (tadpole), KW_T (lilypad), KW_T (croak) }
+ * FIRST(<paramList>) = { KW_T (tadpole), KW_T (lilypad), KW_T (croak), KW_T (ribbit) }
  ***********************************************************
  */
 frog_void paramList() {
@@ -648,7 +658,7 @@ frog_void paramListPrime() {
  * varDeclaration
  * BNF: <varDeclaration> -> <type> VID_T <optInit> ;
  *      <optInit> -> = <expression> | e
- * FIRST(<varDeclaration>) = { KW_T (tadpole), KW_T (lilypad), KW_T (croak) }
+ * FIRST(<varDeclaration>) = { KW_T (tadpole), KW_T (lilypad), KW_T (croak), KW_T (ribbit) }
  * A variable declaration statement, with an optional initializer
  * (e.g. "tadpole count;" or "tadpole count = 0;").
  * Called by statement() when the lookahead is a type keyword.
@@ -883,7 +893,7 @@ frog_void ifStatement() {
  * BNF: <statement> -> <varDeclaration> | <returnStatement> | <doWhileStatement> |
  *	<whileStatement> | <ifStatement> | <assignOrExprStatement> |
  *	<notStatement> | <outputStatement>
- * FIRST(<statement>) = { KW_T (tadpole/lilypad/croak/do/hop/if/leap), VID_T,
+ * FIRST(<statement>) = { KW_T (tadpole/lilypad/croak/ribbit/do/hop/if/leap), VID_T,
  *			LOG_OP_T (!), MNID_T (print(/input() }
  * Any recognized-but-unhandled keyword/call still consumes at least one
  * statement's worth of tokens via syncErrorHandler(), so a construct this
@@ -898,6 +908,7 @@ frog_void statement() {
 		case KW_tadpole:
 		case KW_lilypad:
 		case KW_croak:
+		case KW_ribbit:
 			varDeclaration();
 			break;
 		case KW_leap:

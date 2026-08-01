@@ -70,7 +70,7 @@
 #define RTE_CODE 1  /* Value for run-time error */
 
 /* TO_DO: Define the number of tokens */
-#define NUM_TOKENS 20
+#define NUM_TOKENS 21
 
 /* TO_DO: Define Token codes - Create your token classes */
 enum TOKENS {
@@ -93,7 +93,8 @@ enum TOKENS {
 	RTE_T,		/* 16: Run-time error token */
 	SEOF_T,		/* 17: Source end-of-file token */
 	CMT_T,		/* 18: Comment token */
-	COM_T		/* 19: Comma token (,) */
+	COM_T,		/* 19: Comma token (,) */
+	CHR_T		/* 20: Character literal token (e.g. 'Z') */
 };
 
 /* TO_DO: Define the list of keywords */
@@ -117,7 +118,8 @@ static frog_str tokenStrTable[NUM_TOKENS] = {
 	"RTE_T",
 	"SEOF_T",
 	"CMT_T",
-	"COM_T"
+	"COM_T",
+	"CHR_T"
 };
 
 /* TO_DO: Operators token attributes */
@@ -139,6 +141,7 @@ typedef union TokenAttribute {
 	frog_float floatValue;				/* floating-point literal attribute (value) */
 	frog_char idLexeme[VID_LEN + 1];	/* variable identifier token attribute */
 	frog_char errLexeme[ERR_LEN + 1];	/* error token attribite */
+	frog_char charValue;				/* character literal attribute (value), e.g. 'Z' */
 } TokenAttribute;
 
 /* TO_DO: Should be used if no symbol table is implemented */
@@ -192,9 +195,11 @@ typedef struct scannerData {
 #define NOT_CHR '!'		// CH22
 #define PIP_CHR '|'		// CH23
 #define COM_CHR ','		// CH24
+#define QUO_CHR '\''	// CH25 (char literal delimiter, e.g. 'Z')
 
 /*  Special case tokens processed separately one by one in the token-driven part of the scanner:
- *  LPR_T, RPR_T, LBR_T, RBR_T, COM_T, EOS_T, SEOF_T, operator tokens (ARI_OP_T, REL_OP_T, LOG_OP_T, ASN_T)
+ *  LPR_T, RPR_T, LBR_T, RBR_T, COM_T, EOS_T, SEOF_T, operator tokens (ARI_OP_T, REL_OP_T, LOG_OP_T, ASN_T),
+ *  CHR_T (a single-quoted character literal, e.g. 'Z' - handled directly, not through the DFA below)
  *  and special chars used for tokens include _, & and " */
 
 
@@ -317,7 +322,7 @@ Language keywords
 */
 
 /* TO_DO: Define the number of Keywords from the language */
-#define KWT_SIZE 9
+#define KWT_SIZE 10
 
 /* TO_DO: Define the list of keywords */
 static frog_str keywordTable[KWT_SIZE] = {
@@ -329,7 +334,8 @@ static frog_str keywordTable[KWT_SIZE] = {
 	"else",		/* KW05 */
 	"hop",		/* KW06 - loop keyword (was: while) */
 	"do",		/* KW07 */
-	"leap"		/* KW08 - return keyword (was: return) */
+	"leap",		/* KW08 - return keyword (was: return) */
+	"ribbit"	/* KW09 - char type */
 };
 
 /* NEW SECTION: About indentation */
