@@ -172,6 +172,14 @@ static frog_void expect(frog_int tokenCode, frog_int tokenAttribute) {
 	advance();
 }
 
+/* Consumes a comment token, printing the same "Comment parsed" trace
+ * Step4Parser.c's comment() prints - used at every spot the Writer skips
+ * over CMT_T the way the grammar's <opt_comment> allows. */
+static frog_void skipComment(frog_void) {
+	advance();
+	printf("%s%s\n", STR_LANGNAME, ": Comment parsed");
+}
+
 static frog_bool isTypeKeyword(frog_void) {
 	return lookahead.code == KW_T &&
 		(lookahead.attribute.codeType == KW_tadpole ||
@@ -225,10 +233,14 @@ static frog_void stripTrailingParen(frog_char* name) {
  * Value helpers
  * ------------------------------------------------------------------------ */
 
+/* isInt only affects display precision (see formatValue()/printReport()) -
+ * defaults to FROG_FALSE (lilypad-style, two decimals) here; callers that
+ * know the value belongs to a tadpole (int) slot override it afterward. */
 static Value numericValue(frog_doub d) {
 	Value v;
 	v.name[0] = EOS;
 	v.type = NUMERIC;
+	v.isInt = FROG_FALSE;
 	v.value.num_value = d;
 	return v;
 }
@@ -328,7 +340,8 @@ static Value applyNegate(Value v) {
  * Expression evaluator
  * Mirrors expression()/andExpr()/relExpr()/addExpr()/mulExpr()/unary() in
  * Step4Parser.c (same token/attribute checks) - each level here returns a
- * Value instead of just validating and printing "X parsed".
+ * Value instead of just validating, but still prints the same "X parsed"
+ * trace once its Value is computed.
  * ------------------------------------------------------------------------ */
 
 /* A function call used as a value (also the shared core of a bare call
@@ -355,16 +368,22 @@ static Value evalCall(frog_void) {
 	calleeName[VID_LEN] = EOS;
 	advance(); /* consume MNID_T - its lexeme already includes the '(' */
 	if (isExpressionStart()) {
+		Value argValue = evalExpression();
+		/* argCount tracks the true number of arguments supplied (for the
+		 * arity check below) even past MAX_PARAMS - only the *storing*
+		 * into args[] is capped, since that array only has MAX_PARAMS
+		 * slots. Without this split, a too-long call would silently stop
+		 * counting at the cap and could pass the arity check it should
+		 * have failed. */
 		if (argCount < MAX_PARAMS)
-			args[argCount++] = evalExpression();
-		else
-			evalExpression(); /* over the cap: still evaluated (side effects/sync), just not bound */
+			args[argCount] = argValue;
+		argCount++;
 		while (lookahead.code == COM_T) {
 			advance();
+			argValue = evalExpression();
 			if (argCount < MAX_PARAMS)
-				args[argCount++] = evalExpression();
-			else
-				evalExpression();
+				args[argCount] = argValue;
+			argCount++;
 		}
 	}
 	expect(RPR_T, NO_ATTR);
@@ -400,6 +419,7 @@ static Value evalCall(frog_void) {
 	lookahead = savedLookahead;
 	line = savedLine;
 
+	printf("%s%s\n", STR_LANGNAME, ": Call parsed");
 	return result;
 }
 
@@ -465,6 +485,7 @@ static Value evalUnary(frog_void) {
 		printf("*****  invalid expression\n");
 		exit(EXIT_FAILURE);
 	}
+	printf("%s%s\n", STR_LANGNAME, ": Unary parsed");
 	return v;
 }
 
@@ -479,7 +500,9 @@ static Value evalMulExprTail(Value left) {
 }
 
 static Value evalMulExpr(frog_void) {
-	return evalMulExprTail(evalUnary());
+	Value v = evalMulExprTail(evalUnary());
+	printf("%s%s\n", STR_LANGNAME, ": Mul expression parsed");
+	return v;
 }
 
 static Value evalAddExprTail(Value left) {
@@ -493,7 +516,9 @@ static Value evalAddExprTail(Value left) {
 }
 
 static Value evalAddExpr(frog_void) {
-	return evalAddExprTail(evalMulExpr());
+	Value v = evalAddExprTail(evalMulExpr());
+	printf("%s%s\n", STR_LANGNAME, ": Add expression parsed");
+	return v;
 }
 
 static Value evalRelExprTail(Value left) {
@@ -506,7 +531,9 @@ static Value evalRelExprTail(Value left) {
 }
 
 static Value evalRelExpr(frog_void) {
-	return evalRelExprTail(evalAddExpr());
+	Value v = evalRelExprTail(evalAddExpr());
+	printf("%s%s\n", STR_LANGNAME, ": Relational expression parsed");
+	return v;
 }
 
 static Value evalAndExprTail(Value left) {
@@ -518,7 +545,9 @@ static Value evalAndExprTail(Value left) {
 }
 
 static Value evalAndExpr(frog_void) {
-	return evalAndExprTail(evalRelExpr());
+	Value v = evalAndExprTail(evalRelExpr());
+	printf("%s%s\n", STR_LANGNAME, ": And expression parsed");
+	return v;
 }
 
 static Value evalExpressionTail(Value left) {
@@ -530,7 +559,9 @@ static Value evalExpressionTail(Value left) {
 }
 
 static Value evalExpression(frog_void) {
-	return evalExpressionTail(evalAndExpr());
+	Value v = evalExpressionTail(evalAndExpr());
+	printf("%s%s\n", STR_LANGNAME, ": Expression parsed");
+	return v;
 }
 
 /* ------------------------------------------------------------------------
@@ -576,14 +607,19 @@ static frog_void setVariable(const frog_str name, Value v) {
 
 /* ------------------------------------------------------------------------
  * Statements
- * Mirrors statement()/statements() in Step4Parser.c, but each case performs
- * a real action instead of printing "X parsed".
+ * Mirrors statement()/statements() in Step4Parser.c - each case performs a
+ * real action (not just a syntax check) but still prints the same "X
+ * parsed" trace Step4Parser.c does once the action is done.
  * ------------------------------------------------------------------------ */
 
 /* <varDeclaration> -> <type> VID_T <optInit> ; | <optInit> -> = <expression> | e */
 static frog_void runVarDeclaration(frog_void) {
 	VarType declType = (lookahead.attribute.codeType == KW_croak) ? STRING :
 		(lookahead.attribute.codeType == KW_ribbit) ? CHAR : NUMERIC;
+	/* tadpole is the int flavor of NUMERIC, lilypad the float flavor - this
+	 * is what governs display precision (see formatValue()/printReport()),
+	 * independent of whatever the initializer expression itself evaluates to. */
+	frog_bool isTadpole = (lookahead.attribute.codeType == KW_tadpole);
 	frog_char name[VID_LEN + 1];
 	Value v;
 	advance(); /* consume the type keyword - already confirmed by the caller */
@@ -603,8 +639,11 @@ static frog_void runVarDeclaration(frog_void) {
 		default:     v.value.num_value = ZERO; break;
 		}
 	}
+	if (v.type == NUMERIC)
+		v.isInt = isTadpole;
 	expect(EOS_T, NO_ATTR);
 	setVariable(name, v);
+	printf("%s%s\n", STR_LANGNAME, ": Variable declaration parsed");
 }
 
 /* <returnStatement> -> leap <optReturnValue> ; */
@@ -616,6 +655,7 @@ static frog_void runReturnStatement(frog_void) {
 		returnValue = numericValue(ZERO);
 	expect(EOS_T, NO_ATTR);
 	returning = FROG_TRUE;
+	printf("%s%s\n", STR_LANGNAME, ": Return statement parsed");
 }
 
 /* <assignOrExprStatement> -> VID_T = <expression> ; | VID_T <exprTail> ; */
@@ -626,17 +666,25 @@ static frog_void runAssignOrExprStatement(frog_void) {
 	advance(); /* consume VID_T */
 	if (lookahead.code == ASN_T) {
 		Value v;
+		frog_int idx;
 		advance();
 		v = evalExpression();
 		/* Assignment updates an existing variable - it doesn't implicitly
 		 * declare one. The grammar has a dedicated <varDeclaration> for
 		 * that (tadpole/lilypad/croak/ribbit), so a name assignment sees for the
 		 * first time here is almost always a typo, not a fresh variable. */
-		if (findVariableIdx(name) == -1) {
+		idx = findVariableIdx(name);
+		if (idx == -1) {
 			printf("%s%s%3d%s%s\n", STR_LANGNAME, ": Runtime error at line", line,
 				": assignment to undeclared variable ", name);
 			exit(EXIT_FAILURE);
 		}
+		/* tadpole vs lilypad (int vs float display) is a property of the
+		 * declared slot, not of whatever expression happens to be assigned
+		 * into it - keep it sticky across reassignment instead of letting it
+		 * flip to numericValue()'s default (see runVarDeclaration()). */
+		if (v.type == NUMERIC && variables[idx].type == NUMERIC)
+			v.isInt = variables[idx].isInt;
 		setVariable(name, v);
 	}
 	else {
@@ -652,12 +700,18 @@ static frog_void runAssignOrExprStatement(frog_void) {
 		v = evalExpressionTail(v);
 	}
 	expect(EOS_T, NO_ATTR);
+	printf("%s%s\n", STR_LANGNAME, ": Assignment or expression statement parsed");
 }
 
 static frog_void formatValue(frog_char* out, size_t outSize, Value v) {
 	switch (v.type) {
 	case STRING:  snprintf(out, outSize, "%s", v.value.str_value); break;
-	case NUMERIC: snprintf(out, outSize, "%.2lf", v.value.num_value); break;
+	case NUMERIC:
+		if (v.isInt)
+			snprintf(out, outSize, "%ld", (long)v.value.num_value);
+		else
+			snprintf(out, outSize, "%.2lf", v.value.num_value);
+		break;
 	case BOOLEAN: snprintf(out, outSize, "%s", v.value.bool_value ? TRUE : FALSE); break;
 	case CHAR:    snprintf(out, outSize, "%c", v.value.char_value); break;
 	}
@@ -680,6 +734,7 @@ static frog_void runNotStatement(frog_void) {
 	(frog_void)v;
 	expect(VID_T, NO_ATTR);
 	expect(EOS_T, NO_ATTR);
+	printf("%s%s\n", STR_LANGNAME, ": Not statement parsed");
 }
 
 /* <doWhileStatement> -> do { <opt_statements> } hop <expression> ;
@@ -716,6 +771,7 @@ static frog_void runDoWhileStatement(frog_void) {
 			exit(EXIT_FAILURE);
 		}
 	}
+	printf("%s%s\n", STR_LANGNAME, ": Do-while statement parsed");
 }
 
 /* Runs a "{ <opt_statements> }" block whose opening '{' has already been
@@ -759,6 +815,7 @@ static frog_void runIfStatement(frog_void) {
 			skipToMatchingBrace();
 		}
 	}
+	printf("%s%s\n", STR_LANGNAME, ": If statement parsed");
 }
 
 /* <whileStatement> -> hop <expression> { <opt_statements> }
@@ -796,6 +853,7 @@ static frog_void runWhileStatement(frog_void) {
 		srcBuf->position.read = condPos;
 		advance(); /* re-fetch the condition's first token for the next pass */
 	}
+	printf("%s%s\n", STR_LANGNAME, ": While statement parsed");
 }
 
 /* <outputStatement> -> print( <outputVariableList> ) ; | <outputVariableList> -> STR_T | VID_T | e */
@@ -819,6 +877,7 @@ static frog_void runOutputStatement(frog_void) {
 	expect(RPR_T, NO_ATTR);
 	expect(EOS_T, NO_ATTR);
 	addOutput(buffer);
+	printf("%s%s\n", STR_LANGNAME, ": Output statement parsed");
 }
 
 /* <inputStatement> -> input( VID_T ) ; -- reads a value from stdin into the
@@ -855,8 +914,15 @@ static frog_void runInputStatement(frog_void) {
 		if (fgets(discard, sizeof(discard), stdin) == NULL)
 			; /* rest of the line (incl. newline) discarded either way */
 		v = numericValue(d);
+		/* Preserve the slot's declared tadpole/lilypad-ness the same way
+		 * assignment does (runAssignOrExprStatement()) - reading into an
+		 * already-declared tadpole variable shouldn't switch it to float
+		 * display just because numericValue() defaults to FROG_FALSE. */
+		if (idx != -1 && variables[idx].type == NUMERIC)
+			v.isInt = variables[idx].isInt;
 	}
 	setVariable(name, v);
+	printf("%s%s\n", STR_LANGNAME, ": Input statement parsed");
 }
 
 /* <callStatement> -> <call> ; -- a user-defined function called for its
@@ -866,6 +932,7 @@ static frog_void runCallStatement(frog_void) {
 	Value result = evalCall();
 	(frog_void)result;
 	expect(EOS_T, NO_ATTR);
+	printf("%s%s\n", STR_LANGNAME, ": Call statement parsed");
 }
 
 /* <statement> -> <varDeclaration> | <returnStatement> | <assignOrExprStatement> |
@@ -924,17 +991,19 @@ static frog_void runStatement(frog_void) {
 			": unrecognized statement, token code=", lookahead.code);
 		exit(EXIT_FAILURE);
 	}
+	printf("%s%s\n", STR_LANGNAME, ": Statement parsed");
 }
 
 /* <statements> -> <statement> <statementsPrime> | <statementsPrime> -> <statement> <statementsPrime> | e */
 static frog_void runStatements(frog_void) {
 	while (!returning && (lookahead.code == CMT_T || isStatementStart())) {
 		if (lookahead.code == CMT_T) {
-			advance();
+			skipComment();
 			continue;
 		}
 		runStatement();
 	}
+	printf("%s%s\n", STR_LANGNAME, ": Statements parsed");
 }
 
 /* ------------------------------------------------------------------------
@@ -976,6 +1045,7 @@ static frog_void registerFunctionDef(frog_void) {
 	fn->name[VID_LEN] = EOS;
 	expect(MNID_T, NO_ATTR);
 	while (isTypeKeyword()) {
+		frog_bool paramIsTadpole = (lookahead.attribute.codeType == KW_tadpole);
 		advance(); /* consume the param's type keyword */
 		/* Beyond MAX_PARAMS, the parameter is still parsed (so the token
 		 * stream stays in sync) but not recorded - paramCount is capped so
@@ -983,6 +1053,7 @@ static frog_void registerFunctionDef(frog_void) {
 		if (fn->paramCount < MAX_PARAMS) {
 			strncpy(fn->paramNames[fn->paramCount], lookahead.attribute.idLexeme, VID_LEN);
 			fn->paramNames[fn->paramCount][VID_LEN] = EOS;
+			fn->paramIsInt[fn->paramCount] = paramIsTadpole;
 			fn->paramCount++;
 		}
 		expect(VID_T, NO_ATTR);
@@ -991,6 +1062,7 @@ static frog_void registerFunctionDef(frog_void) {
 		else
 			break;
 	}
+	printf("%s%s\n", STR_LANGNAME, ": Optional param list parsed");
 	expect(RPR_T, NO_ATTR);
 	/* lookahead is now LBR_T. Capture the buffer position *before* consuming
 	 * it: tokenizer() has already advanced position.read past the '{' char
@@ -1001,6 +1073,7 @@ static frog_void registerFunctionDef(frog_void) {
 	expect(LBR_T, NO_ATTR);
 	funcCount++;
 	skipToMatchingBrace();
+	printf("%s%s\n", STR_LANGNAME, ": Function definition parsed");
 }
 
 static frog_int findFunction(const frog_str name) {
@@ -1034,8 +1107,15 @@ static Value runFunction(frog_int idx, Value* args, frog_int argCount) {
 	scopeBase = varCount;
 	returning = FROG_FALSE;
 	returnValue = numericValue(ZERO);
-	for (i = 0; i < functions[idx].paramCount && i < argCount; i++)
-		setVariable(functions[idx].paramNames[i], args[i]);
+	for (i = 0; i < functions[idx].paramCount && i < argCount; i++) {
+		Value paramValue = args[i];
+		/* Same "declared slot governs int/float display" rule as
+		 * runVarDeclaration() - a tadpole parameter displays as an int
+		 * regardless of what kind of value the caller happened to pass. */
+		if (paramValue.type == NUMERIC)
+			paramValue.isInt = functions[idx].paramIsInt[i];
+		setVariable(functions[idx].paramNames[i], paramValue);
+	}
 	runStatements();
 	returning = FROG_FALSE;
 	result = returnValue;
@@ -1063,7 +1143,12 @@ static frog_void printReport(frog_void) {
 		frog_str typeName = varTypeName(variables[i].type);
 		switch (variables[i].type) {
 		case STRING:  printf("%s %s = \"%s\"\n", typeName, variables[i].name, variables[i].value.str_value); break;
-		case NUMERIC: printf("%s %s = %.2lf\n", typeName, variables[i].name, variables[i].value.num_value); break;
+		case NUMERIC:
+			if (variables[i].isInt)
+				printf("%s %s = %ld\n", typeName, variables[i].name, (long)variables[i].value.num_value);
+			else
+				printf("%s %s = %.2lf\n", typeName, variables[i].name, variables[i].value.num_value);
+			break;
 		case BOOLEAN: printf("%s %s = %s\n", typeName, variables[i].name, variables[i].value.bool_value ? TRUE : FALSE); break;
 		case CHAR:    printf("%s %s = '%c'\n", typeName, variables[i].name, variables[i].value.char_value); break;
 		}
@@ -1090,19 +1175,21 @@ frog_void runProgram(BufferPointer buf) {
 
 	advance();
 	while (lookahead.code == CMT_T)
-		advance();
+		skipComment();
 
 	while (isTypeKeyword()) {
 		registerFunctionDef();
 		while (lookahead.code == CMT_T)
-			advance();
+			skipComment();
 	}
+	printf("%s%s\n", STR_LANGNAME, ": Function definitions parsed");
 
 	mainIdx = findFunction(LANG_MAIN);
 	if (mainIdx == -1) {
 		printf("%s%s%s%s\n", STR_LANGNAME, ": Runtime error: no '", LANG_MAIN, "' function found");
 		exit(EXIT_FAILURE);
 	}
+	printf("%s%s\n", STR_LANGNAME, ": Program parsed");
 
 	/* main() is run directly at the top-level scope instead of through
 	 * runFunction() - runFunction() always pops its scope on return (so a
@@ -1117,8 +1204,11 @@ frog_void runProgram(BufferPointer buf) {
 	 * declares (e.g. "main(tadpole x, tadpole y)") are just bound to zero -
 	 * enough for them to read as ordinary declared variables instead of
 	 * throwing "undefined variable" the moment the body references one. */
-	for (i = 0; i < functions[mainIdx].paramCount; i++)
-		setVariable(functions[mainIdx].paramNames[i], numericValue(ZERO));
+	for (i = 0; i < functions[mainIdx].paramCount; i++) {
+		Value paramValue = numericValue(ZERO);
+		paramValue.isInt = functions[mainIdx].paramIsInt[i];
+		setVariable(functions[mainIdx].paramNames[i], paramValue);
+	}
 	runStatements();
 	returning = FROG_FALSE;
 

@@ -93,6 +93,9 @@ typedef enum { NUMERIC, STRING, BOOLEAN, CHAR } VarType;
 typedef struct {
     frog_char name[VID_LEN + 1];
     VarType type;
+    frog_bool isInt; /* only meaningful when type == NUMERIC: tadpole (int) vs
+                       * lilypad (float) - governs display precision only,
+                       * arithmetic itself is always done in frog_doub. */
     union {
         frog_doub num_value;
         frog_char str_value[256];
@@ -112,6 +115,7 @@ typedef struct {
     frog_char name[VID_LEN + 1];
     frog_int paramCount;
     frog_char paramNames[MAX_PARAMS][VID_LEN + 1];
+    frog_bool paramIsInt[MAX_PARAMS]; /* declared tadpole (int) vs lilypad (float) per param */
     frog_int bodyPos;
 } FuncEntry;
 
