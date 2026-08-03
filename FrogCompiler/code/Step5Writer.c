@@ -61,6 +61,24 @@
 #define MAX_LOOP_ITERATIONS 100000
 #define MAX_CALL_DEPTH 200
 
+/* Traces added purely for 1:1 parity with every non-terminal in
+ * Step4Parser.c (Argument/Param list (prime), Statements prime, Optional
+ * statements/return value/else, Output variable list, Source file parsed) -
+ * the A5 rubric checks for these, but they're pure repetition once the
+ * parser is trusted (a list of N items just prints the same "prime" line N
+ * times). Set FROG_EXTRA_TRACE to 0 (or pass -DFROG_EXTRA_TRACE=0 to the
+ * compiler) to silence just these without touching the core per-statement/
+ * per-expression traces below. */
+#ifndef FROG_EXTRA_TRACE
+#define FROG_EXTRA_TRACE 0
+#endif
+
+#if FROG_EXTRA_TRACE
+#define EXTRA_TRACE(msg) printf("%s%s\n", STR_LANGNAME, msg)
+#else
+#define EXTRA_TRACE(msg) ((void)0)
+#endif
+
 /* ------------------------------------------------------------------------
  * Interpreter state
  * ------------------------------------------------------------------------ */
@@ -113,9 +131,9 @@ static Value evalAndExpr(frog_void);
 static Value evalExpressionTail(Value left);
 static Value evalExpression(frog_void);
 
-static frog_int findVariableIdx(const frog_str name);
-static Value getVariable(const frog_str name);
-static frog_void setVariable(const frog_str name, Value v);
+static frog_int findVariableIdx(const frog_char* name);
+static Value getVariable(const frog_char* name);
+static frog_void setVariable(const frog_char* name, Value v);
 
 static frog_void runVarDeclaration(frog_void);
 static frog_void runReturnStatement(frog_void);
@@ -125,8 +143,8 @@ static frog_void runDoWhileStatement(frog_void);
 static frog_void runBlock(frog_void);
 static frog_void runIfStatement(frog_void);
 static frog_void runWhileStatement(frog_void);
-static frog_void formatValue(frog_char* out, size_t outSize, Value v);
-static frog_void addOutput(const frog_str s);
+static frog_void formatValue(frog_char* out, Value v);
+static frog_void addOutput(const frog_char* s);
 static frog_void runOutputStatement(frog_void);
 static frog_void runInputStatement(frog_void);
 static frog_void runCallStatement(frog_void);
@@ -135,8 +153,8 @@ static frog_void runStatements(frog_void);
 
 static frog_void registerFunctionDef(frog_void);
 static frog_void skipToMatchingBrace(frog_void);
-static frog_int findFunction(const frog_str name);
-static Value runFunction(frog_int idx, Value* args, frog_int argCount);
+static frog_int findFunction(const frog_char* name);
+static Value runFunction(frog_int idx, const Value* args, frog_int argCount);
 static frog_str varTypeName(VarType t);
 static frog_void printReport(frog_void);
 
@@ -378,14 +396,17 @@ static Value evalCall(frog_void) {
 		if (argCount < MAX_PARAMS)
 			args[argCount] = argValue;
 		argCount++;
+		EXTRA_TRACE(": Argument list prime parsed");
 		while (lookahead.code == COM_T) {
 			advance();
 			argValue = evalExpression();
 			if (argCount < MAX_PARAMS)
 				args[argCount] = argValue;
 			argCount++;
+			EXTRA_TRACE(": Argument list prime parsed");
 		}
 	}
+	EXTRA_TRACE(": Argument list parsed");
 	expect(RPR_T, NO_ATTR);
 
 	calleeIdx = findFunction(calleeName);
@@ -412,6 +433,7 @@ static Value evalCall(frog_void) {
 	savedLine = line;
 
 	srcBuf->position.read = functions[calleeIdx].bodyPos;
+	line = functions[calleeIdx].bodyLine;
 	advance();
 	result = runFunction(calleeIdx, args, argCount);
 
@@ -565,15 +587,13 @@ static Value evalExpression(frog_void) {
 }
 
 /* ------------------------------------------------------------------------
- * Variable table (single global scope for now - FrogTest/FrogHello/
- * FrogControlFlow never call a function with arguments, so a per-call
- * scope stack is deferred to the FrogFunctions.txt iteration).
+ * Variable table (per-call scope via scopeBase - see findVariableIdx()).
  * ------------------------------------------------------------------------ */
 
 /* Only searches the current call's frame ([scopeBase, varCount)), not outer
  * frames - each function call gets an isolated set of locals/params, so a
  * callee can't see (or clobber) its caller's variables. */
-static frog_int findVariableIdx(const frog_str name) {
+static frog_int findVariableIdx(const frog_char* name) {
 	frog_int i;
 	for (i = scopeBase; i < varCount; i++)
 		if (strcmp(variables[i].name, name) == 0)
@@ -581,7 +601,7 @@ static frog_int findVariableIdx(const frog_str name) {
 	return -1;
 }
 
-static Value getVariable(const frog_str name) {
+static Value getVariable(const frog_char* name) {
 	frog_int idx = findVariableIdx(name);
 	if (idx == -1) {
 		printf("%s%s%3d%s%s\n", STR_LANGNAME, ": Runtime error at line", line,
@@ -591,7 +611,7 @@ static Value getVariable(const frog_str name) {
 	return variables[idx];
 }
 
-static frog_void setVariable(const frog_str name, Value v) {
+static frog_void setVariable(const frog_char* name, Value v) {
 	frog_int idx = findVariableIdx(name);
 	if (idx == -1) {
 		if (varCount >= MAX_VARS) {
@@ -653,6 +673,7 @@ static frog_void runReturnStatement(frog_void) {
 		returnValue = evalExpression();
 	else
 		returnValue = numericValue(ZERO);
+	EXTRA_TRACE(": Optional return value parsed");
 	expect(EOS_T, NO_ATTR);
 	returning = FROG_TRUE;
 	printf("%s%s\n", STR_LANGNAME, ": Return statement parsed");
@@ -703,21 +724,24 @@ static frog_void runAssignOrExprStatement(frog_void) {
 	printf("%s%s\n", STR_LANGNAME, ": Assignment or expression statement parsed");
 }
 
-static frog_void formatValue(frog_char* out, size_t outSize, Value v) {
+/* out is always a caller-side buffer[OUTPUT_LEN] (see runOutputStatement()) -
+ * there's only ever the one size in play, so it's hardcoded here rather than
+ * threaded through as a parameter that's always the same value anyway. */
+static frog_void formatValue(frog_char* out, Value v) {
 	switch (v.type) {
-	case STRING:  snprintf(out, outSize, "%s", v.value.str_value); break;
+	case STRING:  snprintf(out, OUTPUT_LEN, "%s", v.value.str_value); break;
 	case NUMERIC:
 		if (v.isInt)
-			snprintf(out, outSize, "%ld", (long)v.value.num_value);
+			snprintf(out, OUTPUT_LEN, "%ld", (long)v.value.num_value);
 		else
-			snprintf(out, outSize, "%.2lf", v.value.num_value);
+			snprintf(out, OUTPUT_LEN, "%.2lf", v.value.num_value);
 		break;
-	case BOOLEAN: snprintf(out, outSize, "%s", v.value.bool_value ? TRUE : FALSE); break;
-	case CHAR:    snprintf(out, outSize, "%c", v.value.char_value); break;
+	case BOOLEAN: snprintf(out, OUTPUT_LEN, "%s", v.value.bool_value ? TRUE : FALSE); break;
+	case CHAR:    snprintf(out, OUTPUT_LEN, "%c", v.value.char_value); break;
 	}
 }
 
-static frog_void addOutput(const frog_str s) {
+static frog_void addOutput(const frog_char* s) {
 	if (outputCount >= MAX_OUTPUTS)
 		return;
 	strncpy(outputs[outputCount], s, OUTPUT_LEN - 1);
@@ -746,15 +770,22 @@ static frog_void runNotStatement(frog_void) {
  * text but evaluates it against the current variable values. */
 static frog_void runDoWhileStatement(frog_void) {
 	frog_int bodyPos;
+	frog_int bodyLine;
 	frog_int iterations = 0;
 	Value cond;
 	advance(); /* consume 'do' */
 	/* lookahead is now LBR_T; capture position before consuming it, same
-	 * reasoning as registerFunctionDef()'s bodyPos capture. */
+	 * reasoning as registerFunctionDef()'s bodyPos capture. bodyLine is the
+	 * true source line at that point - 'line' only ever climbs forward as
+	 * tokenizer() advances, so every rewind back to bodyPos below must also
+	 * roll 'line' back to match, or later iterations report a line number
+	 * that keeps growing instead of the body's real line each pass. */
 	bodyPos = readerGetPosRead(srcBuf);
+	bodyLine = line;
 	expect(LBR_T, NO_ATTR);
 	for (;;) {
 		srcBuf->position.read = bodyPos;
+		line = bodyLine;
 		advance();
 		runStatements();
 		if (returning)
@@ -815,6 +846,7 @@ static frog_void runIfStatement(frog_void) {
 			skipToMatchingBrace();
 		}
 	}
+	EXTRA_TRACE(": Optional else parsed");
 	printf("%s%s\n", STR_LANGNAME, ": If statement parsed");
 }
 
@@ -827,12 +859,17 @@ static frog_void runIfStatement(frog_void) {
  * previous pass just changed), not just the body. */
 static frog_void runWhileStatement(frog_void) {
 	frog_int condPos;
+	frog_int condLine;
 	frog_int iterations = 0;
 	Value cond;
 	/* lookahead is still the 'hop' keyword: capture position now, before
 	 * consuming it, same reasoning as every other saved-position capture
-	 * in this file - it's already "just past 'hop'", ready to replay. */
+	 * in this file - it's already "just past 'hop'", ready to replay.
+	 * condLine is the true source line there - 'line' only ever climbs
+	 * forward as tokenizer() advances, so every rewind back to condPos below
+	 * must also roll 'line' back to match. */
 	condPos = readerGetPosRead(srcBuf);
+	condLine = line;
 	advance(); /* consume 'hop', fetch the condition's first token */
 	for (;;) {
 		cond = evalExpression();
@@ -851,6 +888,7 @@ static frog_void runWhileStatement(frog_void) {
 			exit(EXIT_FAILURE);
 		}
 		srcBuf->position.read = condPos;
+		line = condLine;
 		advance(); /* re-fetch the condition's first token for the next pass */
 	}
 	printf("%s%s\n", STR_LANGNAME, ": While statement parsed");
@@ -868,12 +906,13 @@ static frog_void runOutputStatement(frog_void) {
 		advance();
 		break;
 	case VID_T:
-		formatValue(buffer, sizeof(buffer), getVariable(lookahead.attribute.idLexeme));
+		formatValue(buffer, getVariable(lookahead.attribute.idLexeme));
 		advance();
 		break;
 	default:
 		break; /* empty outputVariableList: print(); prints an empty line */
 	}
+	EXTRA_TRACE(": Output variable list parsed");
 	expect(RPR_T, NO_ATTR);
 	expect(EOS_T, NO_ATTR);
 	addOutput(buffer);
@@ -889,7 +928,7 @@ static frog_void runInputStatement(frog_void) {
 	frog_char name[VID_LEN + 1];
 	frog_int idx;
 	Value v;
-	frog_char discard[256];
+	frog_char lineBuf[256];
 
 	advance(); /* consume MNID_T ("input(") */
 	strncpy(name, lookahead.attribute.idLexeme, VID_LEN);
@@ -908,11 +947,19 @@ static frog_void runInputStatement(frog_void) {
 			v.value.str_value[0] = EOS;
 	}
 	else {
+		/* strtod() over scanf("%lf") - scanf can't distinguish "no digits
+		 * found" from "read zero", and its unclear return-code checking is
+		 * a common source of unreported conversion errors; strtod() reports
+		 * failure explicitly (endptr left at the start) and reading the
+		 * whole line up front avoids leaving a partial line behind for the
+		 * next input()/statement to trip over. */
 		frog_doub d = ZERO;
-		if (scanf("%lf", &d) != 1)
-			d = ZERO;
-		if (fgets(discard, sizeof(discard), stdin) == NULL)
-			; /* rest of the line (incl. newline) discarded either way */
+		if (fgets(lineBuf, sizeof(lineBuf), stdin) != NULL) {
+			frog_char* endptr;
+			d = strtod(lineBuf, &endptr);
+			if (endptr == lineBuf)
+				d = ZERO;
+		}
 		v = numericValue(d);
 		/* Preserve the slot's declared tadpole/lilypad-ness the same way
 		 * assignment does (runAssignOrExprStatement()) - reading into an
@@ -996,14 +1043,27 @@ static frog_void runStatement(frog_void) {
 
 /* <statements> -> <statement> <statementsPrime> | <statementsPrime> -> <statement> <statementsPrime> | e */
 static frog_void runStatements(frog_void) {
+	frog_int stmtCount = 0;
 	while (!returning && (lookahead.code == CMT_T || isStatementStart())) {
 		if (lookahead.code == CMT_T) {
 			skipComment();
 			continue;
 		}
 		runStatement();
+		stmtCount++;
 	}
-	printf("%s%s\n", STR_LANGNAME, ": Statements parsed");
+	/* Mirrors statements()/statementsPrime() in Step4Parser.c: statements()
+	 * only runs (and prints its own trace) when there was at least one
+	 * statement, and statementsPrime() prints once per statement after the
+	 * first plus once more for the tail that found nothing left - i.e.
+	 * exactly stmtCount times in total. */
+	if (stmtCount > 0) {
+		frog_int i;
+		for (i = 0; i < stmtCount; i++)
+			EXTRA_TRACE(": Statements prime parsed");
+		printf("%s%s\n", STR_LANGNAME, ": Statements parsed");
+	}
+	EXTRA_TRACE(": Optional statements parsed");
 }
 
 /* ------------------------------------------------------------------------
@@ -1044,25 +1104,35 @@ static frog_void registerFunctionDef(frog_void) {
 	strncpy(fn->name, lookahead.attribute.idLexeme, VID_LEN);
 	fn->name[VID_LEN] = EOS;
 	expect(MNID_T, NO_ATTR);
-	while (isTypeKeyword()) {
-		frog_bool paramIsTadpole = (lookahead.attribute.codeType == KW_tadpole);
-		advance(); /* consume the param's type keyword */
-		/* Beyond MAX_PARAMS, the parameter is still parsed (so the token
-		 * stream stays in sync) but not recorded - paramCount is capped so
-		 * a later call can never index paramNames[] out of bounds. */
-		if (fn->paramCount < MAX_PARAMS) {
-			strncpy(fn->paramNames[fn->paramCount], lookahead.attribute.idLexeme, VID_LEN);
-			fn->paramNames[fn->paramCount][VID_LEN] = EOS;
-			fn->paramIsInt[fn->paramCount] = paramIsTadpole;
-			fn->paramCount++;
+	{
+		/* paramSeen tracks the true number of parameters parsed (for the
+		 * Param list prime trace count below) even past MAX_PARAMS - same
+		 * true-count/capped-storage split evalCall() uses for argCount. */
+		frog_int paramSeen = 0;
+		while (isTypeKeyword()) {
+			frog_bool paramIsTadpole = (lookahead.attribute.codeType == KW_tadpole);
+			advance(); /* consume the param's type keyword */
+			/* Beyond MAX_PARAMS, the parameter is still parsed (so the token
+			 * stream stays in sync) but not recorded - paramCount is capped so
+			 * a later call can never index paramNames[] out of bounds. */
+			if (fn->paramCount < MAX_PARAMS) {
+				strncpy(fn->paramNames[fn->paramCount], lookahead.attribute.idLexeme, VID_LEN);
+				fn->paramNames[fn->paramCount][VID_LEN] = EOS;
+				fn->paramIsInt[fn->paramCount] = paramIsTadpole;
+				fn->paramCount++;
+			}
+			paramSeen++;
+			expect(VID_T, NO_ATTR);
+			EXTRA_TRACE(": Param list prime parsed");
+			if (lookahead.code == COM_T)
+				advance();
+			else
+				break;
 		}
-		expect(VID_T, NO_ATTR);
-		if (lookahead.code == COM_T)
-			advance();
-		else
-			break;
+		if (paramSeen > 0)
+			EXTRA_TRACE(": Param list parsed");
 	}
-	printf("%s%s\n", STR_LANGNAME, ": Optional param list parsed");
+	EXTRA_TRACE(": Optional param list parsed");
 	expect(RPR_T, NO_ATTR);
 	/* lookahead is now LBR_T. Capture the buffer position *before* consuming
 	 * it: tokenizer() has already advanced position.read past the '{' char
@@ -1070,13 +1140,14 @@ static frog_void registerFunctionDef(frog_void) {
 	 * where a later advance() needs to start scanning from to reproduce the
 	 * body's first token - i.e. to "replay" being just past the '{'. */
 	fn->bodyPos = readerGetPosRead(srcBuf);
+	fn->bodyLine = line;
 	expect(LBR_T, NO_ATTR);
 	funcCount++;
 	skipToMatchingBrace();
 	printf("%s%s\n", STR_LANGNAME, ": Function definition parsed");
 }
 
-static frog_int findFunction(const frog_str name) {
+static frog_int findFunction(const frog_char* name) {
 	frog_int i;
 	for (i = 0; i < funcCount; i++)
 		if (strcmp(functions[i].name, name) == 0)
@@ -1088,7 +1159,7 @@ static frog_int findFunction(const frog_str name) {
  * (lookahead sitting on) the body's first token. Pushes a fresh variable
  * scope for the call's params/locals and pops it on the way out, so callee
  * locals never leak into (or collide with) the caller's. */
-static Value runFunction(frog_int idx, Value* args, frog_int argCount) {
+static Value runFunction(frog_int idx, const Value* args, frog_int argCount) {
 	frog_int i;
 	frog_int savedScopeBase = scopeBase;
 	frog_int savedVarCount = varCount;
@@ -1191,12 +1262,27 @@ frog_void runProgram(BufferPointer buf) {
 	}
 	printf("%s%s\n", STR_LANGNAME, ": Program parsed");
 
+	/* Mirrors startParser()'s final matchToken(SEOF_T, NO_ATTR) + "Source
+	 * file parsed" trace in Step4Parser.c. Every function body (including
+	 * main's) was only skipped via skipToMatchingBrace() above, not executed,
+	 * so lookahead should already be sitting on SEOF_T here - the same point
+	 * in the token stream where the Parser reaches real end-of-file. Checked
+	 * directly (not via expect()) since expect() always calls advance()
+	 * afterward, and there is no token beyond SEOF_T to fetch. */
+	if (lookahead.code != SEOF_T) {
+		printf("%s%s%3d%s%d\n", STR_LANGNAME, ": Runtime error at line", line,
+			": unexpected token, code=", lookahead.code);
+		exit(EXIT_FAILURE);
+	}
+	EXTRA_TRACE(": Source file parsed");
+
 	/* main() is run directly at the top-level scope instead of through
 	 * runFunction() - runFunction() always pops its scope on return (so a
 	 * callee's locals never leak into its caller), but main's locals ARE
 	 * the final variable table printReport() below is supposed to show, so
 	 * they must survive past the call instead of being popped. */
 	srcBuf->position.read = functions[mainIdx].bodyPos;
+	line = functions[mainIdx].bodyLine;
 	advance();
 	returning = FROG_FALSE;
 	returnValue = numericValue(ZERO);

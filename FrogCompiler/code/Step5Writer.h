@@ -110,13 +110,19 @@ typedef Variable Value;
 
 /* A registered function definition: its parameter names and where its body
  * starts in the source buffer (right after the opening '{'), so runFunction()
- * can seek the buffer there and re-run it on every call. */
+ * can seek the buffer there and re-run it on every call. bodyLine is the
+ * scanner's 'line' counter at that same point - 'line' only ever increments
+ * as tokenizer() advances, so every place the Writer rewinds srcBuf's read
+ * position to re-scan already-visited source (a call, a loop iteration, or
+ * jumping to a registered body) must also restore 'line' to match, or line
+ * numbers in later error messages just keep climbing across every rewind. */
 typedef struct {
     frog_char name[VID_LEN + 1];
     frog_int paramCount;
     frog_char paramNames[MAX_PARAMS][VID_LEN + 1];
     frog_bool paramIsInt[MAX_PARAMS]; /* declared tadpole (int) vs lilypad (float) per param */
     frog_int bodyPos;
+    frog_int bodyLine;
 } FuncEntry;
 
 /* Entry point: registers all function definitions, then runs "main(".
