@@ -203,7 +203,8 @@ static frog_bool isTypeKeyword(frog_void) {
 		(lookahead.attribute.codeType == KW_tadpole ||
 		 lookahead.attribute.codeType == KW_lilypad ||
 		 lookahead.attribute.codeType == KW_croak ||
-		 lookahead.attribute.codeType == KW_ribbit);
+		 lookahead.attribute.codeType == KW_ribbit ||
+		 lookahead.attribute.codeType == KW_bullfrog);
 }
 
 /* Mirrors Step4Parser.c's static isExpressionStart(): FIRST(<unary>). */
@@ -229,6 +230,7 @@ static frog_bool isStatementStart(frog_void) {
 		 lookahead.attribute.codeType == KW_lilypad ||
 		 lookahead.attribute.codeType == KW_croak ||
 		 lookahead.attribute.codeType == KW_ribbit ||
+		 lookahead.attribute.codeType == KW_bullfrog ||
 		 lookahead.attribute.codeType == KW_do ||
 		 lookahead.attribute.codeType == KW_hop ||
 		 lookahead.attribute.codeType == KW_if ||
@@ -635,7 +637,8 @@ static frog_void setVariable(const frog_char* name, Value v) {
 /* <varDeclaration> -> <type> VID_T <optInit> ; | <optInit> -> = <expression> | e */
 static frog_void runVarDeclaration(frog_void) {
 	VarType declType = (lookahead.attribute.codeType == KW_croak) ? STRING :
-		(lookahead.attribute.codeType == KW_ribbit) ? CHAR : NUMERIC;
+		(lookahead.attribute.codeType == KW_ribbit) ? CHAR :
+		(lookahead.attribute.codeType == KW_bullfrog) ? BOOLEAN : NUMERIC;
 	/* tadpole is the int flavor of NUMERIC, lilypad the float flavor - this
 	 * is what governs display precision (see formatValue()/printReport()),
 	 * independent of whatever the initializer expression itself evaluates to. */
@@ -654,9 +657,10 @@ static frog_void runVarDeclaration(frog_void) {
 		v.name[0] = EOS;
 		v.type = declType;
 		switch (declType) {
-		case STRING: v.value.str_value[0] = EOS; break;
-		case CHAR:   v.value.char_value = EOS; break;
-		default:     v.value.num_value = ZERO; break;
+		case STRING:  v.value.str_value[0] = EOS; break;
+		case CHAR:    v.value.char_value = EOS; break;
+		case BOOLEAN: v.value.bool_value = FROG_FALSE; break;
+		default:      v.value.num_value = ZERO; break;
 		}
 	}
 	if (v.type == NUMERIC)
@@ -993,6 +997,7 @@ static frog_void runStatement(frog_void) {
 		case KW_lilypad:
 		case KW_croak:
 		case KW_ribbit:
+		case KW_bullfrog:
 			runVarDeclaration();
 			break;
 		case KW_leap:

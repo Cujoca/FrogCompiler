@@ -1,26 +1,15 @@
 /* Frog Example: The Pond Program
    This program is written in the Frog language.
    It should hop through the scanner without any lexical errors */
-tadpole main(tadpole x, tadpole y) {
-	tadpole count;
-	lilypad price;
+tadpole main() {
+	tadpole count = 5;
+	lilypad price = 4.5;
 	croak greeting;
+	ribbit x;
+	bullfrog isHopping = count > price;
+	count = count * 5;
+	price = price * 3;
 	print("Ribbit! Hello from the pond!");
-	count = 42;
-	price = 3.14;
-	count + count;
-	count - count;
-	count * count;
-	count / count;
-	count > count;
-	count < count;
-	count == count;
-	count != count;
-	count && count;
-	count || count;
-	!count;
-	do {
-		count = count - 1;
-	} hop count > 0;
+	print(count);
 	leap 0;
 }

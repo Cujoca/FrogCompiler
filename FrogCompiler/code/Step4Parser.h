@@ -89,7 +89,8 @@ enum KEYWORDS {
 	KW_hop,		// 6
 	KW_do,		// 7
 	KW_leap,	// 8
-	KW_ribbit	// 9
+	KW_ribbit,	// 9
+	KW_bullfrog	// 10
 };
 
 /* TO_DO: Define the number of BNF rules */

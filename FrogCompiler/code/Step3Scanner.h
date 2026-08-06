@@ -322,7 +322,7 @@ Language keywords
 */
 
 /* TO_DO: Define the number of Keywords from the language */
-#define KWT_SIZE 10
+#define KWT_SIZE 11
 
 /* TO_DO: Define the list of keywords */
 static frog_str keywordTable[KWT_SIZE] = {
@@ -335,7 +335,8 @@ static frog_str keywordTable[KWT_SIZE] = {
 	"hop",		/* KW06 - loop keyword (was: while) */
 	"do",		/* KW07 */
 	"leap",		/* KW08 - return keyword (was: return) */
-	"ribbit"	/* KW09 - char type */
+	"ribbit",	/* KW09 - char type */
+	"bullfrog"	/* KW10 - boolean type (was: bool) */
 };
 
 /* NEW SECTION: About indentation */
