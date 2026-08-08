@@ -162,13 +162,38 @@ static frog_void printReport(frog_void);
  * Token stream primitives
  * ------------------------------------------------------------------------ */
 
+/* Positions of ERR_T tokens already reported by advance() below. A function
+ * body is re-scanned from the same source bytes every time it's registered,
+ * called, or looped over, so without this a single bad character gets
+ * reported once per re-scan instead of once ever; the read position is a
+ * stable per-character identity across all those re-scans. */
+#define MAX_REPORTED_ERRORS 256
+static frog_int reportedErrorPos[MAX_REPORTED_ERRORS];
+static frog_int reportedErrorCount;
+
+static frog_bool alreadyReportedError(frog_int pos) {
+	frog_int i;
+	for (i = 0; i < reportedErrorCount; i++)
+		if (reportedErrorPos[i] == pos)
+			return FROG_TRUE;
+	/* Past the tracking cap, positions can no longer be told apart, so treat
+	 * them as already-reported (suppress) rather than FROG_FALSE (which would
+	 * reprint them on every single re-scan instead of just capping the
+	 * distinct-error count). */
+	if (reportedErrorCount >= MAX_REPORTED_ERRORS)
+		return FROG_TRUE;
+	reportedErrorPos[reportedErrorCount++] = pos;
+	return FROG_FALSE;
+}
+
 /* Advance the lookahead, silently skipping scanner error tokens (the
  * Parser already validates syntax as a separate option; the Writer is
  * expected to run standalone on already-good source). */
 static frog_void advance(frog_void) {
 	lookahead = tokenizer();
 	while (lookahead.code == ERR_T) {
-		printf("%s%s%3d\n", STR_LANGNAME, ": Scanner error at line", line);
+		if (!alreadyReportedError(readerGetPosRead(srcBuf)))
+			printf("%s%s%d\n", STR_LANGNAME, ": Scanner error at line ", line);
 		lookahead = tokenizer();
 	}
 }
@@ -183,7 +208,7 @@ static frog_void expect(frog_int tokenCode, frog_int tokenAttribute) {
 	else
 		ok = (lookahead.code == tokenCode);
 	if (!ok) {
-		printf("%s%s%3d%s%d\n", STR_LANGNAME, ": Runtime error at line", line,
+		printf("%s%s%d%s%d\n", STR_LANGNAME, ": Runtime error at line ", line,
 			": unexpected token, code=", lookahead.code);
 		exit(EXIT_FAILURE);
 	}
@@ -275,7 +300,7 @@ static Value booleanValue(frog_int b) {
 
 static frog_doub numOf(Value v) {
 	if (v.type != NUMERIC) {
-		printf("%s%s%3d\n", STR_LANGNAME, ": Runtime error at line", line);
+		printf("%s%s%d\n", STR_LANGNAME, ": Runtime error at line ", line);
 		printf("*****  expected a numeric value\n");
 		exit(EXIT_FAILURE);
 	}
@@ -287,7 +312,7 @@ static frog_int boolOf(Value v) {
 		return v.value.bool_value;
 	if (v.type == NUMERIC)
 		return v.value.num_value != 0.0;
-	printf("%s%s%3d\n", STR_LANGNAME, ": Runtime error at line", line);
+	printf("%s%s%d\n", STR_LANGNAME, ": Runtime error at line ", line);
 	printf("*****  expected a boolean value\n");
 	exit(EXIT_FAILURE);
 }
@@ -300,7 +325,7 @@ static Value applyArithmetic(AriOperator op, Value l, Value r) {
 	case OP_MUL: return numericValue(a * b);
 	case OP_DIV:
 		if (b == 0.0) {
-			printf("%s%s%3d\n", STR_LANGNAME, ": Runtime error at line", line);
+			printf("%s%s%d\n", STR_LANGNAME, ": Runtime error at line ", line);
 			printf("*****  division by zero\n");
 			exit(EXIT_FAILURE);
 		}
@@ -416,7 +441,7 @@ static Value evalCall(frog_void) {
 		frog_char displayName[VID_LEN + 1];
 		strncpy(displayName, calleeName, VID_LEN + 1);
 		stripTrailingParen(displayName);
-		printf("%s%s%3d%s%s\n", STR_LANGNAME, ": Runtime error at line", line,
+		printf("%s%s%d%s%s\n", STR_LANGNAME, ": Runtime error at line ", line,
 			": call to undefined function ", displayName);
 		exit(EXIT_FAILURE);
 	}
@@ -424,7 +449,7 @@ static Value evalCall(frog_void) {
 		frog_char displayName[VID_LEN + 1];
 		strncpy(displayName, calleeName, VID_LEN + 1);
 		stripTrailingParen(displayName);
-		printf("%s%s%3d%s%s%s%d%s%d\n", STR_LANGNAME, ": Runtime error at line", line,
+		printf("%s%s%d%s%s%s%d%s%d\n", STR_LANGNAME, ": Runtime error at line ", line,
 			": wrong number of arguments to ", displayName,
 			"() - expected ", functions[calleeIdx].paramCount, ", got ", argCount);
 		exit(EXIT_FAILURE);
@@ -456,7 +481,7 @@ static Value evalUnary(frog_void) {
 			v = applyNot(evalUnary());
 		}
 		else {
-			printf("%s%s%3d\n", STR_LANGNAME, ": Runtime error at line", line);
+			printf("%s%s%d\n", STR_LANGNAME, ": Runtime error at line ", line);
 			exit(EXIT_FAILURE);
 		}
 		break;
@@ -466,7 +491,7 @@ static Value evalUnary(frog_void) {
 			v = applyNegate(evalUnary());
 		}
 		else {
-			printf("%s%s%3d\n", STR_LANGNAME, ": Runtime error at line", line);
+			printf("%s%s%d\n", STR_LANGNAME, ": Runtime error at line ", line);
 			exit(EXIT_FAILURE);
 		}
 		break;
@@ -505,7 +530,7 @@ static Value evalUnary(frog_void) {
 		expect(RPR_T, NO_ATTR);
 		break;
 	default:
-		printf("%s%s%3d\n", STR_LANGNAME, ": Runtime error at line", line);
+		printf("%s%s%d\n", STR_LANGNAME, ": Runtime error at line ", line);
 		printf("*****  invalid expression\n");
 		exit(EXIT_FAILURE);
 	}
@@ -606,7 +631,7 @@ static frog_int findVariableIdx(const frog_char* name) {
 static Value getVariable(const frog_char* name) {
 	frog_int idx = findVariableIdx(name);
 	if (idx == -1) {
-		printf("%s%s%3d%s%s\n", STR_LANGNAME, ": Runtime error at line", line,
+		printf("%s%s%d%s%s\n", STR_LANGNAME, ": Runtime error at line ", line,
 			": undefined variable ", name);
 		exit(EXIT_FAILURE);
 	}
@@ -617,7 +642,8 @@ static frog_void setVariable(const frog_char* name, Value v) {
 	frog_int idx = findVariableIdx(name);
 	if (idx == -1) {
 		if (varCount >= MAX_VARS) {
-			printf("%s%s\n", STR_LANGNAME, ": Runtime error: too many variables");
+			printf("%s%s%d%s%d%s\n", STR_LANGNAME, ": Runtime error at line ", line,
+				": too many variables (max ", MAX_VARS, ") - likely unbounded recursion");
 			exit(EXIT_FAILURE);
 		}
 		idx = varCount++;
@@ -700,7 +726,7 @@ static frog_void runAssignOrExprStatement(frog_void) {
 		 * first time here is almost always a typo, not a fresh variable. */
 		idx = findVariableIdx(name);
 		if (idx == -1) {
-			printf("%s%s%3d%s%s\n", STR_LANGNAME, ": Runtime error at line", line,
+			printf("%s%s%d%s%s\n", STR_LANGNAME, ": Runtime error at line ", line,
 				": assignment to undeclared variable ", name);
 			exit(EXIT_FAILURE);
 		}
@@ -741,13 +767,23 @@ static frog_void formatValue(frog_char* out, Value v) {
 			snprintf(out, OUTPUT_LEN, "%.2lf", v.value.num_value);
 		break;
 	case BOOLEAN: snprintf(out, OUTPUT_LEN, "%s", v.value.bool_value ? TRUE : FALSE); break;
-	case CHAR:    snprintf(out, OUTPUT_LEN, "%c", v.value.char_value); break;
+	case CHAR:
+		/* An uninitialized ribbit defaults its char_value to EOS ('\0') -
+		 * printing that raw would embed a literal NUL byte in the output. */
+		if (v.value.char_value == EOS)
+			snprintf(out, OUTPUT_LEN, "\\0");
+		else
+			snprintf(out, OUTPUT_LEN, "%c", v.value.char_value);
+		break;
 	}
 }
 
 static frog_void addOutput(const frog_char* s) {
-	if (outputCount >= MAX_OUTPUTS)
-		return;
+	if (outputCount >= MAX_OUTPUTS) {
+		printf("%s%s%d%s\n", STR_LANGNAME, ": Runtime error: too many outputs (max ",
+			MAX_OUTPUTS, ")");
+		exit(EXIT_FAILURE);
+	}
 	strncpy(outputs[outputCount], s, OUTPUT_LEN - 1);
 	outputs[outputCount][OUTPUT_LEN - 1] = EOS;
 	outputCount++;
@@ -775,6 +811,7 @@ static frog_void runNotStatement(frog_void) {
 static frog_void runDoWhileStatement(frog_void) {
 	frog_int bodyPos;
 	frog_int bodyLine;
+	frog_int condLine;
 	frog_int iterations = 0;
 	Value cond;
 	advance(); /* consume 'do' */
@@ -797,11 +834,16 @@ static frog_void runDoWhileStatement(frog_void) {
 		expect(RBR_T, NO_ATTR);
 		expect(KW_T, KW_hop);
 		cond = evalExpression();
+		/* Captured before expect(EOS_T) below, whose trailing advance() reads
+		 * ahead into whatever follows the loop - reporting the live 'line' at
+		 * that point would blame the statement after the loop instead of the
+		 * loop's own condition line. */
+		condLine = line;
 		expect(EOS_T, NO_ATTR);
 		if (!boolOf(cond))
 			break;
 		if (++iterations >= MAX_LOOP_ITERATIONS) {
-			printf("%s%s%3d%s%d%s\n", STR_LANGNAME, ": Runtime error at line", line,
+			printf("%s%s%d%s%d%s\n", STR_LANGNAME, ": Runtime error at line ", condLine,
 				": do-hop loop did not terminate within ", MAX_LOOP_ITERATIONS, " iterations");
 			exit(EXIT_FAILURE);
 		}
@@ -864,6 +906,7 @@ static frog_void runIfStatement(frog_void) {
 static frog_void runWhileStatement(frog_void) {
 	frog_int condPos;
 	frog_int condLine;
+	frog_int bodyEndLine;
 	frog_int iterations = 0;
 	Value cond;
 	/* lookahead is still the 'hop' keyword: capture position now, before
@@ -885,9 +928,12 @@ static frog_void runWhileStatement(frog_void) {
 		runStatements();
 		if (returning)
 			return;
+		/* Captured before expect(RBR_T) below, whose trailing advance() reads
+		 * ahead past the loop - see the do-while version of this same fix. */
+		bodyEndLine = line;
 		expect(RBR_T, NO_ATTR);
 		if (++iterations >= MAX_LOOP_ITERATIONS) {
-			printf("%s%s%3d%s%d%s\n", STR_LANGNAME, ": Runtime error at line", line,
+			printf("%s%s%d%s%d%s\n", STR_LANGNAME, ": Runtime error at line ", bodyEndLine,
 				": hop loop did not terminate within ", MAX_LOOP_ITERATIONS, " iterations");
 			exit(EXIT_FAILURE);
 		}
@@ -914,6 +960,15 @@ static frog_void runOutputStatement(frog_void) {
 		advance();
 		break;
 	default:
+		/* Anything other than RPR_T here isn't a valid <outputVariableList>
+		 * (STR_T | VID_T | e) - without this check it falls through to
+		 * expect(RPR_T) below, which still catches it but reports a generic
+		 * "unexpected token" with no mention of print() being the problem. */
+		if (lookahead.code != RPR_T) {
+			printf("%s%s%d%s%d\n", STR_LANGNAME, ": Runtime error at line ", line,
+				": invalid print() argument, code=", lookahead.code);
+			exit(EXIT_FAILURE);
+		}
 		break; /* empty outputVariableList: print(); prints an empty line */
 	}
 	EXTRA_TRACE(": Output variable list parsed");
@@ -1013,7 +1068,7 @@ static frog_void runStatement(frog_void) {
 			runDoWhileStatement();
 			break;
 		default:
-			printf("%s%s%3d%s%d\n", STR_LANGNAME, ": Runtime error at line", line,
+			printf("%s%s%d%s%d\n", STR_LANGNAME, ": Runtime error at line ", line,
 				": unrecognized statement, token code=", lookahead.code);
 			exit(EXIT_FAILURE);
 		}
@@ -1025,7 +1080,7 @@ static frog_void runStatement(frog_void) {
 		if (lookahead.attribute.logicalOperator == OP_NOT)
 			runNotStatement();
 		else {
-			printf("%s%s%3d%s%d\n", STR_LANGNAME, ": Runtime error at line", line,
+			printf("%s%s%d%s%d\n", STR_LANGNAME, ": Runtime error at line ", line,
 				": unrecognized statement, token code=", lookahead.code);
 			exit(EXIT_FAILURE);
 		}
@@ -1039,7 +1094,7 @@ static frog_void runStatement(frog_void) {
 			runCallStatement();
 		break;
 	default:
-		printf("%s%s%3d%s%d\n", STR_LANGNAME, ": Runtime error at line", line,
+		printf("%s%s%d%s%d\n", STR_LANGNAME, ": Runtime error at line ", line,
 			": unrecognized statement, token code=", lookahead.code);
 		exit(EXIT_FAILURE);
 	}
@@ -1099,7 +1154,7 @@ static frog_void skipToMatchingBrace(frog_void) {
 static frog_void registerFunctionDef(frog_void) {
 	FuncEntry* fn;
 	if (funcCount >= MAX_FUNCS) {
-		printf("%s%s%3d%s%d%s\n", STR_LANGNAME, ": Runtime error at line", line,
+		printf("%s%s%d%s%d%s\n", STR_LANGNAME, ": Runtime error at line ", line,
 			": too many function definitions (max ", MAX_FUNCS, ")");
 		exit(EXIT_FAILURE);
 	}
@@ -1175,7 +1230,7 @@ static Value runFunction(frog_int idx, const Value* args, frog_int argCount) {
 	 * case) - without it, the *real* C call stack overflows instead of
 	 * failing with a clean Frog-level runtime error. */
 	if (++callDepth > MAX_CALL_DEPTH) {
-		printf("%s%s%3d%s%d%s\n", STR_LANGNAME, ": Runtime error at line", line,
+		printf("%s%s%d%s%d%s\n", STR_LANGNAME, ": Runtime error at line ", line,
 			": call depth exceeded ", MAX_CALL_DEPTH, " (probable infinite recursion)");
 		exit(EXIT_FAILURE);
 	}
@@ -1226,7 +1281,12 @@ static frog_void printReport(frog_void) {
 				printf("%s %s = %.2lf\n", typeName, variables[i].name, variables[i].value.num_value);
 			break;
 		case BOOLEAN: printf("%s %s = %s\n", typeName, variables[i].name, variables[i].value.bool_value ? TRUE : FALSE); break;
-		case CHAR:    printf("%s %s = '%c'\n", typeName, variables[i].name, variables[i].value.char_value); break;
+		case CHAR:
+			if (variables[i].value.char_value == EOS)
+				printf("%s %s = '\\0'\n", typeName, variables[i].name);
+			else
+				printf("%s %s = '%c'\n", typeName, variables[i].name, variables[i].value.char_value);
+			break;
 		}
 	}
 	printf("Outputs ..................\n");
@@ -1275,7 +1335,7 @@ frog_void runProgram(BufferPointer buf) {
 	 * directly (not via expect()) since expect() always calls advance()
 	 * afterward, and there is no token beyond SEOF_T to fetch. */
 	if (lookahead.code != SEOF_T) {
-		printf("%s%s%3d%s%d\n", STR_LANGNAME, ": Runtime error at line", line,
+		printf("%s%s%d%s%d\n", STR_LANGNAME, ": Runtime error at line ", line,
 			": unexpected token, code=", lookahead.code);
 		exit(EXIT_FAILURE);
 	}

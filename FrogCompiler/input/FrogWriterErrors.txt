@@ -1,10 +1,16 @@
 /* Frog Writer error test: unlike FrogErrors.txt (bad lexemes / bad grammar),
-   every token and every production in this file is perfectly valid Frog -
-   the Scanner and Parser accept it with zero errors. The problem only shows
-   up at runtime, when the Writer actually evaluates the expression: dividing
-   by a variable that holds zero. This proves the Writer's own semantic
-   checks (not just syntax checks) are working, and that it reports the
-   failure with a line number and stops instead of crashing silently. */
+   this file exercises the Writer's own runtime checks (option 5), not the
+   Scanner or Parser. Two independent scenarios are provided below; the
+   Writer halts at the first runtime error, so only one main() can be active
+   per run - swap which block is commented out to exercise the other one. */
+
+/* Scenario 1 (active): every token and every production in this file is
+   perfectly valid Frog - the Scanner and Parser accept it with zero errors.
+   The problem only shows up at runtime, when the Writer actually evaluates
+   the expression: dividing by a variable that holds zero. This proves the
+   Writer's own semantic checks (not just syntax checks) are working, and
+   that it reports the failure with a line number and stops instead of
+   crashing silently. */
 tadpole main() {
 	tadpole a;
 	tadpole b;
@@ -15,3 +21,17 @@ tadpole main() {
 	print(a);
 	leap 0;
 }
+
+/* Scenario 2: print()'s grammar only allows print(STR_T | VID_T | e) - a
+   bare integer literal is not a valid argument, so the Parser (option 4)
+   rejects this outright with a syntax error. Run standalone through the
+   Writer (option 5), this line used to fall through to a generic "unexpected
+   token" message with no mention of print() being the problem; it now
+   reports a specific "invalid print() argument" runtime error instead. To
+   run this scenario, comment out the main() above and uncomment this one.
+
+tadpole main() {
+	print(1);
+	leap 0;
+}
+*/
