@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>A6 - Task A: Final Automaton (Frog Language)</title>
+<style>
+  body { font-family: Segoe UI, Arial, sans-serif; background:#fff; color:#1a1a1a; margin:0; padding:24px 32px 60px; }
+  h1 { font-size:22px; margin-bottom:2px; }
+  h2 { font-size:16px; color:#2c5f2d; border-bottom:2px solid #2c5f2d; padding-bottom:4px; margin-top:36px;}
+  .sub { color:#555; font-size:13px; margin-top:0; }
+  .diagram-wrap { overflow-x:auto; border:1px solid #ddd; border-radius:8px; padding:10px; background:#fbfbfb; }
+  table { border-collapse:collapse; margin-top:10px; font-size:13px; }
+  th,td { border:1px solid #ccc; padding:5px 10px; text-align:left; }
+  th { background:#2c5f2d; color:#fff; }
+  code { background:#eef2ee; padding:1px 5px; border-radius:4px; }
+  .note { background:#fff8e1; border-left:4px solid #f0ad4e; padding:8px 14px; margin:14px 0; font-size:13px; }
+  .legendkey { display:inline-block; width:16px; height:16px; border-radius:50%; vertical-align:middle; margin-right:6px; border:2px solid #333;}
+  ul { font-size:13.5px; }
+  .re { font-family: Consolas, monospace; background:#f4f4f4; padding:2px 6px; border-radius:4px; }
+</style>
+</head>
+<body>
+
+<h1>CST8152 &ndash; A6 Task A: Final Automaton</h1>
+<p class="sub">Language: <b>Frog</b> &middot; Source: <code>Step3Scanner.h</code> / <code>Step3Scanner.c</code> (transition table &amp; accepting-state functions) &middot; Authors: Leo Paquette &amp; Andrei Cojocaru</p>
+
+<h2>1. Character classes used by the transition table</h2>
+<table>
+<tr><th>Class</th><th>Column</th><th>Meaning</th><th>Example characters</th></tr>
+<tr><td>L</td><td>0</td><td>Letter</td><td>a-z, A-Z</td></tr>
+<tr><td>D</td><td>1</td><td>Digit</td><td>0-9</td></tr>
+<tr><td>U</td><td>2</td><td>Underscore</td><td><code>_</code></td></tr>
+<tr><td>M</td><td>3</td><td>Open-paren (method marker)</td><td><code>(</code></td></tr>
+<tr><td>Q</td><td>4</td><td>Double quote (string delimiter)</td><td><code>"</code></td></tr>
+<tr><td>E</td><td>5</td><td>Source end-of-file</td><td><code>\0</code>, <code>0xFF</code></td></tr>
+<tr><td>A</td><td>6</td><td>Asterisk</td><td><code>*</code></td></tr>
+<tr><td>O</td><td>7</td><td>Other (anything not classified elsewhere)</td><td>most printable symbols</td></tr>
+<tr><td>P</td><td>8</td><td>Period</td><td><code>.</code></td></tr>
+<tr><td>S</td><td>9</td><td>Slash</td><td><code>/</code></td></tr>
+</table>
+<div class="note">
+Single-character punctuation tokens (<code>; ( ) { } ,</code>), the two-character operators
+(<code>== != &amp;&amp; ||</code>), the single-character operators (<code>= + - * / &gt; &lt; !</code>) and the
+single-quoted character literal (e.g. <code>'A'</code>, handled as a fixed 3-character pattern) are
+recognized directly in the token-driven part of <code>tokenizer()</code> (Part&nbsp;1) and never enter this
+DFA. The DFA below (Part&nbsp;2) only recognizes the <b>variable-length</b> lexeme classes: identifiers /
+keywords / method names, integer &amp; float literals, string literals and block comments.
+</div>
+
+<h2>2. Regular expressions of the variable-length token classes</h2>
+<ul>
+<li><b>VID_T / KW_T</b> (variable identifier or keyword): <span class="re">L (L|D|U)*</span></li>
+<li><b>MNID_T</b> (method/function-name identifier &ndash; lexeme includes the trailing paren): <span class="re">L (L|D|U)* (</span></li>
+<li><b>INL_T</b> (integer literal, &le; 5 digits, 0&hellip;32767): <span class="re">D D D D D</span> capped, i.e. <span class="re">D<sup>1..5</sup></span></li>
+<li><b>FPL_T</b> (float literal &ndash; a decimal point requires at least one following digit): <span class="re">D<sup>+</sup> . D<sup>+</sup></span></li>
+<li><b>STR_T</b> (string literal): <span class="re">" ( &not;" )* "</span></li>
+<li><b>CMT_T</b> (block comment): <span class="re">/ * ( &not;* | * &not;/ )* * /</span></li>
+</ul>
+
+<h2>3. Final transition diagram (DFA)</h2>
+<p style="font-size:13px;color:#555;">Solid black arrows = normal transitions. Dashed red arrows = transitions into an error sink
+(<code>ESNR</code>/<code>ESWR</code>). Double-ringed nodes = accepting states (green = valid token, red = error token).
+"(retract)" means the triggering character is pushed back into the source buffer before the accepting
+function runs (<code>FSWR</code>); "(no retract)" consumes it (<code>FSNR</code>).</p>
+
+<div class="diagram-wrap">
+<svg viewBox="0 0 1400 1060" width="1400" height="1060" xmlns="http://www.w3.org/2000/svg" font-family="Consolas, monospace">
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0,0L10,5L0,10z" fill="#333"/>
+  </marker>
+  <marker id="arrowErr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0,0L10,5L0,10z" fill="#c0392b"/>
+  </marker>
+</defs>
+
+<!-- ============ EDGES (drawn first, nodes drawn on top) ============ -->
+<g stroke="#333" stroke-width="2" fill="none">
+  <!-- S0 -> S1 (L) -->
+  <path d="M120,470 L200,470 L200,150 L270,150" marker-end="url(#arrow)"/>
+  <!-- S0 -> S10 (D) -->
+  <path d="M120,470 L270,470" marker-end="url(#arrow)"/>
+  <!-- S0 -> S4 (Q) -->
+  <path d="M120,470 L200,470 L200,800 L270,800" marker-end="url(#arrow)"/>
+  <!-- S1 self loop (L,D,U) -->
+  <path d="M285,122 C270,80 330,80 315,122" marker-end="url(#arrow)"/>
+  <!-- S1 -> S2 (M) -->
+  <path d="M330,150 L500,150 L500,60 L670,60" marker-end="url(#arrow)"/>
+  <!-- S1 -> S3 (Q,E,A,O,P,S) -->
+  <path d="M330,150 L500,150 L500,240 L670,240" marker-end="url(#arrow)"/>
+  <!-- S10 self loop (D) -->
+  <path d="M285,442 C270,400 330,400 315,442" marker-end="url(#arrow)"/>
+  <!-- S10 -> S11 (L,U,M,Q,E,A,O,S) -->
+  <path d="M330,470 L670,470" marker-end="url(#arrow)"/>
+  <!-- S10 -> S12 (P '.') -->
+  <path d="M300,500 L300,650 L670,650" marker-end="url(#arrow)"/>
+  <!-- S12 -> S13 (D) -->
+  <path d="M730,650 L870,650" marker-end="url(#arrow)"/>
+  <!-- S13 self loop (D) -->
+  <path d="M885,622 C870,580 930,580 915,622" marker-end="url(#arrow)"/>
+  <!-- S13 -> S14 -->
+  <path d="M930,650 L1070,650" marker-end="url(#arrow)"/>
+  <!-- S4 self loop -->
+  <path d="M285,772 C270,730 330,730 315,772" marker-end="url(#arrow)"/>
+  <!-- S4 -> S5 (Q) -->
+  <path d="M330,800 L670,800" marker-end="url(#arrow)"/>
+  <!-- external "/*" -> S6 -->
+  <path d="M110,950 L270,950" marker-end="url(#arrow)"/>
+  <!-- S6 self loop -->
+  <path d="M285,922 C270,880 330,880 315,922" marker-end="url(#arrow)"/>
+  <!-- S6 -> S15 (A '*') -->
+  <path d="M330,950 L530,950" marker-end="url(#arrow)"/>
+  <!-- S15 self loop (A '*') -->
+  <path d="M545,922 C530,880 590,880 575,922" marker-end="url(#arrow)"/>
+  <!-- S15 -> S7 (S '/') -->
+  <path d="M590,950 L790,950" marker-end="url(#arrow)"/>
+  <!-- S15 -> S6 back edge (L,D,U,M,Q,O,P) -->
+  <path d="M560,980 L560,1010 L300,1010 L300,980" marker-end="url(#arrow)"/>
+
+  <!-- ===== error edges (dashed red) ===== -->
+  <g stroke="#c0392b" stroke-dasharray="6,4">
+    <!-- S0 -> ESNR (U,M,A,O,P,S) via bus A (x=1230) -->
+    <path d="M120,455 L1230,455 L1230,150 L1270,150" marker-end="url(#arrowErr)"/>
+    <!-- S0 -> ESWR (E) via bus B (x=1250) -->
+    <path d="M120,485 L1250,485 L1250,340 L1270,340" marker-end="url(#arrowErr)"/>
+    <!-- S12 -> ESNR (L,U,M,Q,A,O,P,S) via bus A -->
+    <path d="M730,635 L1230,635 L1230,165 L1270,165" marker-end="url(#arrowErr)"/>
+    <!-- S12 -> ESWR (E) via bus B -->
+    <path d="M730,665 L1250,665 L1250,340 L1270,340" marker-end="url(#arrowErr)"/>
+    <!-- S4 -> ESWR (E, unterminated string) -->
+    <path d="M330,815 L1250,815 L1250,355 L1270,355" marker-end="url(#arrowErr)"/>
+    <!-- S6 -> ESWR (E, unterminated comment) -->
+    <path d="M330,965 L1250,965 L1250,370 L1270,370" marker-end="url(#arrowErr)"/>
+    <!-- S15 -> ESWR (E, unterminated comment) -->
+    <path d="M560,935 L1250,935 L1250,385 L1270,385" marker-end="url(#arrowErr)"/>
+    <!-- S12 -> ESNR when non-digit, non-EOF follows a lone '.' -->
+  </g>
+</g>
+
+<!-- ============ EDGE LABELS ============ -->
+<g font-size="13" fill="#1a1a1a">
+  <rect x="178" y="290" width="20" height="16" fill="#fff"/><text x="182" y="303">L</text>
+  <rect x="165" y="455" width="24" height="16" fill="#fff"/><text x="168" y="468">D</text>
+  <rect x="178" y="630" width="24" height="16" fill="#fff"/><text x="182" y="643">Q ( " )</text>
+  <text x="235" y="70" text-anchor="middle">L, D, U</text>
+  <rect x="470" y="88" width="70" height="16" fill="#fff"/><text x="475" y="101">M ( '(' )</text>
+  <rect x="440" y="205" width="140" height="16" fill="#fff"/><text x="443" y="218">Q,E,A,O,P,S (retract)</text>
+  <text x="235" y="390" text-anchor="middle">D</text>
+  <rect x="440" y="450" width="220" height="16" fill="#fff"/><text x="443" y="463">L,U,M,Q,E,A,O,S (retract)</text>
+  <rect x="305" y="585" width="70" height="16" fill="#fff"/><text x="310" y="598">P ( '.' )</text>
+  <rect x="760" y="630" width="24" height="16" fill="#fff"/><text x="765" y="643">D</text>
+  <text x="900" y="570" text-anchor="middle">D</text>
+  <rect x="930" y="630" width="230" height="16" fill="#fff"/><text x="933" y="643">L,U,M,Q,E,A,O,P,S (retract)</text>
+  <text x="235" y="710" text-anchor="middle">any &#8800; " , EOF</text>
+  <rect x="440" y="780" width="65" height="16" fill="#fff"/><text x="445" y="793">Q ( " )</text>
+  <text x="130" y="935" text-anchor="middle" font-size="11">tokenizer sees '/' '*'</text>
+  <text x="130" y="948" text-anchor="middle" font-size="11">(bypasses S0)</text>
+  <text x="235" y="860" text-anchor="middle">any &#8800; * , EOF</text>
+  <rect x="380" y="930" width="70" height="16" fill="#fff"/><text x="385" y="943">A ( '*' )</text>
+  <text x="560" y="860" text-anchor="middle">*</text>
+  <rect x="640" y="930" width="70" height="16" fill="#fff"/><text x="645" y="943">S ( '/' )</text>
+  <rect x="380" y="1020" width="290" height="16" fill="#fff"/><text x="383" y="1033" font-size="11">L,D,U,M,Q,O,P &rarr; back to comment body</text>
+
+  <g fill="#c0392b" font-size="11">
+    <rect x="900" y="440" width="140" height="14" fill="#fff"/><text x="903" y="451">U,M,A,O,P,S (illegal start)</text>
+    <rect x="900" y="470" width="120" height="14" fill="#fff"/><text x="903" y="481">E (SEOF at start)</text>
+    <rect x="900" y="620" width="150" height="14" fill="#fff"/><text x="903" y="631">L,U,M,Q,A,O,P,S (no digit)</text>
+    <rect x="900" y="650" width="120" height="14" fill="#fff"/><text x="903" y="661">E (SEOF after '.')</text>
+    <rect x="900" y="800" width="150" height="14" fill="#fff"/><text x="903" y="811">E (unterminated string)</text>
+    <rect x="900" y="950" width="170" height="14" fill="#fff"/><text x="903" y="961">E (unterminated comment) x2</text>
+  </g>
+</g>
+
+<!-- ============ NODES ============ -->
+<g font-size="14" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif">
+  <!-- S0 start -->
+  <circle cx="90" cy="470" r="30" fill="#eaf2ff" stroke="#333" stroke-width="2"/>
+  <text x="90" y="475">S0</text>
+  <path d="M20,470 L58,470" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="30" y="450" font-size="11">start</text>
+
+  <!-- S1 -->
+  <circle cx="300" cy="150" r="30" fill="#eaf2ff" stroke="#333" stroke-width="2"/><text x="300" y="155">S1</text>
+  <!-- S2 accept no-retract -->
+  <circle cx="700" cy="60" r="33" fill="none" stroke="#1a7a1a" stroke-width="2"/>
+  <circle cx="700" cy="60" r="27" fill="#e4f7e4" stroke="#1a7a1a" stroke-width="2"/><text x="700" y="65">S2</text>
+  <text x="700" y="30" font-size="11" fill="#1a7a1a">MNID_T (no retract)</text>
+  <!-- S3 accept retract -->
+  <circle cx="700" cy="240" r="33" fill="none" stroke="#1a7a1a" stroke-width="2" stroke-dasharray="4,3"/>
+  <circle cx="700" cy="240" r="27" fill="#e4f7e4" stroke="#1a7a1a" stroke-width="2"/><text x="700" y="238">S3</text>
+  <text x="700" y="270" font-size="11" fill="#1a7a1a">VID_T / KW_T (retract)</text>
+
+  <!-- S10 -->
+  <circle cx="300" cy="470" r="30" fill="#eaf2ff" stroke="#333" stroke-width="2"/><text x="300" y="475">S10</text>
+  <!-- S11 accept retract -->
+  <circle cx="700" cy="470" r="33" fill="none" stroke="#1a7a1a" stroke-width="2" stroke-dasharray="4,3"/>
+  <circle cx="700" cy="470" r="27" fill="#e4f7e4" stroke="#1a7a1a" stroke-width="2"/><text x="700" y="475">S11</text>
+  <text x="700" y="440" font-size="11" fill="#1a7a1a">INL_T (retract)</text>
+  <!-- S12 -->
+  <circle cx="700" cy="650" r="30" fill="#eaf2ff" stroke="#333" stroke-width="2"/><text x="700" y="655">S12</text>
+  <!-- S13 -->
+  <circle cx="900" cy="650" r="30" fill="#eaf2ff" stroke="#333" stroke-width="2"/><text x="900" y="655">S13</text>
+  <!-- S14 accept retract -->
+  <circle cx="1100" cy="650" r="33" fill="none" stroke="#1a7a1a" stroke-width="2" stroke-dasharray="4,3"/>
+  <circle cx="1100" cy="650" r="27" fill="#e4f7e4" stroke="#1a7a1a" stroke-width="2"/><text x="1100" y="655">S14</text>
+  <text x="1100" y="620" font-size="11" fill="#1a7a1a">FPL_T (retract)</text>
+
+  <!-- S4 -->
+  <circle cx="300" cy="800" r="30" fill="#eaf2ff" stroke="#333" stroke-width="2"/><text x="300" y="805">S4</text>
+  <!-- S5 accept no-retract -->
+  <circle cx="700" cy="800" r="33" fill="none" stroke="#1a7a1a" stroke-width="2"/>
+  <circle cx="700" cy="800" r="27" fill="#e4f7e4" stroke="#1a7a1a" stroke-width="2"/><text x="700" y="805">S5</text>
+  <text x="700" y="770" font-size="11" fill="#1a7a1a">STR_T (no retract)</text>
+
+  <!-- external entry label -->
+  <text x="60" y="920" font-size="12" text-anchor="start">"/" then "*"</text>
+  <!-- S6 -->
+  <circle cx="300" cy="950" r="30" fill="#eaf2ff" stroke="#333" stroke-width="2"/><text x="300" y="955">S6</text>
+  <!-- S15 -->
+  <circle cx="560" cy="950" r="30" fill="#eaf2ff" stroke="#333" stroke-width="2"/><text x="560" y="955">S15</text>
+  <!-- S7 accept no-retract -->
+  <circle cx="820" cy="950" r="33" fill="none" stroke="#1a7a1a" stroke-width="2"/>
+  <circle cx="820" cy="950" r="27" fill="#e4f7e4" stroke="#1a7a1a" stroke-width="2"/><text x="820" y="955">S7</text>
+  <text x="820" y="1000" font-size="11" fill="#1a7a1a">CMT_T (no retract)</text>
+
+  <!-- ESNR -->
+  <circle cx="1300" cy="150" r="33" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="1300" cy="150" r="27" fill="#fbe4e2" stroke="#c0392b" stroke-width="2"/><text x="1300" y="146">ESNR</text>
+  <text x="1300" y="163" font-size="10">(8)</text>
+  <text x="1300" y="105" font-size="11" fill="#c0392b">ERR_T (no retract)</text>
+  <!-- ESWR -->
+  <circle cx="1300" cy="340" r="33" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3"/>
+  <circle cx="1300" cy="340" r="27" fill="#fbe4e2" stroke="#c0392b" stroke-width="2"/><text x="1300" y="336">ESWR</text>
+  <text x="1300" y="353" font-size="10">(9)</text>
+  <text x="1300" y="295" font-size="11" fill="#c0392b">ERR_T / RTE_T (retract)</text>
+</g>
+</svg>
+</div>
+
+<h2>4. Notes on states reachable only outside the DFA proper</h2>
+<ul>
+<li><b>Division vs. comment (S0/S6/S7/S15):</b> a lone <code>/</code> is recognized directly in
+<code>tokenizer()</code>'s token-driven switch as <code>ARI_OP_T</code> (division); only when it is immediately
+followed by <code>*</code> does the scanner hand off into state <code>S6</code> (comment body) &ndash; the DFA's own
+<code>S0&rarr;S(9)</code> column is therefore dead in practice, which is why it is wired to the error sink.</li>
+<li><b>FS (sentinel, value 16):</b> not drawn as a node &ndash; it marks a transition-table cell that must never be
+reached (<code>assert(next != FS)</code> in <code>nextState()</code>). Every reachable input from every state lands on
+a real state, an accepting state, or one of the two error sinks above.</li>
+<li><b>Fixed-length tokens bypassing the DFA entirely:</b> <code>; ( ) { } ,</code>, <code>= == != &amp;&amp; || ! + - * /</code>
+(single/double char operators) and the character literal <code>'c'</code> are all matched by dedicated
+<code>case</code> labels in <code>tokenizer()</code>'s Part&nbsp;1 before the DFA (Part&nbsp;2, this diagram) ever runs.</li>
+</ul>
+
+</body>
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>A6 - Task B: Grammar Update (Frog Language)</title>
+<style>
+  body { font-family: Segoe UI, Arial, sans-serif; background:#fff; color:#1a1a1a; margin:0; padding:24px 32px 60px; }
+  h1 { font-size:22px; margin-bottom:2px; }
+  h2 { font-size:16px; color:#2c5f2d; border-bottom:2px solid #2c5f2d; padding-bottom:4px; margin-top:36px;}
+  .sub { color:#555; font-size:13px; margin-top:0; }
+  .diagram-wrap { overflow-x:auto; border:1px solid #ddd; border-radius:8px; padding:14px; background:#fbfbfb; }
+  .panels { display:flex; gap:18px; flex-wrap:wrap; margin-top:16px; }
+  .panel { flex:1 1 260px; min-width:250px; border-radius:10px; padding:10px 12px 14px; }
+  .panel h3 { margin:2px 0 10px; font-size:14px; text-align:center; padding:6px; border-radius:6px; color:#fff; }
+  .card { background:#fff; border:1px solid; border-radius:7px; padding:7px 9px; margin-bottom:8px; font-family:Consolas,monospace; font-size:11.6px; line-height:1.35; box-shadow:1px 2px 3px rgba(0,0,0,.08); }
+  .card b { font-family:Segoe UI, Arial, sans-serif; }
+  .arrowdown { text-align:center; color:#888; font-size:14px; margin:-4px 0 4px; }
+  .p-struct   { background:#eef4ff; } .p-struct h3   { background:#2f5fa8; }
+  .p-struct .card   { border-color:#2f5fa8; }
+  .p-stmt     { background:#fff2e6; } .p-stmt h3     { background:#c9701c; }
+  .p-stmt .card     { border-color:#c9701c; }
+  .p-flow     { background:#f1ecff; } .p-flow h3     { background:#6a3fc7; }
+  .p-flow .card     { border-color:#6a3fc7; }
+  .p-io       { background:#e6f7ee; } .p-io h3       { background:#1a8a4a; }
+  .p-io .card       { border-color:#1a8a4a; }
+  .p-call     { background:#fdeef0; } .p-call h3     { background:#c22b4d; }
+  .p-call .card     { border-color:#c22b4d; }
+  .p-expr     { background:#eafcff; } .p-expr h3     { background:#0a8fa8; }
+  .p-expr .card     { border-color:#0a8fa8; }
+  .nt { color:#a8321e; }
+  .term { color:#1a1a1a; }
+  .kw { color:#7a3fc7; font-weight:bold; }
+  pre.bnf { background:#f6f6f6; border:1px solid #ddd; border-radius:8px; padding:16px 20px; font-size:12.5px; line-height:1.55; overflow-x:auto; }
+  .nt2 { color:#a8321e; } .arr { color:#0a6; font-weight:bold; } .eps { color:#888; font-style:italic; }
+  .note { background:#fff8e1; border-left:4px solid #f0ad4e; padding:8px 14px; margin:14px 0; font-size:13px; }
+</style>
+</head>
+<body>
+
+<h1>CST8152 &ndash; A6 Task B: Grammar Update</h1>
+<p class="sub">Language: <b>Frog</b> &middot; Source: <code>Step4Parser.h</code> / <code>Step4Parser.c</code> (34 tracked BNF rules, recursive-descent, LL(1)) &middot; Authors: Leo Paquette &amp; Andrei Cojocaru</p>
+
+<h2>1. Grammar overview (top-level derivation flow)</h2>
+<div class="diagram-wrap">
+<svg viewBox="0 0 1250 320" width="1250" height="320" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Arial, sans-serif" font-size="13">
+<defs>
+  <marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0,0L10,5L0,10z" fill="#333"/>
+  </marker>
+</defs>
+<g stroke="#333" stroke-width="2" fill="none">
+  <path d="M155,45 L215,45" marker-end="url(#a2)"/>
+  <path d="M335,45 L390,45" marker-end="url(#a2)"/>
+  <path d="M520,45 L580,45" marker-end="url(#a2)"/>
+  <path d="M710,45 L770,45" marker-end="url(#a2)"/>
+  <path d="M900,45 L900,90" marker-end="url(#a2)"/>
+  <!-- branch to 5 categories -->
+  <path d="M900,90 L120,90 L120,140" marker-end="url(#a2)"/>
+  <path d="M900,90 L370,90 L370,140" marker-end="url(#a2)"/>
+  <path d="M900,90 L620,90 L620,140" marker-end="url(#a2)"/>
+  <path d="M900,90 L870,90 L870,140" marker-end="url(#a2)"/>
+  <path d="M900,90 L1120,90 L1120,140" marker-end="url(#a2)"/>
+  <!-- converge to expression -->
+  <path d="M120,190 L120,240 L560,240 L560,270" marker-end="url(#a2)"/>
+  <path d="M370,190 L370,230 L560,230 L560,270" marker-end="url(#a2)"/>
+  <path d="M620,190 L620,270" marker-end="url(#a2)"/>
+  <path d="M870,190 L870,230 L620,230" />
+  <path d="M1120,190 L1120,250 L680,250 L680,270" marker-end="url(#a2)"/>
+</g>
+<g>
+  <rect x="10" y="20" width="145" height="50" rx="8" fill="#2f5fa8"/><text x="82" y="50" fill="#fff" text-anchor="middle">program</text>
+  <rect x="215" y="20" width="120" height="50" rx="8" fill="#2f5fa8"/><text x="275" y="50" fill="#fff" text-anchor="middle">functionDefs</text>
+  <rect x="390" y="20" width="130" height="50" rx="8" fill="#2f5fa8"/><text x="455" y="50" fill="#fff" text-anchor="middle">functionDef</text>
+  <rect x="580" y="20" width="130" height="50" rx="8" fill="#c9701c"/><text x="645" y="50" fill="#fff" text-anchor="middle">optionalStatements</text>
+  <rect x="770" y="20" width="130" height="50" rx="8" fill="#c9701c"/><text x="835" y="50" fill="#fff" text-anchor="middle">statement</text>
+
+  <rect x="50" y="140" width="140" height="50" rx="8" fill="#c9701c"/><text x="120" y="170" fill="#fff" text-anchor="middle">varDeclaration</text>
+  <rect x="300" y="140" width="140" height="50" rx="8" fill="#c9701c"/><text x="370" y="163" fill="#fff" text-anchor="middle">assignOrExpr /</text><text x="370" y="180" fill="#fff" text-anchor="middle">notStatement</text>
+  <rect x="550" y="140" width="140" height="50" rx="8" fill="#6a3fc7"/><text x="620" y="163" fill="#fff" text-anchor="middle">if / hop / do</text><text x="620" y="180" fill="#fff" text-anchor="middle">(control flow)</text>
+  <rect x="800" y="140" width="140" height="50" rx="8" fill="#1a8a4a"/><text x="870" y="163" fill="#fff" text-anchor="middle">print / input</text><text x="870" y="180" fill="#fff" text-anchor="middle">(I/O)</text>
+  <rect x="1050" y="140" width="140" height="50" rx="8" fill="#c22b4d"/><text x="1120" y="170" fill="#fff" text-anchor="middle">callStatement</text>
+
+  <rect x="470" y="270" width="180" height="45" rx="8" fill="#0a8fa8"/><text x="560" y="298" fill="#fff" text-anchor="middle">expression (&hellip; &rarr; unary)</text>
+</g>
+</svg>
+</div>
+<p style="font-size:12.5px;color:#555;">Every statement category ultimately bottoms out in <code>&lt;expression&gt;</code> (a condition, an
+initializer, a return value, or an argument), and <code>&lt;unary&gt;</code> (the base of the expression chain) can
+itself contain a <code>&lt;call&gt;</code>, which is why <code>callStatement</code> feeds back into the expression chain
+rather than being a dead end.</p>
+
+<h2>2. Full BNF, grouped by category (all 34 tracked rules + tail helpers)</h2>
+<div class="panels">
+
+  <div class="panel p-struct">
+    <h3>Program Structure</h3>
+    <div class="card"><b>&lt;program&gt;</b> &rarr;<br>&nbsp;&nbsp;&lt;opt_comment&gt; &lt;functionDefs&gt;</div>
+    <div class="arrowdown">&darr;</div>
+    <div class="card"><b>&lt;functionDefs&gt;</b> &rarr;<br>&nbsp;&nbsp;&lt;opt_comment&gt; &lt;functionDef&gt; &lt;functionDefs&gt; | &epsilon;</div>
+    <div class="arrowdown">&darr;</div>
+    <div class="card"><b>&lt;functionDef&gt;</b> &rarr;<br>&nbsp;&nbsp;&lt;type&gt; MNID_T &lt;optParams&gt; ) { &lt;opt_statements&gt; }</div>
+    <div class="arrowdown">&darr;</div>
+    <div class="card"><b>&lt;optParams&gt;</b> &rarr; &lt;paramList&gt; | &epsilon;</div>
+    <div class="card"><b>&lt;paramList&gt;</b> &rarr;<br>&nbsp;&nbsp;&lt;type&gt; VID_T &lt;paramListPrime&gt;</div>
+    <div class="card"><b>&lt;paramListPrime&gt;</b> &rarr;<br>&nbsp;&nbsp;, &lt;type&gt; VID_T &lt;paramListPrime&gt; | &epsilon;</div>
+    <div class="card"><b>&lt;type&gt;</b> &rarr; tadpole | lilypad | croak | ribbit | bullfrog</div>
+    <div class="card"><b>&lt;comment&gt;</b> &rarr; CMT_T</div>
+  </div>
+
+  <div class="panel p-stmt">
+    <h3>Statements &amp; Declarations</h3>
+    <div class="card"><b>&lt;opt_statements&gt;</b> &rarr; &lt;statements&gt; | &epsilon;</div>
+    <div class="card"><b>&lt;statements&gt;</b> &rarr; &lt;statement&gt; &lt;statementsPrime&gt;</div>
+    <div class="card"><b>&lt;statementsPrime&gt;</b> &rarr;<br>&nbsp;&nbsp;&lt;opt_comment&gt; &lt;statement&gt; &lt;statementsPrime&gt; | &epsilon;</div>
+    <div class="arrowdown">&darr;</div>
+    <div class="card"><b>&lt;statement&gt;</b> &rarr;<br>&nbsp;&nbsp;&lt;varDeclaration&gt; | &lt;returnStatement&gt; |<br>&nbsp;&nbsp;&lt;doWhileStatement&gt; | &lt;whileStatement&gt; |<br>&nbsp;&nbsp;&lt;ifStatement&gt; | &lt;assignOrExprStatement&gt; |<br>&nbsp;&nbsp;&lt;notStatement&gt; | &lt;outputStatement&gt; |<br>&nbsp;&nbsp;&lt;inputStatement&gt; | &lt;callStatement&gt;</div>
+    <div class="arrowdown">&darr;</div>
+    <div class="card"><b>&lt;varDeclaration&gt;</b> &rarr;<br>&nbsp;&nbsp;&lt;type&gt; VID_T &lt;optInit&gt; ;<br><b>&lt;optInit&gt;</b> &rarr; = &lt;expression&gt; | &epsilon;</div>
+    <div class="card"><b>&lt;assignOrExprStatement&gt;</b> &rarr;<br>&nbsp;&nbsp;VID_T = &lt;expression&gt; ; | VID_T &lt;exprTail&gt; ;</div>
+    <div class="card"><b>&lt;notStatement&gt;</b> &rarr; ! VID_T ;</div>
+    <div class="card"><b>&lt;returnStatement&gt;</b> &rarr; leap &lt;optReturnValue&gt; ;</div>
+    <div class="card"><b>&lt;optReturnValue&gt;</b> &rarr; &lt;expression&gt; | &epsilon;</div>
+  </div>
+
+  <div class="panel p-flow">
+    <h3>Control Flow</h3>
+    <div class="card"><b>&lt;ifStatement&gt;</b> &rarr;<br>&nbsp;&nbsp;if &lt;expression&gt; then { &lt;opt_statements&gt; } &lt;optElse&gt;</div>
+    <div class="card"><b>&lt;optElse&gt;</b> &rarr;<br>&nbsp;&nbsp;else { &lt;opt_statements&gt; } | &epsilon;</div>
+    <div class="arrowdown">&darr;</div>
+    <div class="card"><b>&lt;whileStatement&gt;</b> &rarr;<br>&nbsp;&nbsp;hop &lt;expression&gt; { &lt;opt_statements&gt; }</div>
+    <div class="arrowdown">&darr;</div>
+    <div class="card"><b>&lt;doWhileStatement&gt;</b> &rarr;<br>&nbsp;&nbsp;do { &lt;opt_statements&gt; } hop &lt;expression&gt; ;</div>
+    <p style="font-size:11px;color:#555;margin-top:10px;">Both loop forms share the <code>hop</code> keyword;
+    position (leading vs. trailing) disambiguates pre-test from post-test.</p>
+  </div>
+
+  <div class="panel p-io">
+    <h3>Input / Output</h3>
+    <div class="card"><b>&lt;outputStatement&gt;</b> &rarr;<br>&nbsp;&nbsp;print( &lt;outputVariableList&gt; ) ;</div>
+    <div class="card"><b>&lt;outputVariableList&gt;</b> &rarr; STR_T | VID_T | &epsilon;</div>
+    <div class="arrowdown">&darr;</div>
+    <div class="card"><b>&lt;inputStatement&gt;</b> &rarr;<br>&nbsp;&nbsp;input( VID_T ) ;</div>
+    <p style="font-size:11px;color:#555;margin-top:10px;">MNID_T's lexeme already includes the trailing
+    <code>(</code> (see <code>funcID()</code> in the Scanner), so no separate <code>LPR_T</code> is matched after
+    <code>print</code> / <code>input</code> / any user function name.</p>
+  </div>
+
+  <div class="panel p-call">
+    <h3>Calls</h3>
+    <div class="card"><b>&lt;callStatement&gt;</b> &rarr; &lt;call&gt; ;</div>
+    <div class="arrowdown">&darr;</div>
+    <div class="card"><b>&lt;call&gt;</b> &rarr; MNID_T &lt;argList&gt; )</div>
+    <div class="arrowdown">&darr;</div>
+    <div class="card"><b>&lt;argList&gt;</b> &rarr;<br>&nbsp;&nbsp;&lt;expression&gt; &lt;argListPrime&gt; | &epsilon;</div>
+    <div class="card"><b>&lt;argListPrime&gt;</b> &rarr;<br>&nbsp;&nbsp;, &lt;expression&gt; &lt;argListPrime&gt; | &epsilon;</div>
+  </div>
+
+  <div class="panel p-expr">
+    <h3>Expressions (precedence climb, low&rarr;high)</h3>
+    <div class="card"><b>&lt;expression&gt;</b> &rarr; &lt;andExpr&gt; &lt;expressionTail&gt;<br><b>&lt;expressionTail&gt;</b> &rarr; || &lt;andExpr&gt; &lt;expressionTail&gt; | &epsilon;</div>
+    <div class="arrowdown">&darr;</div>
+    <div class="card"><b>&lt;andExpr&gt;</b> &rarr; &lt;relExpr&gt; &lt;andExprTail&gt;<br><b>&lt;andExprTail&gt;</b> &rarr; &amp;&amp; &lt;relExpr&gt; &lt;andExprTail&gt; | &epsilon;</div>
+    <div class="arrowdown">&darr;</div>
+    <div class="card"><b>&lt;relExpr&gt;</b> &rarr; &lt;addExpr&gt; &lt;relExprTail&gt;<br><b>&lt;relExprTail&gt;</b> &rarr; (&gt;|&lt;|==|!=) &lt;addExpr&gt; | &epsilon;</div>
+    <div class="arrowdown">&darr;</div>
+    <div class="card"><b>&lt;addExpr&gt;</b> &rarr; &lt;mulExpr&gt; &lt;addExprTail&gt;<br><b>&lt;addExprTail&gt;</b> &rarr; (+|-) &lt;mulExpr&gt; &lt;addExprTail&gt; | &epsilon;</div>
+    <div class="arrowdown">&darr;</div>
+    <div class="card"><b>&lt;mulExpr&gt;</b> &rarr; &lt;unary&gt; &lt;mulExprTail&gt;<br><b>&lt;mulExprTail&gt;</b> &rarr; (*|/) &lt;unary&gt; &lt;mulExprTail&gt; | &epsilon;</div>
+    <div class="arrowdown">&darr;</div>
+    <div class="card"><b>&lt;unary&gt;</b> &rarr; ! &lt;unary&gt; | - &lt;unary&gt; |<br>&nbsp;&nbsp;VID_T | INL_T | FPL_T | STR_T | CHR_T |<br>&nbsp;&nbsp;&lt;call&gt; | ( &lt;expression&gt; )</div>
+  </div>
+
+</div>
+
+<h2>3. Formal syntax (complete, plain BNF)</h2>
+<pre class="bnf">
+<span class="nt2">&lt;program&gt;</span>              <span class="arr">-&gt;</span> <span class="nt2">&lt;opt_comment&gt;</span> <span class="nt2">&lt;functionDefs&gt;</span>
+
+<span class="nt2">&lt;functionDefs&gt;</span>         <span class="arr">-&gt;</span> <span class="nt2">&lt;opt_comment&gt;</span> <span class="nt2">&lt;functionDef&gt;</span> <span class="nt2">&lt;functionDefs&gt;</span> | <span class="eps">e</span>
+<span class="nt2">&lt;functionDef&gt;</span>          <span class="arr">-&gt;</span> <span class="nt2">&lt;type&gt;</span> MNID_T <span class="nt2">&lt;optParams&gt;</span> ) { <span class="nt2">&lt;opt_statements&gt;</span> }
+<span class="nt2">&lt;type&gt;</span>                 <span class="arr">-&gt;</span> tadpole | lilypad | croak | ribbit | bullfrog
+<span class="nt2">&lt;optParams&gt;</span>            <span class="arr">-&gt;</span> <span class="nt2">&lt;paramList&gt;</span> | <span class="eps">e</span>
+<span class="nt2">&lt;paramList&gt;</span>            <span class="arr">-&gt;</span> <span class="nt2">&lt;type&gt;</span> VID_T <span class="nt2">&lt;paramListPrime&gt;</span>
+<span class="nt2">&lt;paramListPrime&gt;</span>       <span class="arr">-&gt;</span> , <span class="nt2">&lt;type&gt;</span> VID_T <span class="nt2">&lt;paramListPrime&gt;</span> | <span class="eps">e</span>
+<span class="nt2">&lt;opt_comment&gt;</span>          <span class="arr">-&gt;</span> <span class="nt2">&lt;comment&gt;</span> <span class="nt2">&lt;opt_comment&gt;</span> | <span class="eps">e</span>
+<span class="nt2">&lt;comment&gt;</span>              <span class="arr">-&gt;</span> CMT_T
+
+<span class="nt2">&lt;opt_statements&gt;</span>       <span class="arr">-&gt;</span> <span class="nt2">&lt;statements&gt;</span> | <span class="eps">e</span>
+<span class="nt2">&lt;statements&gt;</span>           <span class="arr">-&gt;</span> <span class="nt2">&lt;statement&gt;</span> <span class="nt2">&lt;statementsPrime&gt;</span>
+<span class="nt2">&lt;statementsPrime&gt;</span>      <span class="arr">-&gt;</span> <span class="nt2">&lt;opt_comment&gt;</span> <span class="nt2">&lt;statement&gt;</span> <span class="nt2">&lt;statementsPrime&gt;</span> | <span class="eps">e</span>
+<span class="nt2">&lt;statement&gt;</span>            <span class="arr">-&gt;</span> <span class="nt2">&lt;varDeclaration&gt;</span>   | <span class="nt2">&lt;returnStatement&gt;</span>
+                            | <span class="nt2">&lt;doWhileStatement&gt;</span> | <span class="nt2">&lt;whileStatement&gt;</span>
+                            | <span class="nt2">&lt;ifStatement&gt;</span>      | <span class="nt2">&lt;assignOrExprStatement&gt;</span>
+                            | <span class="nt2">&lt;notStatement&gt;</span>     | <span class="nt2">&lt;outputStatement&gt;</span>
+                            | <span class="nt2">&lt;inputStatement&gt;</span>   | <span class="nt2">&lt;callStatement&gt;</span>
+
+<span class="nt2">&lt;varDeclaration&gt;</span>       <span class="arr">-&gt;</span> <span class="nt2">&lt;type&gt;</span> VID_T <span class="nt2">&lt;optInit&gt;</span> ;
+<span class="nt2">&lt;optInit&gt;</span>              <span class="arr">-&gt;</span> = <span class="nt2">&lt;expression&gt;</span> | <span class="eps">e</span>
+<span class="nt2">&lt;assignOrExprStatement&gt;</span><span class="arr">-&gt;</span> VID_T = <span class="nt2">&lt;expression&gt;</span> ; | VID_T <span class="nt2">&lt;exprTail&gt;</span> ;
+<span class="nt2">&lt;notStatement&gt;</span>         <span class="arr">-&gt;</span> ! VID_T ;
+<span class="nt2">&lt;returnStatement&gt;</span>      <span class="arr">-&gt;</span> leap <span class="nt2">&lt;optReturnValue&gt;</span> ;
+<span class="nt2">&lt;optReturnValue&gt;</span>       <span class="arr">-&gt;</span> <span class="nt2">&lt;expression&gt;</span> | <span class="eps">e</span>
+
+<span class="nt2">&lt;ifStatement&gt;</span>          <span class="arr">-&gt;</span> if <span class="nt2">&lt;expression&gt;</span> then { <span class="nt2">&lt;opt_statements&gt;</span> } <span class="nt2">&lt;optElse&gt;</span>
+<span class="nt2">&lt;optElse&gt;</span>              <span class="arr">-&gt;</span> else { <span class="nt2">&lt;opt_statements&gt;</span> } | <span class="eps">e</span>
+<span class="nt2">&lt;whileStatement&gt;</span>       <span class="arr">-&gt;</span> hop <span class="nt2">&lt;expression&gt;</span> { <span class="nt2">&lt;opt_statements&gt;</span> }
+<span class="nt2">&lt;doWhileStatement&gt;</span>     <span class="arr">-&gt;</span> do { <span class="nt2">&lt;opt_statements&gt;</span> } hop <span class="nt2">&lt;expression&gt;</span> ;
+
+<span class="nt2">&lt;outputStatement&gt;</span>      <span class="arr">-&gt;</span> print( <span class="nt2">&lt;outputVariableList&gt;</span> ) ;
+<span class="nt2">&lt;outputVariableList&gt;</span>   <span class="arr">-&gt;</span> STR_T | VID_T | <span class="eps">e</span>
+<span class="nt2">&lt;inputStatement&gt;</span>       <span class="arr">-&gt;</span> input( VID_T ) ;
+
+<span class="nt2">&lt;callStatement&gt;</span>        <span class="arr">-&gt;</span> <span class="nt2">&lt;call&gt;</span> ;
+<span class="nt2">&lt;call&gt;</span>                 <span class="arr">-&gt;</span> MNID_T <span class="nt2">&lt;argList&gt;</span> )
+<span class="nt2">&lt;argList&gt;</span>              <span class="arr">-&gt;</span> <span class="nt2">&lt;expression&gt;</span> <span class="nt2">&lt;argListPrime&gt;</span> | <span class="eps">e</span>
+<span class="nt2">&lt;argListPrime&gt;</span>         <span class="arr">-&gt;</span> , <span class="nt2">&lt;expression&gt;</span> <span class="nt2">&lt;argListPrime&gt;</span> | <span class="eps">e</span>
+
+<span class="nt2">&lt;expression&gt;</span>           <span class="arr">-&gt;</span> <span class="nt2">&lt;andExpr&gt;</span> <span class="nt2">&lt;expressionTail&gt;</span>
+<span class="nt2">&lt;expressionTail&gt;</span>       <span class="arr">-&gt;</span> || <span class="nt2">&lt;andExpr&gt;</span> <span class="nt2">&lt;expressionTail&gt;</span> | <span class="eps">e</span>
+<span class="nt2">&lt;andExpr&gt;</span>              <span class="arr">-&gt;</span> <span class="nt2">&lt;relExpr&gt;</span> <span class="nt2">&lt;andExprTail&gt;</span>
+<span class="nt2">&lt;andExprTail&gt;</span>          <span class="arr">-&gt;</span> &amp;&amp; <span class="nt2">&lt;relExpr&gt;</span> <span class="nt2">&lt;andExprTail&gt;</span> | <span class="eps">e</span>
+<span class="nt2">&lt;relExpr&gt;</span>              <span class="arr">-&gt;</span> <span class="nt2">&lt;addExpr&gt;</span> <span class="nt2">&lt;relExprTail&gt;</span>
+<span class="nt2">&lt;relExprTail&gt;</span>          <span class="arr">-&gt;</span> ( &gt; | &lt; | == | != ) <span class="nt2">&lt;addExpr&gt;</span> | <span class="eps">e</span>
+<span class="nt2">&lt;addExpr&gt;</span>              <span class="arr">-&gt;</span> <span class="nt2">&lt;mulExpr&gt;</span> <span class="nt2">&lt;addExprTail&gt;</span>
+<span class="nt2">&lt;addExprTail&gt;</span>          <span class="arr">-&gt;</span> ( + | - ) <span class="nt2">&lt;mulExpr&gt;</span> <span class="nt2">&lt;addExprTail&gt;</span> | <span class="eps">e</span>
+<span class="nt2">&lt;mulExpr&gt;</span>              <span class="arr">-&gt;</span> <span class="nt2">&lt;unary&gt;</span> <span class="nt2">&lt;mulExprTail&gt;</span>
+<span class="nt2">&lt;mulExprTail&gt;</span>          <span class="arr">-&gt;</span> ( * | / ) <span class="nt2">&lt;unary&gt;</span> <span class="nt2">&lt;mulExprTail&gt;</span> | <span class="eps">e</span>
+<span class="nt2">&lt;unary&gt;</span>                <span class="arr">-&gt;</span> ! <span class="nt2">&lt;unary&gt;</span> | - <span class="nt2">&lt;unary&gt;</span>
+                            | VID_T | INL_T | FPL_T | STR_T | CHR_T
+                            | <span class="nt2">&lt;call&gt;</span> | ( <span class="nt2">&lt;expression&gt;</span> )
+</pre>
+
+<div class="note">
+<b>e</b> denotes the empty production (&epsilon;). <code>&lt;exprTail&gt;</code> inside
+<code>&lt;assignOrExprStatement&gt;</code> is shorthand for resuming the precedence chain directly at
+<code>&lt;mulExprTail&gt;&lt;addExprTail&gt;&lt;relExprTail&gt;&lt;andExprTail&gt;&lt;expressionTail&gt;</code>, since the
+leading <code>VID_T</code> was already consumed as the <code>&lt;unary&gt;</code> atom - it is not a separately
+tracked BNF rule, just how the grammar avoids re-deriving the same identifier as a fresh expression.
+</div>
+
+</body>
+</html>

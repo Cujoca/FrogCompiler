@@ -1,0 +1,73 @@
+/* Frog Example: A6 Final Language Showcase
+   The most complete program the final Scanner + Parser + Writer can run:
+   two user-defined functions (parameters, nested calls, arithmetic return
+   values), a main() that declares one variable of every type the language
+   has (tadpole/lilypad/croak/ribbit/bullfrog), every control-flow form
+   (if/then/else, the pre-test "hop" loop, the post-test "do ... hop" loop),
+   the full expression grammar (arithmetic, relational, logical, unary "!"
+   and unary "-", parenthesized sub-expressions, precedence climbing),
+   input()/print(), a call used as a statement, and the not-statement.
+   Runs cleanly through the final Scanner, Parser and Writer with zero
+   scanner errors and zero parser errors. */
+
+tadpole add(tadpole x, tadpole y) {
+	leap x + y;
+}
+
+lilypad average(tadpole a, tadpole b) {
+	leap (a + b) / 2.0;
+}
+
+tadpole main() {
+	/* one declaration per type recognized by the final language */
+	tadpole count = 5;
+	lilypad price = 4.5;
+	croak greeting = "Ribbit! Hello from the pond!";
+	ribbit grade = 'A';
+	bullfrog isHopping = count > 0 && price < 10.0;
+
+	tadpole entered;
+	tadpole total;
+	tadpole n;
+
+	print(greeting);
+	input(entered);
+
+	/* if / then / else */
+	if entered > 0 then {
+		total = add(entered, count);
+	} else {
+		total = 0;
+	}
+
+	/* pre-test loop: hop <expr> { ... } */
+	n = 0;
+	hop n < 3 {
+		total = total + add(n, 1);
+		n = n + 1;
+	}
+
+	/* post-test loop: do { ... } hop <expr> ; */
+	do {
+		count = count - 1;
+	} hop count > 0;
+
+	/* nested calls, operator precedence, and a parenthesized sub-expression */
+	total = add(average(total, count), average(1, 2)) * 2 - (total / 2);
+
+	/* unary "!" and unary "-" inside a logical expression */
+	if !isHopping || -count < 0 then {
+		print(greeting);
+	} else {
+		total = total + 1;
+	}
+
+	/* not-statement: evaluated for its side effect check, result discarded */
+	!isHopping;
+
+	/* a call used as its own statement (return value discarded) */
+	average(total, count);
+
+	print(total);
+	leap 0;
+}
